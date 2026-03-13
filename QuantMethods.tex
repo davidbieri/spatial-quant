@@ -1,0 +1,65 @@
+\documentclass[citecolor=Blue,mathserif,oneside,11pt]{book}
+%\documentclass[citecolor=brown,oneside,mathserif]{book}
+
+\input{Chapters/Format}
+
+\title{\huge{\textbf{Quantitative Methods \\ for Urban and Regional Research}}}
+\author{\Large{David S. Bieri}\\ \Large{University of Michigan}\\\copyright~2011, 2014, 2024\thanks{This manuscript may be printed and reproduced for individual or instructional use, but may not be printed for commercial purposes. This work is licensed under a Creative Commons \href{http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US}{Attribution-NonCommercial-ShareAlike 3.0 Unported License}}}
+
+\date{.}
+\date{ $\mbox{       }$\\
+%First version: April 2011\\
+This version: \today\\
+$\mbox{       }$\\
+ }
+
+\makeindex
+
+
+\begin{document}
+\maketitle
+\frontmatter
+\setcounter{tocdepth}{1}
+\setcounter{page}{3}
+
+\chapter*{Acknowledgements}
+
+This manuscript has evolved from a first-year graduate course in quantitative methods for urban planning students. Several cohorts of students at the University of Michigan and at Virginia Tech have provided helpful feedback and fairly patiently endured excursions in to matrix algebra, occasionally agreeing with me that it was important to derive certain concepts from first principles. James Carpenter, Miles Hamby, Arthur Prokosch and Cheng Wang provided excellent research assistance and diligently transcribed a large part of my iteratively amended lecture notes into \LaTeX{}.
+
+\chapter*{Attributions}
+
+\includegraphics{Figures/CreativeCommons}
+
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+%\include{Preface}
+\mainmatter
+\include{Chapters/Intro}
+
+\part{Quantitative data analysis}\label{part1}
+\include{Chapters/Review}
+\include{Chapters/Data}
+\include{Chapters/EconAnalysis}
+
+\part{Regression techniques}\label{part2}
+\include{Chapters/ClassNormReg}
+\include{Chapters/BeyondOLS}
+
+\part{Advanced topics in quantitative analysis}\label{part3}
+
+\include{Chapters/TimeSeries}
+\include{Chapters/SpatialStats}
+\include{Chapters/CompMethods}
+
+\part{Appendices}\label{part4}
+\appendix
+\include{Chapters/IntroR}
+\include{Chapters/IntroLaTeX}
+\include{Chapters/IntroQGIS}
+\include{Chapters/z_RawNotes}
+\backmatter
+\printindex
+\end{document} 

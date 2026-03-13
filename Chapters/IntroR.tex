@@ -1,0 +1,61 @@
+\chapter{Introduction to \textsf{R}}\label{app_IntroR}
+
+Students should be familiar with the basics of a spreadsheet programm such as Excel or its open-source equivalent \href{http://www.openoffice.org/product/calc.html}{OpenOffice Calc}. The main statistical software for this text is \textsf{R}, an implementation of the object-oriented mathematical programming language \textsf{S},  for most of the data analysis, graphing and regression modelling. \textsf{R}\index{software!R} is an integrated suite of open-source statistical and graphical software that is developed by statisticians around the world (\href{http://www.r-project.org}{\texttt{www.r-project.org}}). In contrast to standard commercial packages such as \textsf{SPSS} or \textsf{Stata}, \textsf{R} is much more flexible because it is a modern mathematical programming language with capabilities similar to those of \textsf{MATLAB}, not just a program that performs canned regression routines and tests. Furthermore, because it is free and does not command prohibitively expensive licensing fees, it is increasingly used by medium and small businesses and non-profit organisations.
+
+I recommend that you run \textsf{R} via the integrated development environment \href{http://rstudio.org/}{RStudio}\index{software!RStudio} (which is also available through \href{http://virtualsites.umich.edu}{\texttt{virtualsites.umich.edu}}).
+
+
+\begin{lstlisting}
+library(foreign)
+library(googleVis)          ## interface between R and the Google Visualisation API
+library(rgl)                ## 3-D Visualisation
+library(Rcmdr)              ## 3-D Visualisation (opens up addtional GUI "R Commander", do not close)
+library(RColorBrewer)       ## ColorBrewer implementation for R
+
+setwd("C:/Documents and Settings/cbbadbi/My Documents/Teaching/UP_504/Data")
+
+
+# Data from County Business Patterns (http://www.census.gov/econ/cbp/)
+national        <- read.csv("LQs_CBP_National.csv", h=T, na.strings="#N/A") # Reads in national CBP data for 2-digit NAICS industries
+msa             <- read.csv("LQs_CBP_AnnArbor.csv", h=T, na.strings="#N/A")
+
+summary(national)
+\end{lstlisting}
+
+
+
+\subsection{Readings and resources}
+
+\renewcommand\bibname{\normalsize{Recommended readings}}
+\begin{thebibliography}{}
+
+\harvarditem[Bivand, Pebesma, and G\'{o}mez-Rubio]{Bivand, Pebesma, and G\'{o}mez-Rubio}{2008}{Bivand2008a} \textsc{Bivand, R.~S., E.~J. Pebesma,  {\small and} V.~G\'{o}mez-Rubio} (2008): \emph{Applied Spatial Data Analysis with R}, Use R!, Springer, New York, NY.~[\textcolor[rgb]{0.00,0.50,0.00}{\textbf{\textsf{ASDAR}}}, electronic version available on CTools]
+
+\harvarditem[Dalgaard]{Dalgaard}{2008}{Dalgaard2008} \textsc{Dalgaard, P.}  (2008): \emph{Introductory Statistics with R (Statistics and Computing)}, Use R!, Springer, New York, NY, 2nd edn.~[\textcolor[rgb]{0.00,0.50,0.00}{\textbf{\textsf{ISR}}}, electronic version available on CTools]
+
+\harvarditem[Pfaff]{Pfaff}{2008}{Pfaff2008}
+\textsc{Pfaff, B.}  (2008): \emph{Analysis of Integrated and Cointegrated Time Series in R}, Use R! Springer, New York, NY, 2nd edn.
+
+\harvarditem[Shumway and Stoffer]{Shumway and Stoffer}{2011}{Shumway2011}
+\textsc{Shumway, R.~H.,  {\small and} D.~S. Stoffer}  (2011): \emph{Time Series Analysis and Its Applications With R Examples}, Springer Texts in Statistics. Springer, New York, NY, 3rd edn.
+\end{thebibliography}
+
+\renewcommand\bibname{\normalsize{Getting started with R}}
+\begin{thebibliography}{test2}
+\harvarditem[Arai]{Arai}{2009}{Arai2009} \textsc{Arai, M.}  (2009): ``A Brief Guide to \textsf{R} for Beginners in Econometrics,'' Manual, Stockholm University.
+
+\harvarditem[Farnsworth]{Farnsworth}{2008}{Farnsworth2008} \textsc{Farnsworth, G.~V.}  (2008): ``Econometrics in \textsf{R},'' Manual, Kellogg  School of Management, Northwestern University.
+
+\harvarditem[Verzani]{Verzani}{2011}{Verzani2011}
+\textsc{Verzani, J.}  (2011): \emph{Getting Started with RStudio}. O'Reilly Media.
+\end{thebibliography}
+
+\renewcommand\bibname{\normalsize{Online resources}}
+\begin{thebibliography}{test3}
+\harvarditem[Kabacoff]{Kabacoff}{2011}{Kabacoff2011} \textsc{Kabacoff, R.~I.} (2011): \href{http://www.statmethods.net/index.html}{``Quick-\textsf{R}: Accessing the Power of \textsf{R}''}, online version of \emph{\textsf{R} in Action: Data Analysis and Graphics with \textsf{R}}.
+
+\harvarditem[Short]{Short}{2004}{Short2004} \textsc{Short, T.} (2004): \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{``\textsf{R} Reference Card''}.
+
+\harvarditem[UCLA]{UCLA}{2012}{UCLA2012} \textsc{UCLA Academic Technology Services}: \href{http://www.ats.ucla.edu/stat/r/}{``Resources to help you learn and use \textsf{R}''}.
+\end{thebibliography}
+

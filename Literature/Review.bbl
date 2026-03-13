@@ -1,0 +1,48 @@
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Angrist and Pischke]{Angrist and Pischke}{2009}{Angrist2009a}
+\textsc{Angrist, J.~D.,  {\small and} J.-S. Pischke}  (2009): \emph{Mostly
+  Harmless Econometrics: An Empiricist's Companion\hspace{1ex}}chap. Questions
+  about Questions, pp. 3--8. Princeton University Press, Princeton, NJ.
+
+\harvarditem[Burman, Reed, and Alm]{Burman, Reed, and Alm}{2010}{Burman2010a}
+\textsc{Burman, L.~E., W.~R. Reed,  {\small and} J.~Alm}  (2010): ``A Call for
+  Replication Studies,'' \emph{Public Finance Review}, 38(6), 787--793.
+
+\harvarditem[Fainstein and Campbell]{Fainstein and
+  Campbell}{2011}{Fainstein2011}
+\textsc{Fainstein, S.~S.,  {\small and} S.~D. Campbell}  (2011):
+  ``Introduction: The Structure and Debates of Planning Theory,'' in
+  \emph{Readings in Planning Theory}, ed. by S.~S. Fainstein,  {\small and}
+  S.~D. Campbell, chap.~1, pp. 1--20. Wiley-Blackwell, Oxford, UK, 3rd edn.
+
+\harvarditem[Haavelmo]{Haavelmo}{1944}{Haavelmo1944}
+\textsc{Haavelmo, T.}  (1944): ``The Probability Approach in Econometrics,''
+  \emph{Econometrica}, 12, iii--iv + 1--115.
+
+\harvarditem[Hamermesh]{Hamermesh}{2007}{Hamermesh2007}
+\textsc{Hamermesh, D.~S.}  (2007): ``Viewpoint: Replication in Economics,''
+  \emph{Canadian Journal of Economics}, 40(3), 715--733.
+
+\harvarditem[Isard]{Isard}{1960}{Isard1960a}
+\textsc{Isard, W.}  (1960): \emph{Methods of Regional Analysis}, vol.~4 of
+  \emph{Regional Science Studies Series}. MIT Press, Cambridge, MA, 1st edn.
+
+\harvarditem[Isard, Azis, Drennan, Miller, Saltzman, and Thorbecke]{Isard,
+  Azis, Drennan, Miller, Saltzman, and Thorbecke}{1998}{Isard1998}
+\textsc{Isard, W., I.~J. Azis, M.~P. Drennan, R.~D. Miller, S.~Saltzman,
+  {\small and} E.~Thorbecke}  (1998): \emph{Methods of Interregional and
+  Regional Analysis}. Ashgate, Aldershot, UK, 7th edn.
+
+
+
+\end{thebibliography}

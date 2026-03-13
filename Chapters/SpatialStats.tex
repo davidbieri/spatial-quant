@@ -1,0 +1,60 @@
+\chapter{Applied Spatial Data Analysis}\label{chap_SpatialStats}
+Quantitative analysis of spatial data has advanced greatly in recent years, largely as the result of the rapidly decreasing cost of computational power, the increased availability of high-resolution data and methodological innovation in spatial econometrics. Indeed, recent analytical and technological advances are increasingly blurring the traditional boundaries in spatial data analysis where various applied methods in Geographic Information Systems (GIS)\index{GIS|see{geographic information systems}}\index{geographic information systems}, geology-oriented remote sensing\index{remote sensing} and spatial statistics\index{spatial statistics} were essentially treated as separate fields. The legacy of this separate treatment of spatial data is reflected by the fact that even the leading textbooks in this area do not focus on more than two of these three sub-fields \citep[e.g.][]{Davis2002a,O'Sullivan2003,Campbell2006}.
+
+Nowhere in the social sciences, perhaps, is this silent revolution felt more than in urban and regional planning. While planners usually have emphasised the application to GIS for land-use and environmental planning purposes, sometimes in addition with a little attention being paid to either remote sensing and spatial statistics, the discipline has never embraced all three sub-fields of quantitative data analysis in a systematic way. 
+
+However, with the rapid deployment of ``Big Data''\index{Big Data} and the emergence of ``policy informatics''\index{policy informatics} as a new paradigm among computational social scientists, planners should increasingly see themselves at the forefront of the application of such integrated spatial data methods.\footnote{See a recent study by McKinsey \& Co. on this \href{http://www.mckinsey.com/Insights/MGI/Research/Technology\_and\_Innovation/Big\_data\_The\_next\_frontier\_for\_innovation}{topic}. See \citet{Barrett2011} for a definition of the term and on recent developments in the area of policy informatics.} \citet{Anselin2012} provides a good overview that assesses the evolution of the way in which spatial data analytical methods have been incorporated into software tools over the past two decades.
+
+
+\section{Motivations for ``going spatial''}
+
+Spatial autocorrelation\index{spatial autocorrelation|see{autocorrelation}}\index{autocorrelation!spatial} can be loosely defined as ``the coincidence of value similarity with locational similarity'' \citep{Anselin2002}. The problem of spatial dependence then is best viewed as a normal extension of the first law in geography, whereby
+
+\begin{quote}
+``everything is related to everything else, but near things are more related than distant things'' \citep[p.236]{Tobler1970}.
+\end{quote}
+
+Broadly speaking, there are three main reasons for deploying spatial methods:
+
+\begin{enumerate}[(i)]
+\item \emph{The independence assumption is not valid}: The attributes of observation $i$ may influence the attributes of observation
+$j$.
+\item \emph{Spatial heterogeneity}: The magnitude and direction the the treatment effect may vary across space.
+\item \emph{Omitted variable bias}: Some common unobserved or latent variables are shared among spatial neighbours.
+\end{enumerate}
+
+
+Recall that the matrix notation of the non-spatial DGP was defined as
+
+\begin{eqnarray}
+\boldsymbol{y} = \boldsymbol{X\beta} + \boldsymbol{e} \qquad \text{with} \qquad \boldsymbol{e}\sim\mathcal{N}(0,\sigma^{2}\boldsymbol{I}).\label{eqn_SS_DGP}
+\end{eqnarray}
+
+Similarly, also recall that the classical normal regression model (CNR) of equation~\ref{eqn_SS_DGP} is based on the following assumptions:
+
+\begin{itemize}
+\item Observed values at location $i$ are independent of values at location $j$.
+\item The regression residuals associated observation $i$ are independent of those associated with observation $j$, i.e. $\mathbb{E}[e_{i}e_{j}]=\mathbb{E}[e_{i}]\mathbb{E}[e_{j}]=0$.
+\end{itemize}
+
+\begin{itemize}
+\item Include the following literature: \citet{Bivand2008}, \citet{Bivand2008a}, \citet{Corrado2012}, \citet{Kelejian1998}, \citet{McMillen2010a}, \citet{Pinske2010}.
+\end{itemize}
+
+
+
+
+\section{Spatial point pattern analysis}
+\section{Interpolation and geostatistics}
+\section{Areal data and spatial autocorrelation}
+
+\begin{subappendices}
+\section{Code for Spatial Stats in R}
+\lstinputlisting{"Programs/UP504_SpatStat1.R"}
+
+\renewcommand\bibname{Further reading}
+
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/SpatialStats.bbl}{\input{Literature/SpatialStats.bbl}}{\typeout{Need to run bibtex}}
+\end{subappendices} 

@@ -1,0 +1,1878 @@
+\chapter{Edited Lecture Notes}\label{chap_EditedNotes}
+
+\subsection{Graphics}
+
+Good introductory TikZ resources:
+\begin{itemize}
+\item http://www.sharelatex.com/learn/TikZ\_package
+\end{itemize}
+
+For TikZ, Arthur finds it helpful to re-sketch the graphic on graph paper, with each grid cell = 1em
+\begin{itemize}
+\item Regular arrowhead: \verb+-latex'+
+\item Arrows/lines: with separate \verb+\path+ commands (instead of \verb+edge+ inside nodes) 
+\item 3 or more objects with consistent formatting: Use \verb+\tikzstyle{}+ (instead of applying settings to each object)
+\item Size specifications: use \verb+em+ (height of one line of text)
+\item Positioning: use \verb+left/above/right/below of+ where possible (instead of \verb+(x,y)+ coordinates)
+\end{itemize}
+
+\subsection{General reference}
+\begin{itemize}
+\item http://www.giss.nasa.gov/tools/latex/ltx-2.html
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Carpenter}
+%Random Variables p.1 BEGIN
+
+\subsection{Random Variables}
+\begin{enumerate}[1)]
+\item Discrete random variables and expectations
+categorical/qualitative:
+\begin{itemize}
+\item normal
+\item ordinal
+\item dichotomous
+\end{itemize}
+\item Expectation of discrete random variable\\
+Expectations Operator:
+\begin{eqnarray}
+E(x)= x_{1}p_{1} + x_{2}p{2}+...+x_{n}p_{n}=\sum_{i=1}^{n} x_{i} p_{i}
+\end{eqnarray}
+Where:
+\begin{eqnarray*}
+\text{E(x) is the population mean}
+\end{eqnarray*}
+Recall that:
+\begin{eqnarray*}
+\sum p_{i} =1
+\end{eqnarray*}
+\end {enumerate}
+\paragraph{Example:}
+\underline{St. Petersburg Paradox:}(\textit{Bernoulli}, a scholar in fluid dynmics regarding the speed-pressure relationship)\\
+Proposal: To pay $\$2^{n-1}$ if flip is tails at nth toss\\
+\begin{eqnarray*}
+E(x)= 1/2*\$1+1/2*1/2*\$2+1/2*1/2*1/2*\$4...
+\end{eqnarray*}
+\begin{eqnarray*}
+E(x)= 1/2*\$1+1/4*\$2+1/8*\$4...
+\end{eqnarray*}
+\begin{eqnarray*}
+E(x)=\sum_{i=1}^{ \infty} \$_{i}*1/2=\infty
+\end{eqnarray*}
+\paragraph{Example:}
+\begin{eqnarray*}
+E(x)= 1/6*1+1/6*2+...1/6*6=3.5
+\end{eqnarray*}
+With:
+\begin{eqnarray*}
+\mu_{DIE}=3.5 
+\end{eqnarray*}
+and a pair of dice 
+\begin{eqnarray*}
+\mu_{x}=7
+\end{eqnarray*}
+Generally, we can write:
+\begin{eqnarray*}
+E(x)=E[\delta(x)]
+\end{eqnarray*}
+Where E(x) is the \textit{Expectations Operator}
+\begin{eqnarray*}
+E(x)=\delta(x_{1}p_{i}+...\delta(x_{n})p_{n}
+\end{eqnarray*}
+
+
+\subsection{Continuos Random Variables:}
+\begin{eqnarray*}
+\text{PDF with}f(x) \equiv F'(x)\text{CDF}
+\end{eqnarray*}
+
+%Add Figs%
+%add PDF%
+
+
+
+
+\paragraph{Moments of a Distribution:}
+Expectations of a random variable raised to a certain power is the moment of a distribution. *Raised to the 3rd power is $\emph{Skewness}$, raised to the 4th power is $\emph{Kurtosis}$.\\ 
+
+\begin{eqnarray}
+\emph{m}_{k}(X)=\int x^{k} \mathrm{f}(x)\,\mathrm{d}x\rightarrow \mu_{k}\equiv E[X-E(x)]^{k}=\int (X-\mu_{x})^{k} \mathrm{f}(x)\,\mathrm{d}x
+\end{eqnarray}
+
+\subsection{Covariance and Correlations}
+\begin{eqnarray}
+Cov(X,Y)=\sigma_{xy}=E[(X-\mu_{X}(Y-\mu_{Y})]
+\end{eqnarray}
+$\emph{Independence}$ between X $\&$ Y if:
+\begin{eqnarray}
+E[\delta(X)\textit{h}(Y)]=E[\delta(X)]E[\textit{h}(Y)] 
+\end{eqnarray}
+$\therefore$
+\begin{eqnarray}
+\sigma_{XY}=0\\
+\end{eqnarray}
+\text{because recall that}
+\begin{eqnarray}
+E[X-\mu_{X}]=E[X]-\mu_{X}=0
+\end{eqnarray}
+
+
+\paragraph{Covariance rules:}
+\begin{enumerate}[(1)]
+\item Y=W+V; Cov(X,Y)=Cov(X,W)+Cov(X,V)
+\item Y=b2; Cov(X,Y)=bCov(X,Z)
+\item Y=b; Cov(X,Y)=0
+\end{enumerate}
+
+\paragraph{Varaince rules:}
+\begin{enumerate}[(1)]
+\item Y=W+V; Var(Y)=Var(W)+Var(V)+2Cov(V,W)
+\item Y=b2; Var(Y)=$b^{2}$Var(Z)
+\item Y=b; Var(Y)=0
+\item Y=V+b; Var(Y)+Var(V)
+\end{enumerate}
+\paragraph{Example:}
+Sample mean($\bar{x}$) on estimator of population mean ($\mu_x$)
+\begin{eqnarray*}
+\bar{x}=\frac{1}{n}(x_{1}+x_{2}+...+X_{n})=\frac{1}{n}\sum_{i=1}^{n}x_{i}\equiv \mu_{x}
+\end{eqnarray*}
+
+%Add Figs%
+%add Esimator_1%
+\begin{figure}[htp]
+\caption{PDFs of x and $\bar{x}$ }\label{rawnotes_dualestimators}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{"Figures/rawnotes_dualestimators"}
+\end{center}
+\footnotesize
+\end{figure}
+
+\text{$\sigma^{2}_{x}=\frac{\sigma^{2}_{x}}{n}$ due to dual structures of variables with:}
+\begin{enumerate}[(i)]
+\item Potential distribution of observations in sample.
+\item Sample mean before and after realisation of sample.
+\end{enumerate}
+
+\begin{eqnarray}
+\sigma^{2}_{x}=Var(\frac{1}{n}(x_{1}+x_{2}+...x_{n}))=
+\end{eqnarray}
+\begin{eqnarray}
+=\frac{1}{n^{2}}(Var(x_{1})+Var(x_{2}+Var(x_{n}))
+\end{eqnarray}
+\begin{eqnarray}
+=\frac{1}{n^{2}}(\sigma^{2}_{x}+\sigma^{2}_{x}+...+\sigma^{2}_{x})=\frac{\sigma^{2}_{x}}{n}
+\end{eqnarray}
+\text{$\rightarrow$ OLS estimator provides estimate of conditional mean of Y given the values of X; i.e:}
+\begin{eqnarray}
+E[Y|X]=\beta_{0}+\beta_{1}X
+\end{eqnarray}
+
+\subsection{Estimator Properties}
+\text{(finite sample vs. asymptotic properties)}
+\paragraph{Unbiasedness:}
+Estimate not sytematically different from true value.
+\begin{eqnarray}
+E(\bar{x})=E[\frac{1}{n}(x_{1}+x_{2}+...+X_{n})]
+\end{eqnarray}
+\begin{eqnarray}
+=\frac{1}{n}E[x_{1}+x_{2}+...x_{n}]=\frac{1}{n}(\mu_{x}+\mu_{x}+...+\mu_{x})
+\end{eqnarray}
+\begin{eqnarray}
+=\mu_{x}
+\end{eqnarray}
+\paragraph{Efficiency:}
+estimate produced is "close as possible to time value" (i.e. minimal dispersion around, mean)
+
+%Add Figs%
+%add Esimator_2%
+
+\begin{figure}[htp]
+\caption{PDF estimators }\label{fig_Diversification}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{"Figures/rawnotes_estimatorab"}
+\end{center}
+\footnotesize
+\end{figure}
+
+$\rightarrow$ can show that sample variance of $\emph{mean}$ is the smallest of its kind.\\
+$\therefore$ of unbiased estimator for mean, sample average is also efficient.\\
+$\rightarrow$ efficiency and bias are relative concepts that induce a $\emph{possible trade-off}$ .\\
+How do we choose either A or B? pick a function, such as MSE:
+
+\begin{eqnarray}
+\text{MSE of estimator}=E[(\hat{\theta}-\theta)^{2}]^{*}
+\end{eqnarray}
+=Variance of estimator + Bias$^{2}$
+\paragraph{Consistency} $\hat{\theta}$ is a consistent estimator of $\theta$ if $\hat{\theta} \rightarrow \theta$ as $\emph{n}\rightarrow\infty$.
+\begin{eqnarray*}
+^{*}E[(\hat{\theta}-\mu\hat{\theta}-\theta)^{2}] =
+\end{eqnarray*}
+\begin{eqnarray*}
+=E[(\hat{\theta}-\mu\hat{\theta})^{2}-2(\hat{\theta})(\mu\hat{\theta}-\theta)+(\mu\hat{\theta}-\theta)^{2}]
+\end{eqnarray*}
+\begin{eqnarray*}
+E[(\hat{\theta}-\mu\hat{\theta})^{2}]-2(\mu\hat{\theta}-\theta)E[\hat{\theta}-\mu\hat{\theta}]+E[(\mu\hat{\theta}-\theta)^{2}]
+\end{eqnarray*}
+
+\subsection{Estimators of sample variance, covariance, correllation}
+\begin{eqnarray}
+S_{x}^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}\rightarrow\text{unbiasedness proof ITE, pg.79}
+\end{eqnarray}
+\begin{eqnarray}
+S_{XY}=\frac{1}{n-1}\sum^{n}_{i=1}(X_{i}-\bar{X})(Y-\bar{Y})
+\end{eqnarray}
+\paragraph{Normal Distribution:}
+\begin{eqnarray}
+\phi=\frac{1}{\delta\sqrt{2\pi}} e^{\frac{-1}{2}{\frac{x-\mu}{\sigma}}^{2}}
+\end{eqnarray}
+\begin{eqnarray}
+X\sim N(\mu,\sigma^{2})\text{and \emph{standardised}} N(0,1)
+\end{eqnarray}
+
+\subsection{Sample size and Estimator Properties:ASYMTOTICS}
+\subsection{Hypothesis Testing}
+%Add Figs%
+%add rejection matrix%
+\begin{figure}[htp]
+\caption{PDF with f(x)$\equiv$ F'(x) }\label{fig_Diversification}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{"Figures/rawnotes_offestimator"}
+\end{center}
+\footnotesize
+\end{figure}
+\begin{eqnarray*}
+H_{0}: \mu=\mu_{0} \text{vs.} H_{1}:\mu\ne\mu_{0}
+\end{eqnarray*}
+If null hypothesis is true, $\bar{x}$ will be distributed N $\sim$ ($\mu_{0}, \frac{\sigma^{2}}{n}$)\\
+
+\noindent Type I error: Reject when $H_{0}$ is actually True.\\
+Type II error: Non-rejection when $H_{0}$ is actually False.\\
+%Add Figs%
+%add rejection region curve%
+\begin{figure}[htp]
+\caption{95"\%" C.I. rejection regions}\label{fig_Diversification}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{"Figures/rawnotes_rejectionregion"}
+\end{center}
+\footnotesize
+\end{figure}
+$\emph{Note:}$ $\upsilon \delta$ covers full distribution.\\
+z=$\frac{\bar{x}-\mu_{0}}{s.d.(x)}\lessgtr \pm 1.96$ (actually observed value $\hat{2})$\\
+s.d is not actually known; $\sigma^{2}\rightarrow s^{2}_{\bar{x}}$ use estimate of s.d.:
+\begin{eqnarray}
+s_{\bar{x}}=[\frac{1}{n-1}\sum(x_{i}-\bar{x})^{2}]
+\end{eqnarray}
+\paragraph{P-Values:}
+Go beyond simple reject/not reject duality since significance levels are $\emph{essentially arbitrary}$.\\
+$\rightarrow$ marginal significance level: Greatest level for which a test based on $\hat{z}$ fails to reject the null.
+\begin{eqnarray}
+p(\hat{z})=2(1-\phi(|\hat{z}|))
+\end{eqnarray}
+reject both at $5\%$, but magnitude not directly visible. $\left\{
+\begin{array}{l}
+\hat{z}=2.02 \\
+\hat{z}=5.77
+\end{array} \right. $
+%Add Figs%
+%add Type II curves%
+\begin{figure}[htp]
+\caption{Type II Error}\label{fig_Diversification}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{"Figures/rawnotes_type2"}
+\end{center}
+\footnotesize
+\end{figure}
+$\rightarrow P_{1}=4.34 \%, P_{2}=$0.00000079$\%$\\
+$\therefore$ Rejection region $\equiv$ significance level/size of test\\
+Probability of rejecting false $H_{0}=1-$prob(TypeII)$=$Power of test\\
+$\rightarrow$ The closer $\mu_{0}$ and $\mu_1$, the smaller the power of the test.\\
+\paragraph{Confidence Interval}[around a POINT ESTIMATE vs. INTERVAL ESTIMATE]
+
+\begin{eqnarray}
+\bar{x}-1.96\sigma_{x}\leq\mu\leq\bar{x}+1.96\sigma_{x}\rightarrow(95\%CI)
+\end{eqnarray}
+But since $\sigma_{\bar{x}}$ is not observed, we must use estimate and corresponding $\emph{critical value}$ from the t-distribution.
+
+\begin{eqnarray}
+t=\frac{\bar{x}-\mu_{0}}{s.e.(\bar{x})}
+\end{eqnarray}
+\paragraph{IMPORTANT:}Ratio of 2 random variables follows a t-distribution.\\
+One-sided vs. two-sided testing usually depends on context of investigation.
+\begin{enumerate}[i.]
+\item One-sided test common for policy evaluation; i.e. treatment vs. effect.
+\item $H_{0}:\mu_{x}=0$ economic theory that determines sign of parameters.
+\end{enumerate}
+
+
+\paragraph{Probability Limits:}
+\begin{eqnarray}
+lim_{n\rightarrow\infty}P(12-\infty|>\epsilon)\rightarrow)
+\end{eqnarray}
+$\therefore$
+\begin{eqnarray}
+plim2=\infty
+\end{eqnarray}
+\begin{eqnarray}
+lim_{n\rightarrow\infty}P(\bar{x}-\mu_{x}>\epsilon)\rightarrow)
+\end{eqnarray}
+$\therefore$
+\begin{eqnarray}
+plim\bar{x}=\mu_{x}
+\end{eqnarray}
+
+%Add Figs%
+%three curves%
+\begin{figure}[htp]
+\caption{Three estimators with varrying s.d.}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{"Figures/rawnotes_triestimator"}
+\end{center}
+\footnotesize
+\end{figure}
+
+\paragraph{Conditions for Consistency:}
+\begin{enumerate}[(1)]
+\item Estimator of popuation charctersitic processes plim$\therefore$distribution collapses at spike for large n.
+\item Spike is located at true value
+\end{enumerate}
+$\rightarrow$ Unbiasedness as $\emph{sufficient}$ condition; $\emph{not necessary}$ since even biased estimators can be consistent at large sample sizes.\\
+Finite vs. Large sample properties(asymptotic properties)\\
+$\rightarrow$ in an analytical context plim rules are much more powerful than E[ ] which often require inddependence and other strong assumptions.\\
+
+\paragraph{Plim Rules}
+\begin{enumerate}[(i)]
+\item plim(X+Y+Z)=plim(X)+plim(Y)+plim(Z)
+\item plim bX=bplim(X)
+\item plimb=b
+\item for Z=XY, plimZ=plimX*plimY
+\item for Z=$\frac{X}{Y}$, plimZ=plim(X)(plimY)^{-1}
+\item plim f(x)=f(plim x)
+\end{enumerate}
+
+\paragraph{Central Limit Theorem}
+$\bar{X}$ will be normally distributed, even if X is not normally distributed, given a $\emph{large enough}$ sample size.\\
+$\rightarrow$ depends on underlying distribution:
+\begin{enumerate}[(i)]
+\item for uniform, n$\geq$ 10 suffiecient
+\item for lognormal, n$\geq$100
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%
+%%%% Hamby %%%%
+%%%%%%%%%%%%%%%
+%%%%Inference %%%%
+%%% begin page 1 %%%
+\section{Causal Inference (Introduction)}
+\subsection{Target quantities of interest: Inference vs. Summarizing}
+
+% Define block styles
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=13em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,minimum height=5em]
+    
+\begin{tikzpicture}[node distance = 2.5cm, auto]
+    % Place nodes
+    \node [block] (goal) {Goals of Empirical Research};
+    \node [block, below of=goal] (inf) {Inference (using facts you know to learn facts you don't know) };
+    \node [block, left of=inf, xshift=-11em, node distance=4em] (summ) {Summarizing data};
+    \node [block, below of=inf] (counter) {Counterfactual Inference};
+    \node [block, left of=counter, xshift=-4em, node distance=4cm] (des) {Descriptive Inference};
+    \node [cloud, below of=counter, node distance=4cm] (what) {"What if" question};
+    \node [cloud, left of=what, node distance=4cm] (predict) {Prediction};
+    \node [cloud, right of=what, node distance=4cm] (casual) {Casual inference};
+    % Draw lines
+    \path [line] (goal) -- (inf);
+    \path [line] (goal) -- (summ);
+    \path [line] (inf) -- (counter);
+    \path [line] (inf) -- (des);
+    \path [line, dashed] (counter) -- (what);
+    \path [line, dashed] (counter) -- (predict);
+    \path [line, dashed] (counter) -- (casual);
+\end{tikzpicture}
+
+%%%%Inference %%%%
+%%% end page 1 %%%
+%%% begin page 2 %%%
+
+\subsection{Equivalent Linear Regression Notation}
+
+*Standard Version:
+\begin{eqnarray} 
+                \notag{ \text{systematic \quad stochastic}}\\            
+                \notag{\downarrow \qquad \qquad \downarrow} \qquad  \\
+y_{i} = m(\underline{x}) +  e \quad = \quad x_{i} \beta \quad + \quad e_{i} \qquad \\
+            e_{i} \quad \sim \quad f_{N}(e_{i}|0, \sigma^{2}) \qquad      
+\end{eqnarray}
+
+\noindent \underline{Stochastic} (from $\sigma J \tilde{o} X \sigma \sigma \equiv$  aim, guess); process that is fundamentall non-deterministic, i.e. contains a random component.
+
+\vspace{4 mm}
+
+*Alternative Version:
+\begin{eqnarray} 
+y_{i} \quad \sim \quad f_{N}(y_{i}|\mu_{i}, \sigma^{2}) \quad \leftarrow \text{stochastic}\\
+\mu_{i} \quad = \quad x_{i} \beta  \qquad \quad \quad  \leftarrow \text{systematic}
+\end{eqnarray}
+
+\clearpage
+
+\noindent Understanding the alternative regression:
+Are these histograms of y (see Figures D.9, D.10, D.11, D.12) a test for normality?
+
+%Add Figures%
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[width=50mm,scale=0.25]{"Figures/Rplot_u1"}
+    \caption{$\mu_{1}$}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[width=50mm,scale=0.25]{"Figures/Rplot_u2"}
+    \caption{$\mu_{2}$}
+\end{minipage}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[width=50mm,scale=0.25]{"Figures/Rplot_u3"}
+    \caption{$\mu_{3}$}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[width=50mm,scale=0.25]{"Figures/Rplot_u4"}
+    \caption{$\mu_{4}$}
+\end{minipage}
+\end{figure}
+
+\vspace{4 mm}
+
+%%%%Inference %%%%
+%%% end page 2 %%%
+%%% begin page 3 %%%
+
+\noindent *Generalized alternative notation for most statistical models:
+\begin{eqnarray} 
+\mathrm{y}_{i} \quad \sim \quad f(y_{i}|\theta_{i}, \alpha) \quad \leftarrow \text{stochastic}\\
+\theta_{i} \quad = \quad \gamma(\textrm{X}_{i}, \beta)  \quad \leftarrow  \text{systematic}
+\end{eqnarray}
+
+\begin{table}[htb] \centering 
+  \caption{Notation Explanation} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{8pt}} c c} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ Notation & Explanation \\ 
+\hline \\[-1.8ex] 
+$\textrm{y}_{i}$ & random outcome variable \\
+$y_{i}$ & realization of $\textrm{Y}_{i}$ \\
+$f(  )$ & probability desnity function \\
+$\theta$ & a systematic feature of the density that varies over observation i \\
+$\gamma(  )$ & functional form (linear, exponetial...) \\
+$\textrm{X}_{i}$ & explanatory variables \\
+$\beta$ & effect parameters \\
+$\alpha$ & ancillary parameter (feature of density that remains constant over i) \\
+\hline \\[-1.8ex] 
+\normalsize 
+\end{tabular} 
+\end{table}
+
+%%%%Inference %%%%
+%%% end page 3 %%%
+%%% begin page 4 %%%
+
+\subsection{Forms of uncertainty}
+
+\begin{eqnarray} 
+\mathrm{y}_{i} \quad \sim \quad f(y_{i}|\theta_{i}, \alpha) \quad \leftarrow \text{stochastic}\\
+\theta_{i} \quad = \quad \gamma(\textrm{X}_{i}, \beta)  \quad \leftarrow \text{systematic}
+\end{eqnarray}
+
+\noindent *\underline{Estimation uncertainty}: Lack of knowledge of $\beta$ and $\alpha$. Varies as n gets larger.
+
+\vspace{4 mm}
+
+\noindent *\underline{Fundamental uncertainty}: Representated by the stochastic component.  Exists no matter what the researcher does, no matter how large n is.
+
+\vspace{4 mm}
+
+\noindent $\hookrightarrow$ Systematic component examples:
+
+\begin{eqnarray} 
+E(Y_{i})\equiv \mu_{i} = X\beta = \beta_{0} + \beta_{1}X_{1i} + ... \beta_{k}X_{ki} \\
+Pr(Y_{i}=1) \equiv \pi = 1/[1+e^{x_{i}\beta}] \\
+V(Y_{i}) \equiv \sigma^{2} = e^{x_{i}\beta} 
+\end{eqnarray}
+
+\noindent \underline{NB:} "$\beta$" is an effect parameter in each, but meanings differ
+[ENTER CHARTS ON BOTTOM OF PAGE 4]
+
+%%%%Inference %%%%
+%%% end page 4 %%%
+%%% begin page 5 %%%
+
+\subsection{The Experimental Ideal (*Heckan, et. al. (2010) IZA working papers)}
+
+Perry pre-school randomized experiment (1962) - High scope early childhood education approach.
+\begin{enumerate}[(i)]
+\item 123 black pre-schoolers in Ypsilanti, MI
+\item Receive intensive intervention pre-school, home visits
+\item Follow up data until 1993 (from age 3 to age 40)
+    \begin{itemize}
+    \item basis for Head Start program; \underline{raw evidence*} that the program worked for females, less measurable effects for males
+        \begin{itemize}
+        \item $\downarrow$
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+        % Define block styles
+        \tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+        text width=7em, text centered, rounded corners, minimum height=1.5em]
+        \tikzstyle{line} = [draw, -latex']
+        \qquad \qquad \qquad
+        \begin{tikzpicture}[node distance = 4cm, auto]
+        % Place nodes
+        \node [block] (eval) {Evaluation};
+        \node [block, right of=eval] (agen) {Agenda};
+        \node [block, right of=agen] (form) {Formulation};
+        \node [block, below of=form, xshift=-3em, node distance=1cm] (adopt) {Adoption};
+        \node [block, left of=adopt] (inter) {Intervention};
+         % Draw lines
+        \path [line] (eval) -- (agen);
+        \path [line] (agen) -- (form);
+        \path [line] (form) -- (adopt);
+        \path [line] (adopt) -- (inter);
+        \path [line] (inter) -- (eval);
+        \end{tikzpicture}
+
+\clearpage
+
+\vspace{4 mm}
+
+*\underline{Selection Problem} (from correlation to causal inference)
+
+\begin{table}[htb] \centering 
+  \caption{Harding, et. al. (JUE 2012) Forclosure \& Myth} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{8pt}} c c c c c c c} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & & Purchase & Sale & Hold. P. & Ann \% & Std. Err. \\ 
+\hline \\[-1.8ex] 
+REO        & 900   & \$126k & \$246k & 7.3 & 10.4\% & (12.8\%) \\
+Convential & 5,335 & \$173k & \$232k & 5.9 & 6.5\%  & (9.5\%)  \\
+\hline \\[-1.8ex] 
+\normalsize 
+\end{tabular} 
+\end{table}
+
+\begin{table}[htb] \centering 
+  \caption{Harding, et. al. (JUE 2012) Forclosure \& Myth} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{8pt}} c c c c } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Group & Sample & Mean Health & Std. Err \\ 
+\hline \\[-1.8ex] 
+Hospital    & 7,774  & 3.21 & 0.014 \\
+No Hospital & 90,049 & 3.93 & 0.003 \\
+\hline \\[-1.8ex] 
+\normalsize 
+\end{tabular} 
+\end{table}
+
+\begin{eqnarray}
+\hookrightarrow t-stat = \frac{\mu_{1} - \mu_{2}}{\sqrt{\gamma^{2}_{1}/N_{1} + \gamma^{2}_{2}/N_{2}}} = 58.9
+\end{eqnarray}
+
+\noindent Specify \underline{treatment} as binary variable.
+
+\begin{eqnarray}
+D_{i} = {0,1} \quad \rightarrow \text{potential outcome, irrespetive of whether treatment occurs}
+\end{eqnarray}
+
+\noindent $\therefore$ \text{Two problems with observation data:  (i) relationship only holds with \underline{certain probability}; (ii) observe \underline{actual states only}}
+
+%%%%Inference %%%%
+%%% end page 5 %%%
+%%% begin page 6 %%%
+
+\vspace{4 mm}
+
+\noindent Potential Outcome:
+\begin{eqnarray}
+Y_{1i} \quad \text{if} \quad D_{i} = 1 \\
+Y_{0i} \quad \text{if} \quad D_{i} = 0
+\end{eqnarray}
+Casual effect $\equiv Y_{1i} - Y_{0i}$ \text{(Rubin causal model; Holland (1986))}
+
+\begin{eqnarray}
+Y_{i} = \left\{
+    \begin{array}{c 1}
+    Y_{1i} \quad \text{if} \quad D_{i} = 1\\
+    Y_{0i} \quad \text{if} \quad D_{i} = 0\\
+    \end{array}\right 
+\end{eqnarray}  
+
+\begin{eqnarray}
+Y_{i} = Y_{0i} + (Y_{1i} - Y_{0i})D_{i}
+\end{eqnarray} 
+
+\noindent \hookrightarrow Where $(Y_{1i} - Y_{0i})$ is the \underline{Causal Effect.}  Both potential outcomes are never observed for the same person $\therefore$ most rely on some population distributions and compare averages.
+
+\begin{eqnarray}
+E[Y_{i}|D_{i}=1] - E[Y_{i}|D_{i}=0] =  \\
+E[Y_{i1}|D_{i}=1] - E[Y_{0i}|D_{i}=1] \\
++E[Y_{0i}|D_{i}=1] - E[Y_{0i}|D_{i}=0]  \\
+ = E[Y_{1i} - Y_{0i}|D_{i}=1] 
+\end{eqnarray}
+
+For the above equations:
+\begin{itemize}
+\item Line 1 - The observed difference in average health.  \underline{PARAMETER OF INTEREST:} average treatment effect on the treated.
+\item Line 2 - Mean outcomes of participants had they \underline{not} participated
+\item Line 3  - This is the Selection Bias; mean outcome of the non participants cannot be used as a proxy.
+\item Line 4 - AVERAGE CAUSAL EFFECT OF TREATMENT
+\end{itemize}
+
+\noindent $\therefore$ selection bias is negative in this example and can completely mask treatment effect.
+
+%%%%Inference %%%%
+%%% end page 6 %%%
+%%% begin page 7 %%%
+
+\subsection{Random assignment soloes selection bias} Selection bias (UNREADABLE WORD) because $Y_{0i}$ depends on $D_{i}$ (dependence of $Y_{0i$} and $D_{i}$).
+
+\noindent **$D_{i}$ is rendered independent of potential outcome due to \underline{independence} of $Y_{0i}$ and $D_{i}$). 
+\begin{eqnarray}
+E[Y_{i}|D_{i}=1] - E[Y_{i}|D_{i}=0] =  \\
+ &= E[Y_{1i}|D_{i}=1] - E[Y_{0i}|D_{i}=0]  \\
+ &= E[Y_{1i}|D_{i}=1] - E[Y_{0i}|D_{i}=1]  \\
+\therefore E[Y_{1i}|D_{i}=1] - E[Y_{0i}|D_{i}=1] = \\
+ &= E[Y_{1i} - Y_{0i}|D_{i}=1] - E[Y_{1i}-Y_{0i}] 
+\end{eqnarray}
+
+\noindent $\hookrightarrow$ \underline{Studying the impacts of policy}
+
+Alternatives: 
+\begin{itemize}
+\item full general equilibrium analysis 
+\item partial equilibrium structural research
+\end{itemize}
+
+\noindent Let $D^{*}=1$ for persons who participate in program with random assignment ($r=1$ or $r=0$). 
+\newline Let $D^{*}=0$ for everybody else
+\begin{eqnarray}
+E[Y_{1i}|D_{i}=1] = E[Y_{1i}|r=1 \quad\text{and}\quad D^{*}=1] & \text{and} \\
+E[Y_{0i}|D_{i}=1] = E[Y_{1i}|r=0 \quad\text{and}\quad  D^{*}=1] &
+\end{eqnarray}
+
+%%%%Inference %%%%
+%%% end page 7 %%%
+%%% begin page 8 %%%
+
+\vspace{4 mm}
+
+\noindent \underline{NB:} Random assignment does not remove selection bias, but balances the bias between the participant and non-participant samples
+
+\vspace{4 mm}
+
+\newline \noindent Assume same treatment effect for all:
+
+\begin{eqnarray}
+Y_{1i} - Y_{0i} = \beta & \text{and recall that}\\
+  Y_{i} = Y_{0i} + (Y_{1i}-Y_{0i})D_{i} \\
+& \nonumber \\
+Y_{i} = E[Y_{0i}] + [Y_{1i}-Y_{0i}]D_{i} + [Y_{0i}-E[Y_{0i}]] \\
+=\alpha+\beta D_{i} + \eta_{i} \quad \qquad \qquad \qquad  \qquad \qquad\\
+& \nonumber \\
+\therefore E[Y_{i}|D_{i}=1] = \alpha + \beta + E[\eta_{i}|D_{i}=1] \\
+ E[Y_{i}|D_{i}=0] = \alpha + E[\eta_{i}|D_{i}=0]\\
+ & \nonumber \\
+ \text{$\hookrightarrow$ such that} \quad E[Y_{i}|D_{i}=1] - E[Y_{i}|D_{i}=0] = \\
+ \qquad \qquad \qquad \beta + E[\eta_{i}|D_{i}=1] - E[\eta_{i}|D_{i}=0] 
+\end{eqnarray}
+
+ $\hookrightarrow$ Where $\beta$ is the treatment effect, and $E[\eta_{i}|D_{i}=1] - E[\eta_{i}|D_{i}=0]$ is the selection bias.
+\newline \indent $\hookrightarrow$ The selecion bias amounts to correlation between the regression error $\eta_{i}$ and the regressor $D_{i}$ 
+
+%%%%Inference %%%%
+%%% end page 8 %%%
+%%% begin page 9 %%%
+
+\vspace{4 mm}
+Since,
+\begin{eqnarray}
+E[\eta_{i}|D_{i}=1] - E[\eta_{i}|D_{i}=0] = \\
+\qquad \qquad \qquad E[Y_{0i}|D_{i}=1] - E[Y_{0i}|D_{i}=0] 
+\end{eqnarray}
+
+\noindent $\therefore$ this correlation between $\eta_{i}$ and $D_{i}$ reflects the \underline{difference in the no-treatment potential outcomes} between those who get treated and who who don't.
+
+\vspace{4 mm}
+
+Notice that under randomization:
+\begin{eqnarray}
+E[Y_{i}|r=1 \quad \text{and} \quad D_{i}^{*}=1] = \alpha +\beta + E[\eta_{i}|D_{i}^{*}=1] \\
+E[Y_{i}|r=0 \quad \text{and} \quad D_{i}^{*}=1] = \alpha + E[\eta_{i}|D_{i}^{*}=1] \qquad \\
+& \nonumber \\
+\therefore E[Y_{i}|r=1 \quad \text{and} \quad D_{i}^{*}=1] - E[Y_{i}|r=0 \quad \text{and} \quad D_{i}^{*}=1] = \beta
+\end{eqnarray}
+
+\noindent $\hookrightarrow$ but randomization does not guarantee that the selection problem disappears (ie. $E[\eta_{i}|D_{i}^{*}=1] \neq 0$); but with randomized data selection, bias is spread across samples such that it cancels out when calculating the treatment effect.
+
+\vspace{4 mm}
+
+\noindent Use \underline{control variables} to get better "fix" on \beta:
+\begin{eqnarray}
+Y_{i} \alpha + \beta D_{i} + X_{i}\gamma + \eta_{i} 
+\end{eqnarray}
+$\hookrightarrow$ where $D_{i}$ and $X_{i}$ must be as uncorrelated as possible.
+
+%%%%Inference %%%%
+%%% end page 9 %%%
+%%% begin page 10 %%%
+
+\subsection{Conditional Independence Assumption (CIA)}
+\begin{enumerate}[(i)]
+\item Experiments ensure that causal variable of interest is indepenedent of potential outcomes.
+\item CIA provides implicit justification for \underline{causal interpretation of regression estimates}
+\end{enumerate}
+
+\noindent $\hookrightarrow$ since variety of control variables (all of which are assumed to be observable) are held constant
+
+\vspace{4 mm}
+
+\noindent $\therefore$ if we can \underline{"select on observables}; eg. imagine $X_{i}$ as a vector that explains neighborhood characteristics, ability, family backgrounds, etc.
+
+\vspace{4 mm}
+
+Without CIA, $E[Y_{i}|D_{i}=1] - E[Y_{i}|D=0]$ will contain a selection bias.  CIA means that conditional on $X_{i}$, bias diasppears:
+\begin{eqnarray}
+{Y_{0i}, Y_{1i}} \independent \text{(independence, given)} \quad D_{i}|X_{i}
+\nonumber \\
+\therefore E[Y_{i}|X_{i},D_{i} =1] - E[X_{i}|X_{i}, D_{i}=0] \\
+= E[Y_{i} - X_{0i}|X_{i}]
+\end{eqnarray}
+
+%%%%Inference %%%%
+%%% end page 10 %%%
+%%% begin page 11 %%%
+
+\subsection{Regression Analysis in R}
+
+\begin{eqnarray}
+\text{TSS = RSS + RSS} \\
+\text{PROOF:} \nonumber \\
+\sum_{i=1}^{n}(y_{i}-\bar{y})^2 =\sum^n(\^y_{i}-\bar{y}_{i})^2 + \sum^n(y_{i}-\^y_{i})^2  \\
+\sum_{i=1}^{n}(y_{i}-\bar{y}+\^y_{i}-\^y_{i})^2 = \sum^n(\^y_{i}-\bar{y} + \^e_{i})^2 \\
+= \sum((\^y_{i}-\bar{y})^2 + 2\^e_{i}(\^y_{i}-\bar{y})+\~{e}_{i}^2)\\
+= \sum(\^y_{i}-\bar{y})^2 + \sum e_{i}^2 + 2\sum \^{e}_{i}(x'\hat{\beta} - \bar{y}) \\
+= \text{ESS + RSS} \\
+& \nonumber \\
+R^2 = \frac{ESS}{RSS} = 1 - \frac{RSS}{TSS} & \text{because} & \frac{ESS}{TSS} = \frac{TSS-RSS}{TSS} 
+\end{eqnarray}
+
+%%%%%% End page 11 %%%%%  
+%%%%%% End Inference Section %%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Prokosch}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Re: Notes p.1}
+Page 1 of notes skipped because an expanded version of the same headings/logic already appears in \ref{chap_SpatialStats}. Starting with p.2 below.
+
+%SpatialStats p.2 BEGIN
+\subsection{Spatial DGP}
+Consider two neighbours $i$ and $j$
+
+\begin{eqnarray}
+y_{i} = \alpha_{i} + \boldsymbol{X}_{i}\boldsymbol{\beta} + e_{i} \qquad \text{with} \qquad e_i \sim i.i.d.(0, \sigma^{2}) \\
+y_{j} = \alpha_{j} + \boldsymbol{X}_{j}\boldsymbol{\beta} + e_{j} \qquad \text{with} \qquad e_j \sim i.i.d.(0, \sigma^{2})
+\end{eqnarray}
+
+\paragraph{Problem} 
+With more spatial dependencies, little practical usefulness since it results in a system with \emph{more parameters than observations.}
+
+$\therefore$ potentially $n^2 - n$ relations to be estimated
+
+Assumptions:
+
+\begin{itemize}
+\item Observations at location $i$ depend on those at location $j$ and vice versa.
+\item The DGP is simultaneous across space.
+\end{itemize}
+
+The overparameterisation problem can be solved by \emph{imposing structure} in a \emph{spatial autoregressive process}
+
+\begin{eqnarray}\label{eqn_spatialDGP}
+y_{i} = \rho \sum_{i=1}^{n} W_{ij} y_{j} + e_{i}
+\end{eqnarray}
+
+\noindent where $\rho$ is the spatial correlation coefficient and $\sum_{i=1}^{n} W_{ij} y_{j}$ is the spatial lag of $y_i$, the weighted average of neighboring observations.
+%SpatialStats p.2 END
+
+%SpatialStats p.3 BEGIN
+\emph{Example:}
+
+%%%%%%%%%%%%%%%
+% Begin Graphic: Adjacent regions with spatial DGP
+\tikzstyle{square} = [rectangle, draw, text centered, font=\large,
+    minimum width=3em, minimum height=3em]
+
+\begin{tikzpicture}[node distance = 3.1em, auto]
+    % each node represents a region. 
+    % We might consider reducing node distance to 0.
+    \node[square] (R1) {R1};
+    \node[square, right of=R1] (R2) {R2};
+    \node[square, right of=R2] (R3) {R3};
+    \node[square, right of=R3] (R4) {R4};
+   
+    % First-degree neighbor of R1
+    \path[draw, *-latex'] (R1.north) to [bend left] node [above] {N1} (R2.north);
+    
+    % Second-degree neighbors of R1
+    % can't draw each edge with *-latex' or else we'll end up with two origin dots.
+    \path[draw, *-] (R2.south) to (R2.south);
+    \path[draw, -latex'] (R2.south) to [bend left] node [below] {N2} (R1.south);
+    \path[draw, -latex'] (R2.south) to [bend right] node [below] {N2} (R3.south);
+\end{tikzpicture}
+% End Graphic 
+%%%%%%%%%%%%%%%
+
+\noindent first-order neighbours and higher-order neighbours. N.B.: R1 is its own second-order neighbour (i.e. the neighbour of the first-order neighbour.)
+
+In matrix notation,
+\begin{eqnarray}
+\boldsymbol{y} = \rho\boldsymbol{Wy} + \boldsymbol{e} \qquad \text{with} \qquad \boldsymbol{e} \sim\mathcal{N}(0,\sigma^{2}\boldsymbol{I}_n)
+\end{eqnarray}
+
+In order to construct $\boldsymbol{W}$, we start with a contiguity matrix $\boldsymbol{C}$,
+\begin{eqnarray}
+\boldsymbol{C} = 
+\begin{bmatrix}
+  0 & 1 & 0 & 0\\
+  1 & 0 & 1 & 0\\
+  0 & 1 & 0 & 1\\
+  0 & 0 & 1 & 0
+\end{bmatrix}
+\end{eqnarray}
+\noindent where each row corresponds to an observation $i$, and each column corresponds to a neighbour $j$. Then we create $\boldsymbol{W}$ by row-standardization, i.e. row sums normalized to one, such that
+\begin{eqnarray}
+\boldsymbol{W} = 
+\begin{bmatrix}
+  0 & 1 & 0 & 1\\
+  \frac{1}{2} & 0 & \frac{1}{2} & 0\\
+  0 & \frac{1}{2} & 0 & \frac{1}{2}\\
+  0 & 0 & 1 & 0
+\end{bmatrix}
+\end{eqnarray}
+
+Subsequently,
+\begin{eqnarray}
+\boldsymbol{W}\boldsymbol{y} =
+\begin{bmatrix}
+  0 & 1 & 0 & 1\\
+  \frac{1}{2} & 0 & \frac{1}{2} & 0\\
+  0 & \frac{1}{2} & 0 & \frac{1}{2}\\
+  0 & 0 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+  y_{1}\\
+  y_{2}\\
+  y_{3}\\
+  y_{4}
+\end{bmatrix}
+=
+\begin{bmatrix}
+  y_{2}\\
+  \frac{(y_{1} + y_{2})}{2}\\
+  \frac{(y_{2} + y_{4})}{2}\\
+  y_{3}
+\end{bmatrix}
+\end{eqnarray}
+
+Now, $\rho$ is a scalar parameter of spatial dependence with
+\begin{eqnarray}
+\rho
+ \left\{ 
+  \begin{array}{l l}
+    0 & \text{no spatial autocorrelation (SA)}\\
+    > 0 & \text{positive SA (clustering)}\\
+    < 0 & \text{negative SA (segregation)}
+  \end{array} 
+ \right. % means "don't draw anything for the large close brace"
+\end{eqnarray}
+
+\subsection{Spatial Autocorrelation DGP}
+\begin{eqnarray}
+\boldsymbol{y} = \rho\boldsymbol{W}\boldsymbol{y} + \boldsymbol{\iota}\alpha + \boldsymbol{e}\\
+(\boldsymbol{I}_n - \rho\boldsymbol{W})\boldsymbol{y} = \boldsymbol{\iota}\alpha + \boldsymbol{e}\\
+\boldsymbol{y} = (\boldsymbol{I}_n - \rho\boldsymbol{W})^{-1}\boldsymbol{\iota}\alpha + (\boldsymbol{I}_n - \rho\boldsymbol{W})^{-1}\boldsymbol{e}
+\end{eqnarray}
+
+Assuming $|\rho| < 1$, we can express the inverse as\footnote{This follows because the sum of a geometric series $\sum_{k=0}^{\infty}ar^k$ with a common ratio $|r| < 1$ can be expresed as $\frac{a}{1 - r}$.}
+\begin{eqnarray}
+(\boldsymbol{I}_n - \rho\boldsymbol{W})^{-1} = \boldsymbol{I}_n + \rho\boldsymbol{W} + \rho^{2}\boldsymbol{W}^{2} + \rho^{3}\boldsymbol{W}^{3} + ... \qquad \text{which implies}\\
+\boldsymbol{y} = \boldsymbol{\iota}\alpha + \rho\boldsymbol{W}\boldsymbol{\iota}\alpha + \rho^2\boldsymbol{W}^2\boldsymbol{\iota}\alpha + ... + \boldsymbol{e} + \rho\boldsymbol{W}\boldsymbol{e} + \rho^2\boldsymbol{W}^2\boldsymbol{e} + ...
+\end{eqnarray}
+\noindent Because $\alpha$ is a scalar and $\boldsymbol{W}_{1} = \boldsymbol{\iota}$, the first part converges to
+\begin{eqnarray}
+(1 - \rho)^{-1}\boldsymbol{\iota}\alpha \qquad \text{(sum of geometric series)}\\
+\therefore \qquad \boldsymbol{y} = \frac{1}{1-\rho}\boldsymbol{\iota}\alpha + \boldsymbol{e} + \underbrace{\rho\boldsymbol{W}\boldsymbol{e} + \rho^2\boldsymbol{W}^2\boldsymbol{e} + ...}_{\text{violation of Gauss-Markov}}
+\end{eqnarray}
+\noindent this is a strong violation of Gauss-Markov assumption of independence of error terms, therefore OLS will be \emph{biased and inconsistent}. Consider following spatial autoregression model:
+\begin{eqnarray}
+\boldsymbol{y} = \rho\boldsymbol{Wy} + \boldsymbol{X\beta} + \boldsymbol{e}\\
+\boldsymbol{y} = (\boldsymbol{I}_n - \rho\boldsymbol{W})^{-1}\boldsymbol{X\beta} + (\boldsymbol{I} - \rho\boldsymbol{W})^{-1}\boldsymbol{e} \qquad \text{with} \qquad \boldsymbol{e}\sim\mathcal{N}(0,\sigma^{2}\boldsymbol{I})
+\end{eqnarray}
+
+With this model, we estimate 3 parameters, $\boldsymbol{\beta}$, $\sigma^{2}$ and $\rho$. N.B. If $\rho=0$, spatial autoregression reduces to regular OLS model:
+\begin{eqnarray}
+\hat{\boldsymbol{\beta}}_{SAR} = (\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'(\boldsymbol{I} - \hat{\rho}\boldsymbol{W})\boldsymbol{y}\\
+ = (\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y} - \hat{\rho}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{Wy}
+ = \hat{\boldsymbol{\beta}}_{OLS} - \hat{\rho}\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{Wy}
+\end{eqnarray}
+%SpatialStats p.5 END
+%SpatialStats p.6 BEGIN
+\subsubsection{Global Autocorrelation: Moran's $I$}
+
+Moran's $I$ coefficient calculates the ratio between the product of a variable and its \emph{spatial lag}, with the product  of the variable adjusted for spatial weights:
+\begin{eqnarray}
+I = \frac
+         {\frac
+               {\sum_{i}\sum_{j}w_{ij}(y_{i}-\bar{y})(y_{j}-\bar{y})}
+               {\sum_{i}\sum_{j}w_{ij}}
+         }
+         {\frac
+               {\sum_{i}{(y_{i}-\bar{y})^2}}
+               {n}
+         }
+  = [-1, +1]
+\end{eqnarray}
+\noindent where the minimum value of $-1$ corresponds to perfect dispersion and the maximum value of $1$ corresponds to perfect correlation.
+
+\paragraph{Local Moran's $I$} is Moran's $I$ as the regression coefficient of a variable on its spatial lag.
+\begin{eqnarray}
+I = \frac
+         {(y_{i}-\bar{y})\sum_{i}\sum_{j}w_{ij}(y_{i}-\bar{y})}
+         {\frac
+               {\sum_{i}{(y_{i}-\bar{y})^2}}
+               {n}
+         }
+\end{eqnarray}
+\noindent ...show example of ``heat map'' of local Moran's $I$ z-scores where values are significantly different from those in neighboring areas.
+
+\subsubsection{A brief excursion on projections}
+
+Latitude: North-south position $\equiv$ $y$-axis \\
+Longitude: East-west position $\equiv$ $x$-axis
+
+Projection is necessary to represent a 3D globe with a 2D map. Projections always distort at least one property of the original globe.
+
+There are three main types of projections:
+\begin{enumerate}[(i)]
+\item Cylindrical projection: [INSERT DIAGRAM(S) HERE]
+\item Conic projections: [INSERT DIAGRAM HERE]
+\item Planar projections: [INSERT DIAGRAM HERE]
+\end{enumerate}
+
+%%%%%%%%%%%%%%%
+\begin{table}[htp] \centering
+  \caption{\textsf{R} names of projections and what they preserve}
+\begin{tabular}{@{\extracolsep{5pt}}l l l l }\label{tbl_RProjections}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+Preserves & Cylindrical & Conic & Planar \\
+\hline \\[-1.8ex]
+Area & \texttt{cylequalarea} & \texttt{albers} & \texttt{azequalarea} \\
+Angle & \texttt{mercator\footnotemark[1]} & \texttt{lambert} & \texttt{stereographic} \\
+ & (\texttt{utm}, \texttt{omerc}) & & \\
+Distance & -- & -- & \texttt{azequidistant} \\
+\hline \\[-1.8ex]
+\end{tabular}
+
+\footnotemark[1]{Transverse and oblique projections}
+% In the line above I used \footnotemark by mistake, rather than
+% \footnotetext. As of 2013-08-03, it seems to work (displays OK and 
+% doesn't disrupt footnote numbering in text), so I'm leaving it.
+% -Arthur.
+\end{table}
+%%%%%%%%%%%%%%%%
+
+[INSERT DIAGRAM: 3-dimensional polar coordinates, $\phi$ = LAT, $\theta$ = LONG]
+
+\paragraph{Different coordinate systems}
+\begin{enumerate}[(i)]
+\item Cartesian coordinates
+\item Polar coordinates
+\end{enumerate}
+
+%%%%%%%%%%%%%%%
+% Begin Graphic: polar coordinates on a cartesian grid
+% loosely following http://www.texample.net/tikz/examples/intersection-of/
+\tikzstyle{axis} = [very thick, -latex']
+\tikzstyle{axisshadow} = [thin, dashed]
+\tikzstyle{shadowlabel} = [opacity=0, text opacity=1]
+
+\begin{tikzpicture}
+
+    \draw[axis] (-0.1,0) -- (5,0) node(xlabel)[right]{x};
+    \draw[axis] (0,-0.1) -- (0,4) node(ylabel)[above]{y};
+    
+    \draw[-] (0,0) -- 
+        node(rlabel)[above]{$r$} 
+        (4,3);
+    \fill[black] (4,3) circle (1.5pt) 
+        node(Plabel)[above]{$P(x,y)$};     
+    
+    %TODO: add curved arrow from r to x-axis with label $\theta$ 
+    
+    \draw[axisshadow] (0,3) -- (4,3);
+    \draw[shadowlabel] (0,0) -- 
+        node(Pylabel)[left]{$r sin(\theta)$}
+        (0,3);
+        
+    \draw[axisshadow] (4,0) -- (4,3);
+    \draw[shadowlabel] (0,0) -- 
+        node(Pxlabel)[below]{$r cos(\theta)$}
+        (4,0);
+
+\end{tikzpicture}
+% End Graphic 
+%%%%%%%%%%%%%%%
+\begin{eqnarray}
+\therefore r = \sqrt{y^{2}+x^{2}} \qquad \text{with} \qquad
+    \theta = tan^{-1}(\frac{y}{x}) = arctan(\frac{y}{x}) \qquad \text{(depending on quadrant)}
+\end{eqnarray}
+
+\paragraph{Tissot indicatrix} $\equiv$ Characterizes distortions due to map projections.
+
+[INSERT DIAGRAM: mapping lat/long points via projection]
+
+%SpatialStats p.9 END
+%SpatialStats p.10 BLANK
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Wang}
+\subsection{Basic Linear Model}
+Recall
+\begin{eqnarray*}
+y=m(\boldsymbol{X})+e
+\end{eqnarray*}
+where
+\begin{eqnarray*}
+m(\boldsymbol{X}) \equiv \mathbb{E}[y|\boldsymbol{X}]=\sum^{\infty}_{-\infty}yf(y|\boldsymbol{X})dx
+\end{eqnarray*}
+\paragraph {Key properties of the regression error}
+\begin{enumerate}[(1)]
+\item $\mathbb{E}[e|\boldsymbol{X}]$ = 0
+\item $\mathbb{E}[e]$ = 0
+\item $\mathbb{E}[e\boldsymbol{X}]$ = 0
+\end{enumerate}
+
+\paragraph{Homoskedasticity vs. heteroskedasticity}
+\begin{enumerate}[(a)]
+\item $\mathbb{E}[e^{2}|\boldsymbol{X}]$ = $\sigma^{2}$
+\item $\mathbb{E}[e^{2}|\boldsymbol{X}]$ = $\sigma^{2}(\boldsymbol{X})$
+\end{enumerate}
+\noindent In equation b, conditional variance $\mathbb{E}(e^{2}|\boldsymbol{X})$ is correlated with the skedastic function $m^{2}(\boldsymbol{X})$\\
+\\
+Old view: Variance of e varies among observations\\
+New view: Conditional variance of $\sigma^{2}(\boldsymbol{X})$ depends on $\boldsymbol{X}$
+\begin{eqnarray*}
+\sigma^{2}=\mathbb{E}[e^{2}]=\mathbb{E}[\mathbb{E}[e^{2}|\boldsymbol{X}]]=\mathbb{E}[\sigma^{2}(\boldsymbol{X})]
+\end{eqnarray*}
+\begin{itemize}
+\item Standard approach focuses on conditional mean only and assumes that \underline{conditional variance is fixed} (ie. homoskedasticity).
+\item Economist with one foot in bucket with boiling water, other foot in bucket of ice "feels fine on average" ignore variance at your peril.
+\end{itemize}
+
+\paragraph{Linear model}
+\begin{eqnarray*}
+y&=&\boldsymbol{X'\beta}+e\\
+\mathbb{E}[e|\boldsymbol{X}]&=& 0\\
+\mathbb{E}[e^{2}|\boldsymbol{X}]&=& \sigma^{2} \text{ or } \sigma^{2}(\boldsymbol{X})
+\end{eqnarray*}
+Key application: 
+\begin{itemize}
+\item ARCH and GARCH models in finance to model time-varying volatility.
+\item Robert Eagle (1982) gets 2003 Nobel Prize.
+\end{itemize}
+
+\paragraph{Best linear predictor}
+\begin{eqnarray*}
+F(\beta)&=&\mathbb{E}[(\overset{\overset{1\times 1}{\downarrow}}{y_{i}}-\overset{\overset{1\times k}{\downarrow}}{\boldsymbol{X_{i}'}}\overset{\overset{k\times 1}{\downarrow}}{\boldsymbol{\beta}})^2]
+\end{eqnarray*}
+Dropping subscripts in following lines.
+\begin{eqnarray*}
+F(\beta)&=&\mathbb{E}[y^2] - 2\boldsymbol{\beta}'\mathbb{E}[\boldsymbol{Xy}] + \boldsymbol{\beta}'\mathbb{E}[\boldsymbol{XX'}]\boldsymbol{\beta}
+\end{eqnarray*}
+$\to$ First order condition:
+\begin{eqnarray*}
+\frac{\partial F(\beta)}{\partial \beta} = -2\mathbb{E}[\boldsymbol{Xy}] + 2\mathbb{E}[X\boldsymbol{X'}]\beta = 0
+\end{eqnarray*}
+$\to$ iff $\mathbb{E}[\boldsymbol{XX'}]$ is invertable (non-singular matrix with a positive determinent)\\
+$\to$ Singular matrix $\equiv$ square matrix without an inverse, zero determinant.
+\begin{eqnarray*}
+\therefore 2\mathbb{E}[\boldsymbol{Xy}] &=& 2\mathbb{E}[X\boldsymbol{X'}]\beta\\
+\therefore \boldsymbol{\beta} &=& \mathbb{E}[\boldsymbol{XX'}]^{-1}\mathbb{E}[\boldsymbol{Xy}]
+\end{eqnarray*}
+Empirical analog of expected squared error is the sample average squared error.
+\begin{eqnarray*}
+F_n(\boldsymbol{\beta}) &=& \frac{1}{n}\sum(\boldsymbol{y}-\boldsymbol{X'\beta})^2\\
+&=& \frac{1}{n} SSE_n(\boldsymbol{\beta})\\
+SSE_n(\boldsymbol{\hat{\beta}}) &=& \sum{y_i}^2 - 2\boldsymbol{\beta'}\sum\boldsymbol{X_{i}}y_{i} + \boldsymbol{\beta'}\sum\boldsymbol{{X_i}{X'_i}\beta}\\
+\frac{\partial SSE_n(\boldsymbol{\hat{\beta}})}{\partial \boldsymbol{\beta}} &=& -2\sum\boldsymbol{x_{i}}y_{i} + \sum\boldsymbol{X_{i}X'_{i}\beta} = 0\\
+\boldsymbol{\hat{\beta}} &=& (\sum\boldsymbol{X_{i}X'_{i}})^{-1}(\sum\boldsymbol{X_{i}}y_{i})
+\end{eqnarray*}
+
+\subsection{The model in matrix notation}
+\begin{eqnarray*}
+y_1 &=& \boldsymbol{X'_1\beta} + e_1\\
+y_2 &=& \boldsymbol{X'_1\beta} + e_1\\
+\vdots\\
+y_n &=& \boldsymbol{X'_n\beta} + e_n
+\end{eqnarray*}
+i.e.
+\begin{eqnarray*}
+y_i &=& \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_k x_{ik}\\
+\boldsymbol{X'_i}\ &=& \begin{pmatrix}x_{i1} & x_{i2} & x_{i3} & \cdots & x_{ik}\end{pmatrix}
+\end{eqnarray*}
+Define
+\[\boldsymbol{y}=\left( \begin{array}{c}
+y_1\\
+y_2\\
+\vdots\\
+y_n \end{array} \right), \quad \boldsymbol{X}=\left( \begin{array}{c}
+\boldsymbol{X'_1}\\
+\boldsymbol{X'_2}\\
+\vdots\\
+\boldsymbol{X'_n}\end{array} \right), \quad \boldsymbol{e}=\left( \begin{array}{c}
+e_1\\
+e_2\\
+\vdots\\
+e_n\end{array} \right)\]
+\\
+\begin{center}
+$\therefore$ y = $\boldsymbol{X\beta}$ + e
+\end{center}
+\begin{eqnarray*}
+\text{with}\quad\sum^n_1\overset{k\times1}{\boldsymbol{X_i}}\overset{1\times k}{\boldsymbol{X_i'}} = \overset{k\times n}{\boldsymbol{X}}\overset{n\times k}{\boldsymbol{X'}}\quad\text{and}\quad\sum^n_1\boldsymbol{X_{i}}y_i = \boldsymbol{X'y}
+\end{eqnarray*}
+\begin{eqnarray*}
+&\therefore& \quad \boldsymbol{\hat{\beta}} = (\boldsymbol{X'X})^{-1}\boldsymbol{X'y}\\
+&\text{and}& \quad \boldsymbol{\hat{e}} = \boldsymbol{y-X\hat{\beta}}, \quad\sigma^2 = n^{-1}\boldsymbol{\hat{e'}\hat{e}}
+\end{eqnarray*}
+
+\subsection{Martix review}
+\begin{eqnarray*}
+\boldsymbol{AA^{-1}}=\boldsymbol{A^{-1}A}=\boldsymbol{I_{k}}\quad \text{for a k}\times\text{k matrix}
+\end{eqnarray*}
+Matrix $\boldsymbol{A}$ is said to be \underline{nonsingular} if it is of full rank; ie. rank ($\boldsymbol{A}$) = k.
+\begin{eqnarray*}
+\boldsymbol{A} = \begin{bmatrix} a_{1} & a_{2} & \cdots & a_{r} \end{bmatrix}\qquad k\times r
+\end{eqnarray*}
+has rank j iff it has j independent columns.\\
+\\
+$\therefore$ nonsigularity $\equiv$ full rank (no linearly dependent columns) $\to$ $\therefore$ invertibility\\
+cf. nonsigularity and multicollinearity.\\
+\\
+\underline{Matrix determinant} is a measure of \underline{matrix volume} for as square matrix, representing a rhomboid.
+\[det(A) \neq 0 \quad \text{iff }\boldsymbol{A}\text{ is non-singular}\]
+Consider \begin{eqnarray*}
+\boldsymbol{A}=\begin{bmatrix}
+a_{11} & a_{12}\\
+a_{21} & a_{22}\end{bmatrix}
+\end{eqnarray*}
+$det$ $\equiv$ sum of all signed elementary product
+\begin{eqnarray*}
+\therefore det (\boldsymbol{A}) &=& a_{11}a_{22}-a_{12}a_{21}\\
+det(\boldsymbol{A^{-1}}) &=& \frac{1}{det(\boldsymbol{A})}\\
+\boldsymbol{A^{-1}} &=& \frac{1}{det(\boldsymbol{A})}adj(\boldsymbol{A})\\
+&=&\frac{1}{det(\boldsymbol{A})}\begin{bmatrix}
+a_{11} & -a_{12}\\
+-a_{21} & a_{22}\end{bmatrix}
+\end{eqnarray*}
+%%%%%%%%%%%%Picture on Page 6%%%%%%%%%%%%%%%
+Geometry interpretation of determinants of $det(\boldsymbol{A})$\\
+\begin{tikzpicture}[
+    scale=1.4,
+    axis/.style={very thick, ->, >=stealth'},
+    pile/.style={thick, ->, >=stealth', shorten <=1pt, shorten >=1pt},
+    ]
+    \draw [fill=lightgray] (0,0) -- (5,2) -- (5,0) -- cycle;
+    \draw [fill=lightgray] (0,0) -- (0,5) -- (3,5) -- cycle;
+    \draw [fill=lightgray] (3,5) -- (5,5) -- (5,2) -- cycle;
+    \draw[axis] (0,0) -- (6,0) node(xlabel)[right]{$a_{1}$};
+    \draw[axis] (0,0) -- (0,6) node(ylabel)[above]{$a_{2}$};
+    \draw[axisshadow] (0,5) -- (5,5);
+    \draw[axisshadow] (5,0) -- (5,5);
+    \fill[black] (0,0) circle (1.5pt) 
+        node(O)[below]{$O$};
+    \fill[black] (5,2) circle (1.5pt) 
+        node(a1)[right]{$\boldsymbol{A_{1}}$};
+    \fill[black] (5,0) circle (1.5pt) 
+        node(a11)[below]{$a_{11}$};
+    \fill[black] (0,2) circle (1.5pt) 
+        node(a12)[left]{$a_{12}$};
+    \fill[black] (3,5) circle (1.5pt) 
+        node(a2)[above]{$\boldsymbol{A_{2}}$};
+    \fill[black] (3,0) circle (1.5pt) 
+        node(a21)[below]{$a_{21}$};  
+    \fill[black] (0,5) circle (1.5pt) 
+        node(a22)[left]{$a_{22}$};  
+    \fill[black] (8,7) circle (1.5pt); 
+    \draw[pile] (0,0) -- (5,2); 
+    \draw[pile] (0,0) -- (3,5);
+    \draw[-] (3,5) -- (5,2);
+    \draw[-] (8,7) -- (5,2);
+    \draw[-] (8,7) -- (3,5);
+    \node at (2,6) (an1) {$\frac{1}{2}(a_{21}a_{22})$};
+    \node at (8,4.3) (an2) {$\frac{1}{2}(a_{11}-a_{21})(a_{22}-a_{12})$};
+    \node at (6.2,1.3) (anwhole) {$a_{11}a_{22}$};
+    \node at (2,-1) (an3) {$\frac{1}{2}(a_{11}a_{22})$};
+    \node at (1,4.5) (area1) {}
+   edge[->,bend left=45] (an1);
+    \node at (4.5,4.5) (area2) {}
+   edge[->,bend right=15] (an2);
+    \node at (2,0.5) (area3) {}
+   edge[->,bend left=15] (an3);
+    \node at (4.91,1) (areawhole) {}
+   edge[->] (anwhole);
+\end{tikzpicture}
+\\
+The area of white triangle = $a_{11}a_{12}-\frac{1}{2}a_{11}a_{12}-\frac{1}{2}a_{21}a_{22}-\frac{1}{2}a_{11}a_{12}+\frac{1}{2}a_{11}a_{12}+\frac{1}{2}a_{21}a_{22}-\frac{1}{2}a_{12}a_{21}$ = $\frac{1}{2}a_{11}a_{22}-\frac{1}{2}a_{12}a_{21}$ = $\frac{1}{2}det(\boldsymbol{A})$\\
+\\
+What happens if two elementary vectors $\boldsymbol{A_{1}}$ and $\boldsymbol{A_{2}}$ are linearly dependent?\\
+%%%%%%%%%%%%Picture on Page 6%%%%%%%%%%%%%%%
+\paragraph{ACS tables}~\\
+Margins of error $\to$ permit construction of 90\% confidence bands
+\begin{eqnarray*}
+S.E. = \frac{(MOE_{\text{ACS}})}{1.645}
+\end{eqnarray*}
+Eg. Test difference in population means
+\begin{eqnarray*}
+\left| \frac{\mu_{1}-\mu_{2}}{\sqrt{s_{1}^{2}+s_{2}^{2}}} \right| > Z_{\text{confidence}}
+\end{eqnarray*}
+$\therefore$ Standard error = $\frac{MOE}{2}$  $\to$  Margin = S.E. $\times$ Z-score\\
+Postnet Zip codes\\
+HEXadecimal colums(RGB range 0-255)
+
+\subsection{OLS Continued}
+Excursion: $\boldsymbol{X'X}^{-1}$ as a transforming space
+\begin{eqnarray*}
+\boldsymbol{\hat{\beta}} = \boldsymbol{X'X}^{-1}\boldsymbol{X'y}
+\end{eqnarray*}
+now assume that $(\boldsymbol{X'X})^{-1}$ = $\boldsymbol{I}$, this could imply that:
+\begin{enumerate}[(i)]
+\item off-diagonal element 0; i.e. data is uncorrelated
+\item diagonal with ones; i.e. sum of squared variable = 1 which implies $\mu_{x}=0$ and $\sigma_{x}=\frac{1}{N}$
+\end{enumerate}
+\begin{eqnarray*}
+\because \boldsymbol{X'X}^{-1}=\boldsymbol{I} \to \boldsymbol{X'X}=\boldsymbol{I}
+\therefore \boldsymbol{X'}=\boldsymbol{X^{-1}}
+\end{eqnarray*}
+then
+\begin{eqnarray*}
+\boldsymbol{\hat{\beta}}=\boldsymbol{IX'y}=\boldsymbol{X'y}\equiv\boldsymbol{X^{-1}y} \to\text{Naive Regression Coefficient}
+\end{eqnarray*}
+$\therefore$ The rotating matrix thus compresses, expands, and rotates the naive regression coefficients.\\
+\\
+$\to$ $(\boldsymbol{X'X})^{-1}$ as \underline{corrective terms} based on \underline{scale and correlations} of original regressors.\\
+$\therefore$ Similar scaling interpretation of $s^{2}(\boldsymbol{X'X})^{-1}$, thus linking the variance of the residuals to the standard errors of the regression coefficients.\\
+\\
+\underline{Recall:}
+$\boldsymbol{\hat{\beta}}$ is also a random variable with its own $\mu_{\boldsymbol{\hat{\beta}}}$ and $\sigma^{2}_{\boldsymbol{\hat{\beta}}}$.\\
+Thus it has a sampling distribution.
+\begin{eqnarray*}
+\mathbb{E}(\boldsymbol{\hat{\beta}}|\boldsymbol{X}) &=& \boldsymbol{\beta}\quad\text{and}\quad\mathbb{E}(\boldsymbol{\hat{\beta}}) = \boldsymbol{\beta}\\
+&\downarrow&\\
+\mathbb{E}(\boldsymbol{\hat{\beta}}|\boldsymbol{X}) &=& \mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{X'y}|\boldsymbol{X}]\\
+&=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'}\mathbb{E}[\boldsymbol{y}|\boldsymbol{X}]\\
+&=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'X\beta}\\
+&=& \boldsymbol{\beta}
+\end{eqnarray*}
+\noindent What about the variance of $\boldsymbol{\hat{\beta}}$, Var$(\boldsymbol{\hat{\beta}})$?
+\begin{eqnarray*}
+Var(\boldsymbol{e}) &=& \mathbb{E}(\overset{n\times1}{\boldsymbol{e}}\overset{1\times n}{e'}) = \overset{1\times1}{\sigma^{2}}\overset{n\times n}{\boldsymbol{I}}\quad\text{and}\\
+\boldsymbol{\hat{\beta}}-\boldsymbol{\beta} &=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'e}
+\end{eqnarray*}
+\begin{eqnarray*}
+V(\boldsymbol{\hat{\beta}}) &=& \mathbb{E}[(\boldsymbol{\hat{\beta}-\beta})(\boldsymbol{\hat{\beta}-\beta})']\\
+&=& \mathbb{E}[(\boldsymbol{XX'})^{-1}\boldsymbol{X'ee'X}(\boldsymbol{X'X})^{-1}]\\
+&=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'}\mathbb{E}(\boldsymbol{ee'})\boldsymbol{X}(\boldsymbol{X'X})^{-1}\\
+&=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'}\sigma^{2}\boldsymbol{I}\boldsymbol{X}(\boldsymbol{X'X})^{-1}\\
+&=& \sigma^{2}(\boldsymbol{X'X})^{-1}\boldsymbol{X'X}(\boldsymbol{X'X})^{-1}\\
+&=& \sigma^{2}(\boldsymbol{X'X})^{-1}
+\end{eqnarray*}
+\paragraph{Estimate of error variance $\sigma^{2}$} ~\\
+OLS does not provide a direct estimate of $\sigma^{2}$, if $\sigma$ was actually observable, then
+\begin{eqnarray*}
+\sigma^{2} &=& \frac{1}{n}\sum e^{2}_{i}
+\end{eqnarray*}
+Why? The mean of $e_i$ is zero!
+But best we can do is actually
+\begin{eqnarray*}
+\hat{\sigma}^{2} &=& \frac{1}{n}\sum \hat{e}^{2}_{i}
+\end{eqnarray*}
+Therefore, each squared residual can be shown to have an expectation that is smaller than $\sigma$ such that
+\begin{eqnarray*}
+\mathbb{E}[\hat{\sigma}^{2}] < \sigma^{2}\qquad\therefore\hat{\sigma}^{2}\text{\underline{always biased downwards}}
+\end{eqnarray*}
+We can show that:
+\begin{eqnarray*}
+\mathbb{E}[\hat{\sigma}^{2}] = \frac{n-k}{n}\sigma^{2}
+\end{eqnarray*}
+$\therefore$ Bias takes "scale form" (depends on ratio of coefficients to sample size $frac{k}{n}$), thus unbiased estimator via re-scaling.
+\begin{eqnarray*}
+s^{2}\equiv\frac{1}{n-k}\sum^{n} \hat{e_{i}}^{2}=\frac{n}{n-k}\hat{\sigma}^{2}
+\end{eqnarray*}
+Note: While $s^{2}$ is an unbiased estimate of $\sigma^{2}$, s does \underline{not} provide unbiased estimate of $\sigma$!
+
+\subsection{Basic matrix algebra revisited}
+\begin{eqnarray*}
+\boldsymbol{a_{i}}=\left( \begin{array}{c}
+a_{1i}\\
+a_{2i}\\
+\vdots\\
+a_{ni} \end{array} \right) \quad\to\quad\boldsymbol{A}=[\boldsymbol{a_{1} a_{2}}\cdots \boldsymbol{a_{k}}] = \begin{bmatrix}
+  \boldsymbol{\alpha_{1}} \\
+  \boldsymbol{\alpha_{2}}\\
+  \vdots\\
+  \boldsymbol{\alpha_{n}}
+\end{bmatrix} = \begin{bmatrix}
+  a_{11} & a_{12} & \cdots & a_{1k} \\
+  a_{21} & a_{22} & \cdots & a_{2k} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{n1} & a_{n2} & \cdots & a_{nk}
+\end{bmatrix}
+\end{eqnarray*}
+\underline{Column vector}\\
+$\boldsymbol{a^{T}_{i}}$ = $\boldsymbol{\alpha_{i}}$ = $\begin{bmatrix} \alpha_{j1} & \alpha_{j2} & \cdots & \alpha_{jk} \end{bmatrix}$\\
+There is a special vector $\boldsymbol{\iota}$ with $\boldsymbol{\iota^{T}a}$ = $\sum \boldsymbol{a_{i}}$ = n$\overline{a}$ \\
+The inner product for $\boldsymbol{\iota}$ and $\boldsymbol{a}$ is the summation of vector elements. $\therefore$ $\boldsymbol{\iota^{T}\iota}$ = n\\
+\\
+\underline{Row vector}\\
+There are three ways to write a linear model. Recall the OLS model in matrix notation:\\
+\\
+\begin{tikzpicture} \node[draw,circle,inner sep=1pt]{1};
+\end{tikzpicture}
+\begin{eqnarray*}
+&y_{1}& = \boldsymbol{x_{1}^{'}\beta} + e_{1}\\
+&y_{2}& = \boldsymbol{x_{2}^{'}\beta} + e_{2}\\
+&\vdots&\\
+&y_{n}& = \boldsymbol{x_{1}^{'}\beta} + e_{n}
+\end{eqnarray*}
+with
+\begin{eqnarray*}
+\boldsymbol{y}=\left( \begin{array}{c}
+y_1\\
+y_2\\
+\vdots\\
+y_n \end{array} \right), \quad \boldsymbol{X}=\left( \begin{array}{c}
+\boldsymbol{X'_1}\\
+\boldsymbol{X'_2}\\
+\vdots\\
+\boldsymbol{X'_n}\end{array} \right), \quad \boldsymbol{e}=\left( \begin{array}{c}
+e_1\\
+e_2\\
+\vdots\\
+e_n\end{array} \right)
+\end{eqnarray*}
+\begin{tikzpicture} \node[draw,circle,inner sep=1pt]{2};
+\end{tikzpicture}
+\begin{eqnarray*}
+\boldsymbol{y} = \boldsymbol{X\beta} + \boldsymbol{e} 
+\end{eqnarray*}
+\begin{tikzpicture} \node[draw,circle,inner sep=1pt]{3};
+\end{tikzpicture}
+\begin{eqnarray*}
+y_{i}=\beta_{0}+\beta_{1}x_{1i}+\beta_{2}x_{2i}+\cdots+\beta_{k-1}x_{k-1,i}+e_{i}
+\end{eqnarray*}
+
+\paragraph{Important notational equivalents}
+\begin{eqnarray*}
+\sum^{n}_{i=1} \boldsymbol{x_{i}x_{i}^{'}} &=& \boldsymbol{X'X}\\
+\sum^{n}_{i=1} \boldsymbol{x_{i}}y_{i} &=& \boldsymbol{X'Y}\\
+\text{Since}\quad\boldsymbol{X}=\begin{bmatrix}
+\boldsymbol{X'_1}\\
+\boldsymbol{X'_2}\\
+\vdots\\
+\boldsymbol{X'_n}
+\end{bmatrix}\quad&\text{and}&\quad\boldsymbol{X'}=\begin{bmatrix}\boldsymbol{x_{1}}&\boldsymbol{x_{2}}&\cdots&\boldsymbol{x_{n}}\end{bmatrix}
+\end{eqnarray*}
+\begin{eqnarray*}
+\therefore\quad\boldsymbol{X'X}&=&\begin{bmatrix}\boldsymbol{x_{1}}&\boldsymbol{x_{2}}&\cdots&\boldsymbol{x_{n}}\end{bmatrix}
+\begin{bmatrix}
+\boldsymbol{X'_1}\\
+\boldsymbol{X'_2}\\
+\vdots\\
+\boldsymbol{X'_n}
+\end{bmatrix}\\
+&=&\boldsymbol{X_{1}X_{1}^{'}}+\boldsymbol{X_{2}X_{2}^{'}}+\cdots+\boldsymbol{X_{n}X_{n}^{'}}\\
+&=&\sum^{n}_{i=1}\boldsymbol{x_{i}x_{i}^{'}}\quad\to
+\begin{bmatrix}
+\sum \boldsymbol{x_{1}}^{2} & \sum\boldsymbol{x_{1}x_{2}} & \cdots & \sum\boldsymbol{x_{1}x_{k}}\\
+\sum \boldsymbol{x_{2}x_{1}} & \sum\boldsymbol{x_{2}x_{2}} & & \sum\boldsymbol{x_{2}x_{k}}\\
+\vdots & \vdots & \ddots & \vdots\\
+\sum \boldsymbol{x_{k}x_{1}} & \sum\boldsymbol{x_{k}x_{2}} & & \sum\boldsymbol{x_{k}}^{2}
+\end{bmatrix}
+\end{eqnarray*}
+Also, sum of square $\sum x_{i}^{2}=\boldsymbol{x'x}$ (for $\boldsymbol{x}$ as a column vector)
+
+\subsection{Centering of variables (deviation from mean)}
+\paragraph{Example} $\boldsymbol{x}$ and its mean $\overline{\boldsymbol{x}}=\frac{1}{n}\sum \boldsymbol{x_{i}}$\\
+Let Z$\equiv\boldsymbol{x}-\overline{\boldsymbol{x}}\boldsymbol{\iota}$, we can show that the centered variable $\boldsymbol{\iota}$ is orthogonal (inner product is zero) to the constant $\xi$.
+\begin{eqnarray*}
+\boldsymbol{\iota^{'}Z}=\boldsymbol{\iota'}(\boldsymbol{X}-\overline{\boldsymbol{X}}\boldsymbol{\iota})=\boldsymbol{\iota'X}-\overline{\boldsymbol{X}}\boldsymbol{l'l}=n\overline{\boldsymbol{X}}-\overline{\boldsymbol{X}}n=0
+\end{eqnarray*}
+Became centering leads to a variable that is othogonal to $\boldsymbol{\iota}$, it can be performed by the orthogonal projection matrix $\boldsymbol{M_{\iota}}$
+\begin{eqnarray}
+\boldsymbol{M_{\iota}}\equiv\boldsymbol{I_{\iota}}-\boldsymbol{P_{\iota}}=\boldsymbol{I}-\boldsymbol{\iota}(\boldsymbol{\iota'\iota})^{-1}\boldsymbol{\iota'}=\boldsymbol{I}-\frac{\boldsymbol{\iota\iota'}}{n}
+\end{eqnarray}
+Proof:
+\begin{eqnarray*}
+\boldsymbol{M_{\iota}}&=&(\boldsymbol{I}-\boldsymbol{P_{\iota}})\\
+&=&\boldsymbol{X}-\boldsymbol{\iota}(\boldsymbol{\iota'\iota})^{-1}\boldsymbol{\iota'X}\\
+&=&\boldsymbol{X}-\overline{\boldsymbol{X}}\boldsymbol{\iota}\\
+&=&\boldsymbol{Z}
+\end{eqnarray*}
+\paragraph{Application to regression analysis $R^2$:} from the goodless of fit to specification\\
+Recall that:
+\begin{eqnarray*}
+TSS &=& ESS+RSS\\
+\sum^{n}(y_{i}-\overline{y})^{2} &=& \sum^{n}(\hat{y_{i}}-\overline{y})^{2}+\sum^{n}(y_{i}-\hat{y_{i}})^{2}\\
+ &=& \sum^{n}(\hat{y_{i}}-\overline{y})^{2}+\sum^{n}\hat{e_{i}}^{2}
+\end{eqnarray*}
+Plm: $\boldsymbol{y} = \boldsymbol{P_{x}y} + \boldsymbol{M_{x}y}\quad\therefore \boldsymbol{\hat{y}}=\boldsymbol{P_{x}y}\quad\to\quad \boldsymbol{y}-\overline{\boldsymbol{y}}\quad\equiv\quad$centered variable by multiplying by $\boldsymbol{M_{\iota}}$\\
+$\therefore\boldsymbol{M_{\iota}}=\boldsymbol{y}-\overline{\boldsymbol{y}}\quad$ and recall that $\quad\boldsymbol{y'y}=\sum y^{2}$
+\begin{eqnarray*}
+\therefore TSS &=& \boldsymbol{y'M_{\iota}y}\\
+ESS &=& \boldsymbol{y'M_{\iota}P_{x}y}\\
+RSS &=& \boldsymbol{y'M_{x}y}\\
+\text{And thus:}\quad R^{2} &=& \frac{ESS}{TSS}=1-\frac{RSS}{TSS}
+\end{eqnarray*}
+NB: Adjusted $R^{2}=1-(1-R^{2})\frac{n-1}{n-k}$ with k-1 regressors.\\
+$\to\overline{R}^{2}$ increases only if the absolute value of t-stats of new variable is greater than 1.\\
+$\therefore\quad$Increase in $\overline{R}^{2}$ generally not indicative of improved specification.\\
+$\to$Applied econometricians increasingly pay less and less attention to specification optimisation via $R^{2}$. Evan a poorly specified equation can archive a higher $R^{2}$.
+
+\subsection{Geometry of GIS}
+$\hat{\beta}$ is a random variable with its own $\mu_{\hat{\beta}}$ and $\sigma^{2}_{\hat{\beta}}$
+\begin{eqnarray*}
+\boldsymbol{\hat{\beta}} &=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'y}\\
+&=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'}(\boldsymbol{X\beta}+\boldsymbol{e})\\
+&=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'X\beta}+(\boldsymbol{X'X})^{-1}\boldsymbol{e}\\
+&=& \boldsymbol{\beta}+(\boldsymbol{X'X})^{-1}\boldsymbol{X'e}
+\end{eqnarray*}
+\begin{eqnarray*}
+\mathbb{E}(\boldsymbol{e}|\boldsymbol{X})=0\quad\to\quad\boldsymbol{\hat{y}}=\boldsymbol{X\hat{\beta}}=\boldsymbol{X}(\boldsymbol{X'X})^{-1}\boldsymbol{X'y}=\boldsymbol{P_{x}y}
+\end{eqnarray*}
+\underline{Orthogonal projections}\\
+$\boldsymbol{P_{x}}$ and $\boldsymbol{M_{x}}$ are complementary projection matrices, $\boldsymbol{P_{x}}+\boldsymbol{M_{x}}=\boldsymbol{I}$
+\begin{eqnarray*}
+\boldsymbol{P_{x}} &=& \boldsymbol{X}(\boldsymbol{X'X})^{-1}\boldsymbol{X'}\\
+\boldsymbol{M_{x}} &=& \boldsymbol{I}-\boldsymbol{P_{x}}=\boldsymbol{I}-\boldsymbol{X}(\boldsymbol{X'X})^{-1}\boldsymbol{X'}
+\end{eqnarray*}
+$\boldsymbol{P_{x}}$ and $\boldsymbol{M_{x}}$ are orthogonal complements which restore the original vector $\boldsymbol{y}=\boldsymbol{P_{x}y}+\boldsymbol{M_{x}y}$\\
+$\boldsymbol{P_{x}}$ is idempotent matrix since $\boldsymbol{P_{x}P_{x}}=\boldsymbol{P_{x}}$\\
+Properties of $P_{x}$ and $M_{x}$:
+\begin{eqnarray*}
+\boldsymbol{P_{x}M_{x}} &=& 0 \quad\text{since}\quad \boldsymbol{P_{x}}(\boldsymbol{I}-\boldsymbol{P_{x}})=\boldsymbol{P_{x}}-\boldsymbol{P_{x}P_{x}}=0\\
+\boldsymbol{M_{x}X} &=& 0\\
+\boldsymbol{P_{x}y} &=& \boldsymbol{X\hat{\beta}}=\boldsymbol{\hat{y}}\\
+\boldsymbol{M_{x}y} &=& (\boldsymbol{I}-\boldsymbol{P_{x}})\boldsymbol{y}=\boldsymbol{y}-\boldsymbol{P_{x}y}=\boldsymbol{y}-\boldsymbol{X\hat{\beta}}=\boldsymbol{y}-\boldsymbol{\hat{y}}=\boldsymbol{\hat{e}}
+\end{eqnarray*}
+%Picture
+\begin{tikzpicture}[
+    scale=2,
+    axis/.style={very thick, ->, >=stealth'},
+    pile/.style={thick, ->},
+    connect/.style={thick, -},
+]
+    \draw[-] (0,1) -- (2,5) -- (5,4) -- (3,0) -- (0,1);
+    \fill[black] (1.25,1.75) circle (1pt) 
+        coordinate(o);
+    \fill[black] (2,1.5) circle (1pt) 
+        coordinate(x2);
+    \fill[black] (1.75,2.75) circle (1pt) 
+        coordinate(x1);
+    \fill[black] (2.5,2.5) circle (1pt) 
+        coordinate(a);
+    \draw[axis] (o) -- (2.75,1.25)
+        node(x2a)[right]{$\boldsymbol{X_{2}}$};
+    \draw[axis] (o) -- (2.70,4.65)
+        node(x1a)[right]{$\boldsymbol{X_{1}}$};
+    \draw[axis] (o) -- (2.5,5.89)
+        node(y)[right]{$\boldsymbol{y}$};
+    \draw[axis] (o) -- (a);
+    \draw[axis] (o) -- (x1);
+    \draw[axis] (o) -- (x2);
+    \draw[axisshadow] (a) -- (x1);
+    \draw[axisshadow] (a) -- (x2);
+    \draw[axisshadow] (a) -- (2.5,5.89);
+    \draw[-] (2.5,2.7) -- (2.3,2.58) -- (2.4,2.44);
+    \node at (-0.3,2.5) (pxy) {$\boldsymbol{P_{x}y}$}
+   edge[->,bend left=15] (1.5,1.9);
+    \node at (4.5,3.8) (mxy) {$\boldsymbol{M_{x}y}$}
+   edge[->,bend left=15] (2.5,3.5);
+    \node at (0.75,1.5) (x1b1) {$\boldsymbol{X_{1}\hat{\beta_{1}}}$}
+   edge[->,bend left=15] (1.5,2.25);
+   \node at (2,1.25) (x2b2) {$\boldsymbol{X_{2}\hat{\beta_{2}}}$};
+\end{tikzpicture}
+\\
+%Picture
+\begin{tikzpicture}[
+    scale=2,
+    axis/.style={very thick, ->, >=stealth'},
+    pile/.style={thick, ->},
+    connect/.style={thick, -},
+    ]
+    \fill[black] (2,0) circle (1pt) 
+        coordinate(o) node[below]{$O$};
+    \fill[black] (5,0) circle (1pt) 
+        coordinate(x1);
+    \fill[black] (0,1) circle (1pt) 
+        coordinate(x2);
+    \fill[black] (2.8,2) circle (1pt) 
+        coordinate(a) node[left]{$A$};
+    \fill[black] (3,1) circle (1pt) 
+        coordinate(b) node[right]{$B$};
+    \fill[black] (2.8,0) circle (1pt) 
+        coordinate(c) node[below]{$C$};  
+    \draw[axis] (o) -- (-0.4,1.2) node(lx2)[left]{$\boldsymbol{X_{2}}$};
+    \draw[axis] (o) -- (5.5,0) node(lx1)[right]{$\boldsymbol{X_{1}}$};
+    \draw[connect] (x1) -- (b);
+    \draw[connect] (x2) -- (b);
+    \draw[axisshadow] (a) -- (c);
+    \draw[pile] (o) -- (b);
+    \draw[pile] (b) -- (a);
+    \draw[connect] (c) -- (b); 
+    \draw[axis] (o) -- (3,2.5)
+        node(y)[above]{$\boldsymbol{y}$};
+    \draw[-] (2.8,0.15) -- (2.95,0.15) -- (2.95,0);
+    \draw[-] (2.6,0) -- (2.7,0.2) -- (2.8,0.15);
+    \draw[-] (2.9,0.9) -- (2.8,1) -- (2.97,1.15);
+    \node at (2.2,-0.8) (pxy) {$\boldsymbol{P_{x}y}$}
+   edge[->,bend right=15] (2.3,0.3);
+    \node at (3.5,1.8) (mxy) {$\boldsymbol{M_{x}y}$}
+   edge[->,bend left=15] (2.92,1.4);
+   \node at (0.52,0.5) (x2b2) {$\boldsymbol{X_{2}\hat{\beta_{2}}}$};
+   \node at (4,-0.2) (x1b1) {$\boldsymbol{X_{1}\hat{\beta_{1}}}$};
+\end{tikzpicture}
+~\\
+\noindent OLS as a more general estimator:\\
+\\
+$\boldsymbol{\tilde{\beta}}=(\boldsymbol{Z'Z})\boldsymbol{Z'y}\quad$ eg. $\quad\boldsymbol{\hat{\beta}}_{2SLS}\equiv\boldsymbol{\beta}_{IV}$ if just-identified.\\
+\begin{center}
+\begin{tikzpicture}
+    \matrix (m) [matrix of math nodes,row sep=1.5em,column sep=1.5em,minimum width=1em]
+  {
+    x & y & \text{but what if} & \overset{\text{ability}}{z} & \overset{\text{schooling}}{x} & \overset{\text{wage}}{y} \\
+    e & & & & e & \\};
+  \path[-stealth]
+    (m-1-1) edge (m-1-2)
+    (m-2-1) edge (m-1-2)
+    (m-1-4) edge (m-1-5)
+    (m-1-5) edge (m-1-6)
+    (m-2-5) edge (m-1-5)
+    (m-2-5) edge (m-1-6);
+\end{tikzpicture}
+\end{center}
+%This should use {align} instead of {eqnarray}%
+\begin{eqnarray*}
+\boldsymbol{\hat{\beta}}_{2SLS} = [\boldsymbol{X'Z}(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'X}]^{-1}[\boldsymbol{X'Z}(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'y}]
+\end{eqnarray*}
+With first stage\\
+\begin{eqnarray*}
+\boldsymbol{\hat{X}} &=& \boldsymbol{Z}\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'X}\\
+\text{i.e.}\quad\boldsymbol{\hat{\beta}}_{\text{1stage}} &=& (\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'X}\qquad\boldsymbol{\hat{\beta}}_{V}=(\boldsymbol{Z'X})^{-1}\boldsymbol{X'y}
+\end{eqnarray*}
+
+\subsection{GDP and GDI}
+\paragraph{\underline{GDI}(2003)}
+\begin{itemize}
+\item Compensation of employees (56\%)
+\item Taxes on production and imports (TOPI) - subsides on production and imports (7\%)
+\item Net operating surplus (25\%)
+\item Comsumption of fix capital (CFC) (12\%)
+\end{itemize}
+GDI + Statistical discrepancy (about 0.2\%) $\equiv$ GDP
+\begin{center}
+\begin{tabular}{rrp{8cm}}
+TOPI & $\equiv$ & sales taxes, property taxes, custom duties\\
+NOS & $\equiv$ & corporate profits, net exchange of unincorporated business, government surplus. eg. FNMA, federal profits\\
+CFC & $\equiv$ & measured depreciation, capital expenditure, interest
+\end{tabular}
+\end{center}
+\paragraph{\underline{Measuring price changes}}
+\begin{itemize}
+\item CPI: fixed bucket of goods over time
+\item GDP deflator: changes in nominal GDP over time ($\frac{\text{nominal GDP}}{\text{real GDP}}\times 100$)
+\end{itemize}
+$\to$ Main difference to CPI is that weights of bucket is not fixed.
+\paragraph{Two types of \underline{fixed-weight indices}}
+\begin{enumerate}[(1)]
+\item Paasche index: $\frac{\sum p_{it}q_{it}}{\sum p_{i0}q_{it}}$, understates inflation
+\item Laspeyes index: $\frac{\sum p_{it}q_{i0}}{\sum p_{i0}q_{i0}}$, overstates inflation
+\end{enumerate}
+$\to$ CPI-W, CPI-U until recently as Laspeyes indices. Now a Fisher ideal indices which is \underline{geometrix mean} between Paasche and Laspeyes.
+\begin{eqnarray*}
+(\prod^{n}_{i=1}a_{i})^{\frac{1}{n}}\quad\text{vs.}\quad\frac{1}{n}\sum^{n}_{i=1}a_{i}
+\end{eqnarray*}
+
+\subsection{Transformation of variables (Nonlinearity)}
+General assumptions of classical linear regression model
+\begin{itemize}
+\item dependent variables as linear function of independent variables
+\item $\beta$ is constant
+\end{itemize}
+which may leads to $\to$ \begin{enumerate}[(i)]
+\item wrong regression (inclussion or omission)
+\item nonlinearity
+\item changing parameters ($\beta$ varies with time or actual observation. eg. random coefficient model)
+\end{enumerate}
+\begin{tikzpicture} \node[draw,circle,inner sep=0.8pt]{1};
+\end{tikzpicture} Transform single dependent variables
+\begin{eqnarray*}
+y &=& \beta_{0}+\beta_{1}x+\beta_{2}x^{2}+e\\
+\to \text{let}\quad z &=& x^{2} \quad \text{to preserve linearity in parameters}
+\end{eqnarray*}
+\begin{tikzpicture} \node[draw,circle,inner sep=0.8pt]{2};
+\end{tikzpicture} Transform entire equations
+\begin{eqnarray*}
+\text{Cobb-Donglas production function}\quad Y=AK^{\alpha}L^{\beta}e \quad\text{with}\quad CES\quad \alpha=1-\beta\\
+\text{with log linearisation:}\quad \ln Y=\ln A + (1-\beta)\ln K + \beta\ln L + \ln e
+\end{eqnarray*}
+\paragraph{Constant return to scale}
+\begin{eqnarray*}
+F(aK,aL) &=& A(aK)^{\alpha}(aL)^{1-\alpha}\\
+&=& Aa^{\alpha}K^{\alpha}a^{1-\alpha}L^{1-\alpha}\\
+&=& a(AK^{\alpha}L^{1-\alpha})
+\end{eqnarray*}
+What if ($\alpha + \beta$) $<$ 1?
+\paragraph{Elasticity (of substitution):}
+\begin{eqnarray*}
+\frac{dY}{Y}\cdot\frac{X}{dX} &=& \frac{\frac{dY}{dX}}{\frac{Y}{X}} \equiv \frac{\text{marginal product}}{\text{average product}}\\
+\frac{dT}{dL} &=& \beta AK^{\alpha}L^{\beta-1} = \beta\frac{T}{L}\\
+\therefore \frac{\frac{dY}{dL}}{\frac{Y}{L}} &=& \beta\frac{T}{L}\cdot\frac{L}{Y} = \beta\quad\text{[Constant factor proportion]}
+\end{eqnarray*}
+Cobb-Donglas functions derived from CES:
+\begin{eqnarray*}
+Y=A[\alpha K^{\theta}+(1-\alpha)L^{\theta}]^{\frac{1}{\theta}} \\
+\theta=0\text{ yields}\quad Y=AK^{\alpha}L^{1-\alpha}\quad\text{from}
+\end{eqnarray*}
+\begin{eqnarray*}
+\ln(Y) &=& \ln(A)+\frac{1}{\theta}\cdot\ln[\alpha K^{\theta}+(1-\alpha L^{\theta})]\\
+\text{L'Hospital's rule:}\quad\lim_{\theta\to 0}\ln(Y) &=& \ln(A)+\alpha\ln(K)+(1-\alpha)\ln(L)\\
+\therefore\quad Y &=& AK^{\alpha}L^{1-\alpha}
+\end{eqnarray*}
+\paragraph{Frisch-Waugh-Lovell Theorem (FWL)} ~\\
+if $\boldsymbol{Y}=\boldsymbol{X_{1}}\beta_{1}+\boldsymbol{X_{2}}\beta_{2}+\boldsymbol{e}$ where $\boldsymbol{X_{1}}$ and $\boldsymbol{X_{2}}$ are $n \times k_{1}$, and $n \times k_{2}$ matrices, and where $\boldsymbol{\beta_{1}}$ and $\boldsymbol{\beta_{2}}$ are conformable then the estimate of $\boldsymbol{\beta_{2}}$ will be the same as the estimate from an anxilliary regression of the form
+\begin{eqnarray}
+\boldsymbol{M_{X_{1}}y}=\boldsymbol{M_{X_{1}}X_{2}\beta_{2}}+\boldsymbol{\upsilon}\quad\text{(where }\boldsymbol{\upsilon}=\boldsymbol{M_{X_{1}}e}\text{)}
+\end{eqnarray}
+where $\boldsymbol{M_{X}}$ projects onto the orthogonal complement of the image of the projection matrix $\boldsymbol{X_{1}}(\boldsymbol{X'_{1}X_{1}})^{-1}\boldsymbol{X'_{1}}$.\\
+\\
+Equivalently, $\boldsymbol{M_{X}}$ projects onto the orthogonal complement of the column space of $\boldsymbol{X_{1}}$. Specially,
+\begin{eqnarray}
+\boldsymbol{M_{X_{1}}}=\boldsymbol{I}-\boldsymbol{X_{1}}(\boldsymbol{X'_{1}X_{1}})^{-1}\boldsymbol{X'_{1}}
+\end{eqnarray}
+Proof:
+\begin{eqnarray*}
+\text{Let}\quad\boldsymbol{M_{X_{1}}}&\equiv&\boldsymbol{M_{1}}\quad\text{for notational convenience}\\
+\boldsymbol{y} &=& \boldsymbol{X_{1}}\beta_{1}+\boldsymbol{X_{2}}\beta_{2}+\boldsymbol{e}\\
+\boldsymbol{M_{1}y} &=& \underbrace{\boldsymbol{M_{1}X_{1}\beta_{1}}}_{=0,\text{ since }\boldsymbol{M_{1}X_{1}}=0}+\boldsymbol{M_{1}X_{2}\beta_{2}}+\boldsymbol{\upsilon}\quad\text{(}\boldsymbol{\upsilon}=\boldsymbol{M_{1}e}\text{)}
+\end{eqnarray*}
+Then: recall that $\boldsymbol{y}=\boldsymbol{P_{x}y}+\boldsymbol{M_{x}y}=\boldsymbol{X_{1}}\beta_{1}+\boldsymbol{X_{2}}\beta_{2}+\boldsymbol{M_{X}y}$\\
+multiply previous equation by $\boldsymbol{X'_{2}M_{1}}$, since that
+\begin{eqnarray*}
+\boldsymbol{X'_{2}M_{1}y}=\overset{\begin{tikzpicture} \node[draw,circle,inner sep=0.4pt]{1};
+\end{tikzpicture}}{\boldsymbol{X'_{2}M_{1}X_{1}\hat{\beta_{1}}}}+\overset{\begin{tikzpicture} \node[draw,circle,inner sep=0.4pt]{2};
+\end{tikzpicture}}{\boldsymbol{X'_{2}M_{1}X_{2}\hat{\beta_{2}}}}+\overset{\begin{tikzpicture} \node[draw,circle,inner sep=0.4pt]{3};
+\end{tikzpicture}}{\boldsymbol{X'_{2}M_{1}M_{X}y}}
+\end{eqnarray*}
+ of the following properties:
+\begin{enumerate}[(1)]
+\item $\boldsymbol{M_{1}X_{1}}=0\quad\therefore \boldsymbol{X'_{2}M_{1}X_{1}\beta_{1}}=0$ in \begin{tikzpicture} \node[draw,circle,inner sep=0.4pt]{1};
+\end{tikzpicture}
+\item $\boldsymbol{M_{1}M_{X}}=\boldsymbol{M_{X}}$ because $M_{X}<M_{1}$\\
+$\therefore \boldsymbol{X'_{2}M_{1}M_{X}y}=\boldsymbol{X'_{2}M_{X}y}=\boldsymbol{X'_{2}\hat{e}}=0!$ in \begin{tikzpicture} \node[draw,circle,inner sep=0.4pt]{3};
+\end{tikzpicture}
+\end{enumerate}
+Thus terms (1) and (3) disappear in the above equation and we have
+\begin{eqnarray*}
+\boldsymbol{X'_{2}M_{1}y} = \boldsymbol{X'_{2}M_{1}X_{2}\hat{\beta_{2}}}
+\end{eqnarray*}
+Solving for $\boldsymbol{\hat{\beta_{2}}}$, this yields
+\begin{eqnarray*}
+%I need to use packages to put the equation into textbox
+\boldsymbol{\hat{\beta_{2}}}=(\boldsymbol{X'_{2}M_{1}X_{2}})^{-1}\boldsymbol{X'_{2}M_{1}y}
+\end{eqnarray*}
+$\therefore$ Due to the FWL theorem, we can estimate $\boldsymbol{\beta_{2}}$ directly using orthonogal projections, without having to estimate $\boldsymbol{\beta_{1}}$\\
+By extention: $Var(\boldsymbol{\hat{\beta_{2}}})=\sigma^{2}(\boldsymbol{X'_{2}M_{1}X_{2}})^{-1}$
+
+\subsection{Specification issues}
+\paragraph{Overspecification} Variables that do not belong to DGP are mistakenly included in DGP.
+$\to$ overspecification is not misspecification
+\begin{eqnarray*}
+\boldsymbol{y}=\boldsymbol{X\beta}+\boldsymbol{Z\gamma}+\boldsymbol{e}\qquad\text{with}\quad \boldsymbol{e}\sim iid(0,\sigma^{2}\boldsymbol{I})\\
+\text{but actual DGP is}\quad y=\boldsymbol{y}=\boldsymbol{X\beta_{0}}+\boldsymbol{e}\quad \text{with}\quad \boldsymbol{e}\sim(0,\sigma_{0}^{2}\boldsymbol{I})
+\end{eqnarray*}
+$\to$ $\beta$ is not biased, since overspecified model is a specific care with
+\begin{eqnarray*}
+\boldsymbol{\beta}=\boldsymbol{\beta_{0}}\quad\text{and}\quad\boldsymbol{\gamma}=0\quad\text{(plus}\quad\boldsymbol{\sigma^{2}}=\boldsymbol{\sigma_{0}^{2}}\text{)}
+\end{eqnarray*}
+\paragraph{Underspecification} Important explanatory variables are omitted and we are estimating.
+\begin{eqnarray*}
+\boldsymbol{y}=\boldsymbol{X\beta}+\boldsymbol{e}\quad \text{with}\quad\boldsymbol{e}\sim(0,\sigma_{0}^{2}\boldsymbol{I})
+\end{eqnarray*}
+but true DGP is given by
+\begin{eqnarray*}
+\boldsymbol{y}=\boldsymbol{X\beta_{0}}+\boldsymbol{Z\gamma_{0}}+\boldsymbol{e}\quad \text{with}\quad\boldsymbol{e}\sim(0,\sigma_{0}^{2}\boldsymbol{I})
+\end{eqnarray*}
+$\to$ \underline{Omitted variable bias}:
+\begin{eqnarray*}
+\mathbb{E}(\boldsymbol{\hat{\beta}}) &=& \mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{X'}(\boldsymbol{X\beta_{0}}+\boldsymbol{Z\gamma_{0}}+\boldsymbol{e})]\\
+&=& \boldsymbol{\beta_{0}}+(\boldsymbol{X'X})^{-1}\boldsymbol{X'Z\gamma_{0}}+\mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{X'e}]\\
+&=& \boldsymbol{\beta_{0}}+\underbrace{(\boldsymbol{X'X}^{-1}\boldsymbol{X'Z\gamma_{0}})}_{\text{bias}}
+\end{eqnarray*}
+Whether the bias exists depends on
+\begin{enumerate}[(1)]
+\item $\boldsymbol{X'Z}=0$ (orthogonal regressor)
+\item $\boldsymbol{\gamma}=0$ (model in fact not misspecified)
+\end{enumerate}
+Comparison between overspecification and underspecification:
+\begin{itemize}
+\item Overspecification: unbiased, (weakly) consistent, usually insufficient estimates.
+\item Underspecification: biased, consistent linear estimator with efficiency that depends on specific sample.
+\end{itemize}
+
+\subsection{Heteroskedasticity}
+New DGP with $\mathbb{E}(e_{i}^{2}|x_{i})=\sigma^{2}(x_{i})=\sigma^{2}$\\
+$y_{i}=\boldsymbol{X_{i}\beta}+e_{i}$\ with $e_{i}\sim id(0,\boldsymbol{\Omega})$\\
+$\therefore$ $\boldsymbol{\Omega}\equiv$ diag $(\sigma_{1},\sigma_{2},\cdots,\sigma_{\mu})$\\
+OLS is still unbiased when there is heteroskedasticity, because $\mathbb{E}[\beta]$ only depends on first moments and $\mathbb{E}[e]=0$\\
+Recall:
+\begin{eqnarray*}
+\boldsymbol{\hat{\beta}}-\boldsymbol{\beta}=(\boldsymbol{X'X})^{-1}\mathbb{E}[\boldsymbol{X'e}]
+\end{eqnarray*}
+$\therefore$ The unbiasedness of $\boldsymbol{\hat{\beta}}$ does not depends on higher moments of $\mathbb{E}(e_{i}|x_{i})$
+\begin{eqnarray*}
+\mathbb{V}(\boldsymbol{\hat{\beta}}) &=& \mathbb{E}[(\boldsymbol{\hat{\beta}}-\boldsymbol{\beta})(\boldsymbol{\hat{\beta}}-\boldsymbol{\beta})']\\
+&=& \mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{X'ee'X}(\boldsymbol{X'X})^{-1}]\\
+&=& (\boldsymbol{X'X})^{-1}\boldsymbol{X'}\mathbb{E}[\boldsymbol{ee'}]\boldsymbol{X}(\boldsymbol{X'X})^{-1}\\
+&=& (\boldsymbol{X'X})^{-1}(\boldsymbol{X'\Omega X})(\boldsymbol{X'X})^{-1}
+\end{eqnarray*}
+$\therefore$ GLS estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X'\Omega^{-1}X})^{-1}\boldsymbol{X'\Omega^{-1}y}$\\
+$\to$ key challenge when implementing GLS: $\Omega$ is not observable\\
+$\therefore$ We must estimate $\boldsymbol{\Omega}$
+
+\subsection{Instrumental variables}
+OLS as a general estimator of the form
+\begin{eqnarray*}
+\boldsymbol{\hat{\beta_{W}}}=(\boldsymbol{W'W})^{-1}\boldsymbol{W'y}\qquad\text{eg.}\quad\boldsymbol{\hat{\beta_{IV}}}\equiv\boldsymbol{\hat{\beta_{2SLS}}}\\
+\text{with just-identification(ie. number of parametors is equal to number of instruments)}
+\end{eqnarray*}
+Two specific cases that can interfere with our key assumption;
+\begin{enumerate}[(i)]
+\item Measurement error
+\item Endogeneity (ie. uncorrelation b/w error and regressors $\quad\mathbb{E}(\boldsymbol{X'e})=0$) due to simutaneous equations. eg. demand \& supply: $q_{i}=-\beta_{1}p_{i}+e_{1i}$, $q_{i}=\beta_{2}p_{i}+e_{2i}$
+\end{enumerate}
+$\therefore\quad\boldsymbol{\hat{\beta}}$ will be biased and inconsistent!\\
+(Angrist \& Krneger, QTE 91)\\
+%Picture
+\begin{tikzpicture}
+    \matrix (m) [matrix of math nodes,row sep=2em,column sep=2em,minimum width=1em]
+  {
+     & \overset{\text{smoking}}{\boldsymbol{\hat{X}}} & \\
+    \overset{\text{month of birth/distance from college}}{\boldsymbol{Z}} & \overset{\text{schooling}}{\boldsymbol{X}} & \overset{\text{wage/health}}{\boldsymbol{y}}\\
+   \text{tax rates on tobacco}  & \overset{\text{ability/socioeconomic factors}}{\boldsymbol{e}} & \\};
+  \path[-stealth]
+    (m-2-1) edge (m-1-2)
+            edge (m-2-2)
+    (m-2-1) edge [dashed,-] (m-3-2)
+    (m-1-2) edge (m-2-3)
+    (m-2-2) edge (m-2-3)
+    (m-3-2) edge (m-2-3)
+    (m-3-1) edge [dashed,-] (m-2-2);
+\end{tikzpicture}
+$\therefore\quad\frac{dy}{dx}=\beta + \frac{de}{dx}$
+\begin{eqnarray*}
+\boldsymbol{\hat{\beta_{IV}}}=(\boldsymbol{Z'X})^{-1}\boldsymbol{Z'y}
+\end{eqnarray*}
+If Z is matrix of k instruments, such that
+\begin{eqnarray*}
+\boldsymbol{X} &=& [\boldsymbol{X_{1}X_{2}}]\quad\text{where }\boldsymbol{X_{2}}\text{ are endogenous regressors.}\\
+\boldsymbol{Z} &=& [\boldsymbol{X_{1}Z_{2}}]\quad\text{where }\boldsymbol{Z_{2}}\text{ are instruments. }\boldsymbol{X_{1}}\text{ are instruments for itself.}
+\end{eqnarray*}
+Then
+\begin{eqnarray*}
+\boldsymbol{y}=\boldsymbol{P_{2}X\beta}\quad\text{where}\quad\boldsymbol{P_{2}}=\boldsymbol{Z}(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'}
+\end{eqnarray*}
+$\therefore$ 2SLS estimator is IV estimator in just-identified case:
+\begin{eqnarray*}
+\boldsymbol{\hat{beta_{2SLS}}} &=& (\boldsymbol{X'P_{2}X})^{-1}\boldsymbol{X'P_{2}y}\\
+&=& [\underbrace{\boldsymbol{X'Z}(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'}}_{\boldsymbol{\hat{X}'}}\boldsymbol{X}][\underbrace{\boldsymbol{X'Z}(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'}}_{\boldsymbol{\hat{X}'}}\boldsymbol{y}]
+\end{eqnarray*}
+With 1 stage regresson
+\begin{eqnarray*}
+\boldsymbol{\hat{X}} &=& \boldsymbol{Z}(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'X}\\
+&=& \boldsymbol{Z\hat{\beta}}_{1stage}\quad\text{where}\quad\boldsymbol{\hat{\beta}}_{1stage}=(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'X}
+\end{eqnarray*}
+$\to$ estimation is also biased (but generally less so than OLS) and consistent (vs. inconsistent in OLS).
+%graph-inconsistency of OLS
+
+\paragraph{Measurement error} ~\\
+True regressors $\boldsymbol{X^{*}}$ are not observed and only measured with error $\boldsymbol{\mu}$ (independent of $\boldsymbol{X}$ and $\boldsymbol{y}$)
+\begin{eqnarray*}
+\boldsymbol{X} &=& \boldsymbol{X^{*}}+\boldsymbol{\mu}\\
+\text{True model:}\quad \boldsymbol{y} &=& \boldsymbol{X^{*}\beta}+\boldsymbol{e}\\
+&=& \boldsymbol{X}-\boldsymbol{\mu})\boldsymbol{\beta}+\boldsymbol{e}\\
+&=& \boldsymbol{X\beta}+\underbrace{\boldsymbol{e}-\boldsymbol{\mu\beta}}_{\nu}\\
+&=& \boldsymbol{X\beta}+\boldsymbol{\nu}
+\end{eqnarray*}
+\begin{eqnarray*}
+\to \mathbb{E}[\boldsymbol{\hat{\beta}}] &=& \mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{X'y}]\\
+&=& \mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{X}(\boldsymbol{X\beta}+\nu)]\\
+&=& \boldsymbol{\beta} + \mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{X'\nu}]
+\end{eqnarray*}
+$\to$ determine size of bias from $\mathbb{E}[\boldsymbol{X'\nu}]$
+\begin{eqnarray*}
+\mathbb{E}[\boldsymbol{X'\nu}] &=& \mathbb{E}[(\boldsymbol{X^{*}+\mu})'(\boldsymbol{e-\mu\beta})]\\
+&=& \mathbb{E}[\boldsymbol{X^{*'}e}+\boldsymbol{\mu'e}-\boldsymbol{X^{*'}\mu\beta}-\boldsymbol{\mu'\mu\beta}]\\
+&=& -\mathbb{E}[\boldsymbol{\mu'\mu}]\boldsymbol{\beta}
+\end{eqnarray*}
+\begin{eqnarray*}
+&& -\mathbb{E}[\boldsymbol{\mu'\mu}]\boldsymbol{\beta}\neq 0\quad\text{if}\quad \boldsymbol{\beta}\neq 0\quad\text{and}\quad\mathbb{E}[\boldsymbol{\mu'\mu}]\neq 0\\
+&& \boldsymbol{\hat{\beta}}\xrightarrow{P}\boldsymbol{\beta^{*}}\quad\text{(probability limit of )}\boldsymbol{\hat{\beta}}\\
+&& \therefore\quad\boldsymbol{\beta^{*}}=\boldsymbol{\beta}-\mathbb{E}[(\boldsymbol{X'X})^{-1}\boldsymbol{\mu'\mu}]\boldsymbol{\beta}
+\end{eqnarray*}
+
+\paragraph{2SLS Computation}
+\begin{enumerate}[1)]
+    \item Regress $\boldsymbol{X}$ on $\boldsymbol{Z}$  ie $\boldsymbol{\Gamma}=(\boldsymbol{Z'Z})^{-1}\boldsymbol{Z'X}$ and $\boldsymbol{\hat{X}}=\boldsymbol{Z\hat{\Gamma}}$
+    \item Regress $\boldsymbol{y}$ on $\boldsymbol{\hat{X}}$    ie $\boldsymbol{\hat{\beta}}=(\boldsymbol{\hat{X'}X'})^{-1}\boldsymbol{\hat{X'}y}$
+\end{enumerate}
+Scrutinize $\boldsymbol{\hat{X}}$, recalling $\boldsymbol{X}=[\boldsymbol{X_{1}X_{2}}]$, $\boldsymbol{Z}=[\boldsymbol{X_{1}Z_{2}}]$
+\begin{eqnarray*}
+\boldsymbol{\hat{X}} &=& [\boldsymbol{\hat{X_{1}}},\boldsymbol{\hat{X_{2}}}]\\
+&=& [\boldsymbol{P_{2}X_{1}},\boldsymbol{P_{2}X_{2}}]\\
+&=& [\boldsymbol{X_{1}},\boldsymbol{P_{2}X_{2}}]\\
+&=& [\boldsymbol{X_{1}},\boldsymbol{\hat{X_{2}}}]
+\end{eqnarray*}
+$\therefore$ Only endogenous variables are replaced with their fitted values
+\begin{eqnarray*}
+\to\quad\boldsymbol{\hat{X_{2}}}=\boldsymbol{Z_{1}\hat{\Gamma_{12}}}+\boldsymbol{Z_{2}\hat{\Gamma_{22}}}
+\end{eqnarray*}

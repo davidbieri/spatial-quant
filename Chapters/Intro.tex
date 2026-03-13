@@ -1,0 +1,115 @@
+\chapter{Introduction and overview}\label{chap_Intro}
+The primary objective of this manuscript is to introduce students to some of the quantitative methods and techniques used in urban and regional research. The emphasis of our approach is on using methods in the context of planning, urban policy and regional science research, matching the method to the problem, developing an interactive engagement with data methods, promoting creative and accessible styles of data presentation, and developing a critical literacy of data and methods.
+
+This text also introduces students to the fundamentals of more advanced regression techniques, such as instrumental variable estimation via Two-Stage Least Squares (2SLS) and binary choice, limited dependent variable models and time series regression analysis. Reflecting the growing importance of geographic information systems (GIS)\index{geographic information systems} as a tool for planners, this manuscript provides an introduction to key methods and applications in spatial data analysis, including a cursory overview of spatial statistics\index{spatial statistics}.
+
+\section{Aims and objectives}
+This text provides material for a first-year graduate course in quantitative methods in urban and regional research. The content is aimed at an interdisciplinary audience, form urban planning or economic geography to urban economics. Where ever possible, I have tried to avoid disciplinary jargon, a challenge that I ocassionally do not fully manage when I reveal my own formal training in applied econometrics. At the same time, this text's own intellectual lineage is unambiguously in the spirit of Walter \citeapos{Isard1960a} classic \emph{Methods of Regional Analysis} -- a methodological manifesto for regional science as a scientific project, if ever there was one.\footnote{Now in its seventh edition, \emph{Methods of Interregional and Regional Analysis} by \citet[][MIRA hereafter]{Isard1998} still is the methodological benchmark introduction to principles of regional science, focusing on the key methods such as regional and interregional input-output analysis, econometrics (regional and spatial), programming and industrial and urban complex analysis, gravity and spatial interaction models, SAM and social accounting (welfare) analysis and applied general interregional equilibrium models. In contrast to the largely theoretical treatment of the quanitative methods covered in MIRA, this manual focuses more explicitly on the empirical aspects of the application of these methods. Special emphasis will be placed on the connections between theory and application.} Of all the subdisciplines that might be subsumed under the larger heading of regional science, urban and regional planning is, in many senses, the archetypical interdisciplinary venture, yet it still relies on solid disciplinary skills.  Indeed, planning educators regularly define an accomplished planner as simultaneously being ``the best geographer, the best economist, the best environmental scientist, the best political scientist, and the best architect'' \citep[][]{Fainstein2011}. 
+
+As computational costs are rapidly decreasing and the explosion in the availability of data is challenging existing computational paradigms (such as Big Data and high-performance computational social science)\index{Big Data}\index{high-performance computing}\index{computational social science|seealso{high-performance computing}}, this manuscript is motivated by my belief that solid quantitative skills -- from linear algebra to coding -- are ever more important.\footnote{Chapters~\ref{chap_SpatialStats} and~\ref{chap_CompMethods} contextualise and discuss emerging quantitative paradigms in more detail.} Indeed, software and analytical tools are becoming more and more user friendly and hitherto prohibitively complex analysis nowadays often only requires a few points and clicks (or tripple-finger swipes) deployed via an attractive graphical user interface (GUI)\index{graphic user interface}\index{GUI|see{graphic user interface}}. Yet, perhaps somewhat paradoxically, the more we rely on technology and the more accessible data tools become, the less time is spent on careful and critical analysis. This leads to a latent tendency to produce more empricial material and evidence, rather than better analysis. Just be cause we can (now cheaply and conveniently) compute something, does not necessarily mean that we should. In other words, \emph{caveat computor}!
+
+In this spirit, my principal philosophy for this manual is to combine theoretical rigour with intuitive understanding of material that a majority of students in planning programs do not naturally gravitate towards, and in many cases have actively avoided.  My partiality to a perhaps somewhat old-fashioned teaching principle of \emph{per aspera ad astra} is firmly rooted in my belief that solid disciplinary skills are a necessary (if not sufficient) condition for all interdisciplinary endeavours.  Good interdisciplinary work needs to combine transdisciplinary breadth with discipline-specific depth, a challenge that is particularly formidable in a field like urban planning that draws from as diverse a spectrum of disciplines as ecology and economics.
+
+My approach adopted in this manual is centered around the following three key principles:
+
+\begin{enumerate}
+\item Open source software is one of the most promising ways of achieving \emph{interorperability}\index{interoperability}, i.e. the capability of different programs to exchange data via a common set of exchange formats, to read and write the same file formats, and to use the same protocols.
+\item There is a close correspondence between the logic of matrix algebra\index{matrix algbra} and the maniplulation of data arrays. Indeed, most data transformations and analysis that takes place in spreadsheets can be thought of in terms of an algorithm involving a sequence of matrix operations.
+\item With increased availability of data and computational power, there is a new scientific need for replicable empirical research. Both pure replication\index{replication} (checking on others' published papers using their data) and scientific replication (using data representing different populations in one's own work) is particularly important because empirical social science research is often prone to error. 
+\end{enumerate}
+
+Indeed, there is an acute paucity of replication studies\index{replication studies|see{replication}} in most of the leading social science journals (outside of economics).\footnote{See \citet{Hamermesh2007} and \citet{Burman2010a} for more details on the importance of replication studies in the social sciences.} None of the flagship journals in urban planning or in geography, for example, require the submission of datasets as part of the publication requirements for peer-reviewed work. The \emph{American Economic Review} has a clearly defined policy that links the publication of empirical research to the goal of replication:
+
+\small
+\begin{quote}
+``It is the policy of the \emph{American Economic Review}\index{journals!American Economic Review} to publish papers only if the data used in the analysis are clearly and precisely documented and are readily available to any researcher for purposes of replication. Authors of accepted papers that contain empirical work, simulations, or experimental work must provide to the \emph{Review}, prior to publication, the data, programs, and other details of the computations sufficient to permit replication. These will be posted on the AER Web site.'' (\emph{Source}: \href{http://www.aeaweb.org/aer/data.php}{AER Data Availability Policy})
+\end{quote}
+\normalsize
+
+Other good examples of data archives include the \href{http://thedata.harvard.edu/dvn/dv/restat}{Review of Economics and Statistics}\index{journals!Review of Economics and Statistics} or the \href{http://econ.queensu.ca/jae/}{Journal of Applied Econometrics}\index{journals!Journal of Applied Econometrics}. 
+
+\section{Prerequisites}
+The material covered in this text is aimed at first-year graduate students (or advanced-level undergraduates) who are expected to have taken at a minimum an introductory course in statistics that covered the basics of probability theory\index{probability theory}, central limit theorem\index{central limit theorem}\index{CLT|see{central limit theorem}} and sample size\index{sample size}, ANOVA, confidence intervals\index{confidence intervals}, hypothesis testing\index{hypothesis testing}, and bivariate regression.
+
+\subsection{Software}
+Students should be familiar with the basics of a spreadsheet programm such as Excel\index{Excel|see{software}}\index{software!Excel} or its open-source equivalent \href{http://www.openoffice.org/product/calc.html}{OpenOffice Calc\index{OpenOffice|see{software}}\index{software!OpenOffice}}. The main statistical software for this text is \href{http://www.r-project.org}{\textsf{R}\index{R|see{software}}\index{software!R}}, an implementation of the object-oriented mathematical programming language \textsf{S},  for most of the data analysis, graphing and regression modelling. \textsf{R} is an integrated suite of open-source statistical and graphical software that is developed by statisticians around the world. In contrast to standard commercial packages such as \textsf{SPSS}\index{SPSS|see{software}}\index{software!SPSS} or \textsf{Stata}\index{Stata|see{software}}\index{software!Stata}, \textsf{R} is much more flexible because it is a modern mathematical programming language with capabilities similar to those of \textsf{MATLAB}\index{MATLAB|see{software}}\index{software!MATLAB}, not just a program that performs canned regression routines and tests. Furthermore, because it is free and does not command prohibitively expensive licensing fees, it is increasingly used by medium and small businesses and non-profit organisations.
+
+Similarly, we will be using \href{http://www.qgis.org/}{\textsf{QGIS}\index{QGIS|see{software}}\index{software!QGIS}} for all GIS applications. \textsf{QGIS} is open-source and integrates nicely with \textsf{R}. I recommend that you run \textsf{R} via the integrated development environment (IDE)\index{IDE|see{integrated development environment}}\index{integrated development environment} \href{http://rstudio.org/}{RStudio}\index{software!RStudio}. We will also use a cloud-based version of \href{https://www.sharelatex.com}{\LaTeX}\index{\LaTeX|see{software}}\index{software!\LaTeX}, a typesetting system that is specialised for producing scientific and mathematical documents of high typographical quality and integrates with RStudio via different markup languages such as \textsf{Sweave}\index{Sweave|see{markup language}}\index{markup language!Sweave} or \textsf{knitr}\index{knitr|see{markup language}}\index{markup language!knitr}.
+
+
+\subsection{Main texts and resources}
+
+\renewcommand\bibname{\normalsize{Recommended readings}}
+\begin{thebibliography}{}
+
+\harvarditem[Bivand, Pebesma, and G\'{o}mez-Rubio]{Bivand, Pebesma, and G\'{o}mez-Rubio}{2008}{Bivand2008a} \textsc{Bivand, R.~S., E.~J. Pebesma,  {\small and} V.~G\'{o}mez-Rubio} (2008): \emph{Applied Spatial Data Analysis with R}, Use R!, Springer, New York, NY.~[\textcolor[rgb]{0.00,0.50,0.00}{\textbf{\textsf{ASDAR}}}, electronic version available on CTools]
+
+\harvarditem[Dalgaard]{Dalgaard}{2008}{Dalgaard2008} \textsc{Dalgaard, P.}  (2008): \emph{Introductory Statistics with R (Statistics and Computing)}, Use R!, Springer, New York, NY, 2nd edn.~[\textcolor[rgb]{0.00,0.50,0.00}{\textbf{\textsf{ISR}}}, electronic version available on CTools]
+
+\harvarditem[Pfaff]{Pfaff}{2008}{Pfaff2008}
+\textsc{Pfaff, B.}  (2008): \emph{Analysis of Integrated and Cointegrated Time Series in R}, Use R! Springer, New York, NY, 2nd edn.
+
+\harvarditem[Shumway and Stoffer]{Shumway and Stoffer}{2011}{Shumway2011}
+\textsc{Shumway, R.~H.,  {\small and} D.~S. Stoffer}  (2011): \emph{Time Series Analysis and Its Applications With R Examples}, Springer Texts in Statistics. Springer, New York, NY, 3rd edn.
+\end{thebibliography}
+
+\renewcommand\bibname{\normalsize{Getting started with R}}
+\begin{thebibliography}{test2}
+\harvarditem[Arai]{Arai}{2009}{Arai2009} \textsc{Arai, M.}  (2009): ``A Brief Guide to \textsf{R} for Beginners in Econometrics,'' Manual, Stockholm University.
+
+\harvarditem[Farnsworth]{Farnsworth}{2008}{Farnsworth2008} \textsc{Farnsworth, G.~V.}  (2008): ``Econometrics in \textsf{R},'' Manual, Kellogg  School of Management, Northwestern University.
+
+\harvarditem[Verzani]{Verzani}{2011}{Verzani2011}
+\textsc{Verzani, J.}  (2011): \emph{Getting Started with RStudio}. O'Reilly Media.
+\end{thebibliography}
+
+
+\renewcommand\bibname{\normalsize{Getting started with \LaTeX}}
+\begin{thebibliography}{test3}
+\harvarditem[Oetiker, Partl, Hyna, and Schlegl]{Oetiker, Partl, Hyna, and Schlegl}{2011}{Oetiker2011}
+\textsc{Oetiker, T., H.~Partl, I.~Hyna,  {\small and} E.~Schlegl}  (2011): ``The Not So Short Introduction to \LaTeX,'' Manual, Olten, Switzerland.
+\end{thebibliography}
+
+\renewcommand\bibname{\normalsize{Online resources}}
+\begin{thebibliography}{test3}
+\harvarditem[Kabacoff]{Kabacoff}{2011}{Kabacoff2011} \textsc{Kabacoff, R.~I.} (2011): \href{http://www.statmethods.net/index.html}{``Quick-\textsf{R}: Accessing the Power of \textsf{R}''}, online version of \emph{\textsf{R} in Action: Data Analysis and Graphics with \textsf{R}}.
+
+\harvarditem[Short]{Short}{2004}{Short2004} \textsc{Short, T.} (2004): \href{http://cran.r-project.org/doc/contrib/Short-refcard.pdf}{``\textsf{R} Reference Card''}.
+
+\harvarditem[UCLA]{UCLA}{2012}{UCLA2012} \textsc{UCLA Academic Technology Services}: \href{http://www.ats.ucla.edu/stat/r/}{``Resources to help you learn and use \textsf{R}''}.
+\end{thebibliography}
+
+\section{New topics to be added}
+\begin{itemize}
+\item GIS with \texttt{plotGoogleMaps}
+\item LQ Blacksburg paper with Ann Arbor data
+\item Add R snippets/examples throughout text
+\item R Studio with Sweave, knitr for report writing (knitr, markdown to .html via cabal and pandoc using \texttt{slidy} option)
+\item Clustering methods: PCA, factor analysis using R cluster methods (\texttt{bayesclust,mclust})
+\item Time series and forecasting
+\item Complete index for keywords
+\end{itemize}
+
+\section{Overview of topics}
+Four key questions that frame good quantitative research \citep[cf.][]{Angrist2009a}:
+
+\begin{enumerate}
+\item What is the causal relationship of interest? This question gives rise to the importance of the counterfactual.
+\item What ideal experiment would capture this causal effect?
+\item What is the (quantitative) identification strategy? How is the observational data used?
+\item What is the mode of inference? (microdata, clustered groups, etc.)
+\end{enumerate}
+
+
+
+\subsection{Part I: Quantitative data analysis}
+\subsection{Part II: Regression techniques}
+\subsection{Part III: Advanced quantitative methods}
+\subsection{Part IV: Appendices} 
+
+\pagebreak
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/Intro.bbl}{\input{Literature/Intro.bbl}}{\typeout{Need to run bibtex}}
+\end{subappendices} 

@@ -1,0 +1,86 @@
+\chapter[The CNR model]{The classical normal regression (CNR) model}\label{chap_ClassNormReg}
+
+\section{The CNR model}
+\subsection{Basic set-up}
+\subsection{The model in matrix notation}
+
+\section{Different approaches to OLS}
+\subsection{Least squares estimator}
+
+\subsection{Geometric approach to OLS}
+\subsubsection{Projection matrices and their relationships}
+Let the matrix $\boldsymbol{P_{X}}$ be defined as
+
+\begin{eqnarray}
+\boldsymbol{P_{X}} \equiv \boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'.\label{eqn_CNR_Px}
+\end{eqnarray}
+
+$\boldsymbol{P_{X}}$ belongs to the general class of so-called projection matrices which have a number of interesting properties. Most importantly, the projection matrix $\boldsymbol{P_{X}}$ is a square matrix of dimension $n \times n$ that gives a vector space projection from $\mathbb{R}^{n}$ to a given subspace. Projection matrices are said to be \emph{idempotent} which implies that $\boldsymbol{P_{X}}\boldsymbol{P_{X}}=\boldsymbol{P_{X}}$.
+
+This important property is straightforward to demonstrate in the case of equation \eqref{eqn_CNR_Px}, where we can use the fact that $$(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{X}=\boldsymbol{I}$$ in order to show that $$\boldsymbol{P_{X}}\boldsymbol{P_{X}}=\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{X}(\boldsymbol{X}'
+\boldsymbol{X})^{-1}\boldsymbol{X}'=\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'=\boldsymbol{P_{X}}$$. Furthermore, projection matrices can generally be classified either as \emph{orthogonal} projection matrices or \emph{oblique} (non-orthogonal) projection matrices.
+
+In addition to being square, a projection matrix is also a symmetric matrix if and only if the vector space projection is orthogonal. $\boldsymbol{P_{X}}$ is an orthogonal projection matrix that spans the space $\mathcal{S}(\boldsymbol{X})$; consequently, any point in $\boldsymbol{X}$ that is projected by $\boldsymbol{P_{X}}$ will be projected onto itself. This implies that $\boldsymbol{P_{X}}\boldsymbol{X} = \boldsymbol{X}$. Again, this is easily verified by using equation \eqref{eqn_CNR_Px} which yields $\boldsymbol{P_{X}}\boldsymbol{X}=\boldsymbol{X}(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{X} = \boldsymbol{X}$.
+
+$\boldsymbol{M_{X}}$ is the orthogonal complement to $\boldsymbol{P_{X}}$, such that $\boldsymbol{M_{X}} = (\boldsymbol{I} - \boldsymbol{P_{X}})$. Consequently,
+
+\begin{eqnarray}
+\boldsymbol{P_{X}}\boldsymbol{M_{X}} &=& \boldsymbol{P_{X}}(\boldsymbol{I} - \boldsymbol{P_{X}}) \nonumber \\
+&=& \boldsymbol{P_{X}}-\boldsymbol{P_{X}}\boldsymbol{P_{X}} = \boldsymbol{P_{X}}-\boldsymbol{P_{X}}=\boldsymbol{0}.
+\end{eqnarray}
+
+Since $\boldsymbol{P_{X}}$ and $\boldsymbol{M_{X}}$ are orthogonal to each other, any vector in $\mathcal{S}(\boldsymbol{X})$ will either be projected onto itself (i.e. $\boldsymbol{P_{X}}\boldsymbol{X} = \boldsymbol{X}$) or it will be annihilated ($\boldsymbol{M_{X}}\boldsymbol{X} = \boldsymbol{0}$).
+
+Now, suppose that the matrix $\boldsymbol{X}$ can be decomposed into the submatrices $\boldsymbol{X}_{1}$ and $\boldsymbol{X}_{2}$, such that $\boldsymbol{X} = [\boldsymbol{X}_{1}\hspace{1ex}\boldsymbol{X}_{2}]$. Analogous to $\boldsymbol{P_{X}}$, we can now define the projection matrix $\boldsymbol{P}_{1} = \boldsymbol{X}_{1}(\boldsymbol{X}_{1}'\boldsymbol{X}_{1})^{-1}\boldsymbol{X}_{1}'$. This yields the following important relationships:
+
+\begin{eqnarray}
+\boldsymbol{P_{X}}\boldsymbol{P}_{1}=\boldsymbol{P}_{1} \qquad &\text{since}& \qquad \boldsymbol{P}_{1}<\boldsymbol{P_{X}}\\
+\boldsymbol{M_{X}}\boldsymbol{M}_{1}=\boldsymbol{M_{X}} \qquad &\text{since}& \qquad \boldsymbol{M}_{1}>\boldsymbol{M_{X}}
+\end{eqnarray}
+
+
+\subsubsection{Geometry of the Frisch-Waugh-Lovell theorem}
+See \citet{Lovell2008} for a simple proof that does not rely on matrix algebra. More comprehensive treatment of the Frisch-Waugh-Lovell theorem (FWL) can be found in \citet{Davidson2004}.
+
+\subsection{General Method of Moments (GMM)}
+
+\subsection{Maximum Likelihood Estimation and OLS}
+The maximum likelihood estimate (MLE) is that assumed value of an unknown population parameter which maximises the probability of obtaining the sample data that is actually observed.
+
+The normal regression model is the linear regression model under the restriction that the error term $e_{i}$ is independent of $\boldsymbol{x}_{i}$ and has the distribution $(0, \sigma^{2})$ Thus the standard set-up of OLS that we have just seen can easily be re-written as
+
+\begin{eqnarray}
+e_{i} | \boldsymbol{x}_{i} \sim (0, \sigma^{2})
+\end{eqnarray}
+
+Recall from section~\ref{chap_Review:Stats} that the mean and variance of a variable $V = \mu_{0} + e$ where $e \sim (0,\sigma^{2})$, is $\mu_{V} = \mu$ and $\sigma^{2}_{V}=\sigma^{2}_{e}$. This implies that
+
+\begin{eqnarray}
+y_{i} | \boldsymbol{x}_{i} \sim (\boldsymbol{x}_{i}'\boldsymbol{\beta}, \sigma^{2})
+\end{eqnarray}
+
+Equivalently, we can rewrite the linear model as $\boldsymbol{y} \sim N{\boldsymbol{\Omega}, \boldsymbol{\Omega}}$ where $\boldsymbol{\Omega}$ is assumed to meet the Gauss-Markov assumptions.
+
+Given the parametric nature of the CNR, we can use likelihood methods\index{likelihood methods} for estimating the parameters. The likelihood function for each observation is
+
+\begin{eqnarray}
+\mathcal{L}_{i}  = f(y_{i}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}}e^{-\frac{(y_{i} - \boldsymbol{x}'_{i}\boldsymbol{\beta})^{2}}{2\sigma^{2}}}
+\end{eqnarray}
+
+The maximum likelihood estimator\index{maximum likelihood estimator (MLE)|see{likelihood methods}} (MLE; $\hat{\boldsymbol{\beta}}_{mle}, \sigma^{2}_{mle}$) maximises $\log \mathcal{L}(\boldsymbol{\beta}, \sigma^{2})$. Since this is a function of $\boldsymbol{\beta}$ only through the sum of squared errors $SSE_{n}(\boldsymbol{\beta})$, maximising the likelihood is equivalent to minimising the sum of squared errors. Therefore
+
+\begin{eqnarray}
+\hat{\boldsymbol{\beta}}_{mle} = \boldsymbol{\hat{\beta}}_{ols}.
+\end{eqnarray}
+
+
+\begin{subappendices}
+\section{Code for Spatial Stats in R}
+\lstinputlisting{"Programs/UP504_OLS.R"}
+
+\renewcommand\bibname{Further reading}
+
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/ClassNormReg.bbl}{\input{Literature/ClassNormReg.bbl}}{\typeout{Need to run bibtex}}
+\end{subappendices}

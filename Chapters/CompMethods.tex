@@ -1,0 +1,45 @@
+\chapter{Computational Methods}\label{chap_CompMethods}
+
+\section{Principles of coding}
+\subsection{Debugging code}
+Most questions about code are made more answerable by the addition of a minimal working example (MWE)\index{MWE|see{minimal working example}}\index{minimal working example} or a short, self-contained, correct example (SSCCE).
+
+Your debugging question may have an obvious answer, or it may not. When enlisting the help of others in debugging\index{code!debugging} your code, think about it from the point of view of the person whose help you're seeking. To ensure that the answer she provides is sound, she will probably want to create a sample document, make the changes she recommends, and check that it works. If she thinks she knows the answer but doesn't have the time to create a sample document, she may in the interest of quality control refrain from answering at this time. Thus you should always provide a block of code that can be copied, pasted directly into a file, compiled, tweaked, corrected, and pasted back.
+
+In this context, ``minimal'' means that the problem is isolated and there is nothing in the sample that distracts from the error you have or the effect you desire. ``Working'' doesn't mean the problem is solved, it means the code sample can be copied-and-pasted and directly compiled. The site \href{http://www.sscce.org}{sscce.org} is dedicated to the topic. There are also several articles on the topic as it applies specifically to LaTeX:
+
+\begin{itemize}
+\item \href{http://theoval.cmp.uea.ac.uk/~nlct/latex/minexample/minexample.pdf}{``Creating a LaTeX Minimal Example''} (PDF) from Dr. Nicola Talbot's LaTeX resources,
+\item \href{http://www.tex.ac.uk/cgi-bin/texfaq2html?label=minxampl}{``How to make a `minimum example'"} from the UK \TeX{} FAQ,
+\item \href{http://www.minimalbeispiel.de/mini-en.html}{``What is a minimal working example?"} from the de.comp.text.tex newsgroup.
+\end{itemize}
+
+
+\section{High-performance computing}
+This section introduces the concept of high-performance computing\index{high-performance computing} and illustrates an application using the University of Michigan's high-performance Linux cluster Flux\index{Flux|see{software}}\index{Flux|seealso{high-performance computing}}\index{software!Flux}.
+
+
+\subsection{Parallelised statistical computations}
+Many modern statistical techniques rely on computations that are parallel. Resampling methods (such as cross-validation and the bootstrap) and many simulations can be separated into independent sets of computations. 
+
+As an example, we use simulation to produce a power curve for an independent samples $t$-test. After demonstrating the simulation using the \texttt{lapply} function in \textsf{R}, we parallelise the simulation using the \texttt{mcapply} function from the \texttt{multicore} package.
+
+
+
+\subsection{University of Michigan high-performance cluster}
+\subsubsection{Logging into the cluster and copying files}
+\subsubsection{Software on Flux}
+\subsubsection{Description of key commands}
+\subsubsection{Running a batch job}
+
+\section{Nonparametric econometrics}
+This section with provide a basic introduction to nonparametric techniques in econometrics.
+
+\linenumbers
+\footnotesize
+\begin{verbatim}
+R> y <- plot(density(rnorm))
+R> lines(x, add=TRUE)
+\end{verbatim}
+\normalsize
+\nolinenumbers

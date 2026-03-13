@@ -1,0 +1,21 @@
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Davidson and MacKinnon]{Davidson and
+  MacKinnon}{2004}{Davidson2004}
+\textsc{Davidson, R.,  {\small and} J.~G. MacKinnon}  (2004): \emph{Econometric
+  Theory and Methods}. Oxford University Press, 1st edn.
+
+\harvarditem[Lovell]{Lovell}{2008}{Lovell2008}
+\textsc{Lovell, M.~C.}  (2008): ``A Simple Proof of the FWL-Theorem,''
+  \emph{Journal of Economic Education}, 39(1), 88--91.
+
+\end{thebibliography}

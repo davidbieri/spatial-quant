@@ -1,0 +1,34 @@
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Briant, Combes, and Lafourcade]{Briant, Combes, and
+  Lafourcade}{2010}{Briant2010}
+\textsc{Briant, A., P.-P. Combes,  {\small and} M.~Lafourcade}  (2010): ``Dots
+  to Boxes: Do the Size and Shape of Spatial Units Jeopardize Economic
+  Geography Estimations?,'' \emph{Journal of Urban Economics}, 67(3), 287--302.
+
+\harvarditem[Carrigan and Coglianese]{Carrigan and
+  Coglianese}{2012}{Carrigan2012}
+\textsc{Carrigan, C.,  {\small and} C.~Coglianese}  (2012): \emph{Regulatory
+  Breakdown: The Crisis of Confidence in U.S. Regulation}chap. Oversight in
+  Hindsight: Assessing the U.S. Regulatory System in the Wake of Calamity, pp.
+  1--20. University of Pennsylvania Press, Philadelphia, PA.
+
+\harvarditem[Dougherty]{Dougherty}{2011}{Dougherty2011}
+\textsc{Dougherty, C.}  (2011): \emph{Introduction to Econometrics}. Oxford
+  University Press, Oxford, UK, 4rd edn.
+
+\harvarditem[Goldstein and Razin]{Goldstein and Razin}{2013}{Goldstein2013}
+\textsc{Goldstein, I.,  {\small and} A.~Razin}  (2013): ``Review of Theories of
+  Financial Crises,'' Working Paper No. 18670, National Bureau of Economic
+  Research.
+
+\end{thebibliography}

@@ -1,0 +1,74 @@
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Anselin]{Anselin}{2002}{Anselin2002}
+\textsc{Anselin, L.}  (2002): ``Under the Hood: Issues in the Specification and
+  Interpretation of Spatial Regression Models,'' \emph{Agricultural Economics},
+  27(3), 247--267.
+
+\harvarditem[Anselin]{Anselin}{2012}{Anselin2012}
+\textsc{\BySame{}}  (2012): ``From SpaceStat to CyberGIS: Twenty Years of
+  Spatial Data Analysis Software,'' \emph{International Regional Science
+  Review}, 35(2), 131--157.
+
+\harvarditem[Barrett, Eubank, Marathe, Marathe, Pan, and Swarup]{Barrett,
+  Eubank, Marathe, Marathe, Pan, and Swarup}{2011}{Barrett2011}
+\textsc{Barrett, C.~L., S.~Eubank, A.~Marathe, M.~V. Marathe, Z.~Pan,  {\small
+  and} S.~Swarup}  (2011): ``Information Integration to Support Model-Based
+  Policy Informatics,'' \emph{The Innovation Journal: The Public Sector
+  Innovation Journal}, 16(1), 1--20.
+
+\harvarditem[Bivand]{Bivand}{2008}{Bivand2008}
+\textsc{Bivand, R.~S.}  (2008): ``Implementing Representations of Space in
+  Economic Geography,'' \emph{Journal of Regional Science}, 48(1), 1--27.
+
+\harvarditem[Bivand, Pebesma, and G\'{o}mez-Rubio]{Bivand, Pebesma, and
+  G\'{o}mez-Rubio}{2008}{Bivand2008a}
+\textsc{Bivand, R.~S., E.~J. Pebesma,  {\small and} V.~G\'{o}mez-Rubio}
+  (2008): \emph{Applied Spatial Data Analysis with R}, Use R! Springer, New
+  York, NY.
+
+\harvarditem[Campbell]{Campbell}{2006}{Campbell2006}
+\textsc{Campbell, J.~B.}  (2006): \emph{Introduction to Remote Sensing}. The
+  Guilford Press.
+
+\harvarditem[Corrado and Fingleton]{Corrado and Fingleton}{2012}{Corrado2012}
+\textsc{Corrado, L.,  {\small and} B.~Fingleton}  (2012): ``Where's the
+  Economics in Spatial Econometrics?,'' \emph{Journal of Regional Science},
+  52(2), 2010--239.
+
+\harvarditem[Davis]{Davis}{2002}{Davis2002a}
+\textsc{Davis, J.~C.}  (2002): \emph{Statistics and Data Analysis in Geology}.
+  John Wiley \& Sons, Inc., New York, 3rd edn.
+
+\harvarditem[Kelejian and Prucha]{Kelejian and Prucha}{1998}{Kelejian1998}
+\textsc{Kelejian, H.~H.,  {\small and} I.~R. Prucha}  (1998): ``A Generalized
+  Spatial Two-Stage Least Squares Procedure for Estimating a Spatial
+  Autoregressive Model with Autoregressive Disturbances,'' \emph{Journal of
+  Real Estate Finance and Economics}, 17(1), 99--121.
+
+\harvarditem[McMillen]{McMillen}{2010}{McMillen2010a}
+\textsc{McMillen, D.~P.}  (2010): ``Issues in Spatial Data Analysis,''
+  \emph{Journal of Regional Science}, 50(1), 119--141.
+
+\harvarditem[O'Sullivan and Unwin]{O'Sullivan and Unwin}{2003}{O'Sullivan2003}
+\textsc{O'Sullivan, D.,  {\small and} D.~Unwin}  (2003): \emph{Geographic
+  Information Analysis}. John Wiley and Sons, Inc., Hoboken, NJ.
+
+\harvarditem[Pinske and Slade]{Pinske and Slade}{2010}{Pinske2010}
+\textsc{Pinske, J.,  {\small and} M.~E. Slade}  (2010): ``The Future of Spatial
+  Econometrics,'' \emph{Journal of Regional Science}, 50(1), 103--117.
+
+\harvarditem[Tobler]{Tobler}{1970}{Tobler1970}
+\textsc{Tobler, W.~R.}  (1970): ``A Computer Movie Simulating Urban Growth in
+  the Detroit Region,'' \emph{Economic Geography}, 46(S1), 234--240.
+
+\end{thebibliography}

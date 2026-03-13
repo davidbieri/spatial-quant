@@ -1,0 +1,86 @@
+\chapter{Economic Analysis}\label{chap_EconAnalysis}
+
+\section{Modelling and measuring economic activity}
+\subsection{Measures of spatial concentration and specialisation}
+The various quantitative measures of economic concentration\index{measures of economic concentration} are defined in detail in this section.
+
+\subsubsection{Locational measures}
+
+\paragraph{Location quotient}
+The location quotient\index{location quotient|see{measures of economic concentration}}\index{measures of economic concentration!location quotient} (LQ) is the standard measure of employment distribution that controls for the size of the region. The relative
+concentration of industry $i$ in region $j$ is defined as
+
+\begin{eqnarray}
+LQ_{i} = \frac{(E_{ij}/E_{in})}{(E_{j}/E_{n})}
+\end{eqnarray}
+
+\noindent where, $E_{ij}$ is employment in industry $i$ in region $j$, $E_{j}$ is total employment in region $j$, $E_{in}$ is national employment in industry $i$, and $E_{n}$ is total national employment. Thus, a LQ of greater than one indicates that there is an above average proportion of employment in a given industry in a given region. Industries with an LQ above 1.25 are generally viewed
+as constituting the export-oriented economic base.
+
+\paragraph{Horizontal clustering}
+Horizontal clustering\index{clustering!horizontal|see{measures of economic concentration}}\index{measures of economic concentration!horizontal clustering} (HC) is an alternative measure that accounts for possible agglomeration effects in terms of the numbers of jobs in a specific industry. As such, it is the arithmetic equivalent to a bubble chart\index{bubble chart} which accounts for an industry's gravitational pull over and above what is expected to occur at the national level. HC can then be written as
+
+\begin{eqnarray}
+HC_{i} = E_{ij} - \widehat{E}_{ij},
+\end{eqnarray}
+
+\noindent where $\widehat{E}_{ij} = E_{j}\times \frac{E_{in}}{E_{n}}$ by setting $\widehat{LQ}_{i}=1$.
+
+\subsubsection{Shift-share analysis}
+
+
+\subsubsection{Agglomeration measures}
+Location measures generally ignore geographic dispersion and uneven distribution of employment within subregions of an area under study.
+Agglomeration measures\index{agglomeration}\index{agglomeration|seealso{measures of economic concentration}} are designed to overcome this shortcoming.
+
+\paragraph{Herfindahl-Hirschman Index}
+In the context of industry employment concentration within an MSA the simplest such measure is the Herfindahl-Hirschman index\index{Herfindahl-Hirschman index|see{measures of economic concentration}}\index{measures of economic concentration!Herfindahl-Hirschman index} (HHI). It is defined as
+
+\begin{eqnarray}
+HHI_{i} = \sum^{n}_{i=1}s_{i}^{2},
+\end{eqnarray}
+
+\noindent where $s_{i}$ is simply industry $i$'s LQ at the level of the subregion compared to the MSA and $n$ is the number of counties
+within the MSA.\footnote{In the context of MSA-level data, counties are commonly assumed to be the subregions. For the Blacksburg MSA,
+we would set $n=4$ since it includes Giles, Montgomery, Pulaski counties and the city of Radford.} The index is equal to 1 if there is absolute concentration and it takes a value of $\frac{1}{n}$ if employment in the industry is equally dispersed across the MSA.
+
+\paragraph{Locational Gini Coefficient}
+The locational Gini coefficient\index{Gini coefficient!locational} (LGC) also accounts for agglomeration and concentration within a specific region, but in a most sophisticated way than the HHI. It is defined as
+
+\begin{eqnarray}
+LGC_{i} =
+\frac{\sum_{i=1}^{n}\sum_{j=1}^{n}|x_{i}-x_{j}|}{2n(n-1)\mu},
+\end{eqnarray}
+
+\noindent where $x_{i}$ and $x_{j}$ are the LQs of industries $i$ and $j$ in each of the subregions, $\mu$ is the mean of the LQs in the MSA and $n$ is the number of counties.
+
+\paragraph{Ellison-Glaeser Index}
+The Ellison-Glaeser index\index{Ellison-Glaeser index|see{measures of economic concentration}}\index{measures of economic concentration!Ellison-Glaeser index} (EG) measures how industrial concentration patterns differ from a situation where firms in a purely random manner. The index is defined as follows
+
+\begin{equation}
+EG_{i} = \frac{\sum_{i=1}^{n}(s_{i}-x_{i})^2 - (1-
+\sum^{n}_{i=1}x^{2}_{i})\sum^{m}_{j=1}z^{2}_{j}}{(1-
+\sum^{n}_{i=1}x^{2}_{i})(1- \sum^{m}_{j=1}z^{2}_{j})},
+\end{equation}
+
+\noindent where $s_{i}$, $x_{i}$ and $n$ have the same definitions as above; $z_{i}$ is the share of the 6-digit NAICS subsector
+establishments in sector $j$ and $m$ is the number of 6-digit subsectors.
+
+
+\section{Measuring inequality}
+
+\section{Spatial concentration and agglomeration}
+
+\section{Economic impact analysis}
+\subsection{Input-output modelling}
+\subsection{Applied tools}
+\subsubsection{RIMS II}
+\subsubsection{IMPLAN}
+\subsubsection{FedFIT}
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/EconAnalysis.bbl}{\input{Literature/EconAnalysis.bbl}}{\typeout{Need to run bibtex}}
+\end{subappendices} 

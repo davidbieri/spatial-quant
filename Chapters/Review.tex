@@ -1,0 +1,324 @@
+\chapter{Review}\label{chap_Review}
+\section{Preliminaries}\label{chap_Review:Prelim}
+``Probability approach in econometrics'' by Trygve \citet{Haavelmo1944} stands at the beginning of a paradigm shift in statistical thinking; the \emph{classical} interpretation of statistics is giving way to the \emph{frequentist} interpretation. Under the classical interpretation, probabilities are linked to the principle of indifference and statistical events are governed by natural symmetry (e.g. coin tosses, die etc.) This constraining set-up of what gives rise to probabilities is one of the key problems of the classical view. 
+
+Under the frequentist interpretation on the other hand, probabilities of events are linked to the frequency with which a given event is observed. This implies that
+
+$$P(x)= \lim\limits_{n_{t} \rightarrow \infty} \frac{n_{x}}{n_{t}},$$ 
+
+where $n_{x}$ is the number of observed trials and $n_{t}$ is the total number of trials. This probabilistic approach to statistics, which includes Bayesian statistics\index{Bayesian statistics}, represents the world in terms of ``degrees of belief'' (Bayesian priors).
+
+More formally, Bayes' Theorem is expressed as the conditional probability of occurence A given B such that $$P(A|B) = \frac{P(B|A)P(A)}{P(B)}.$$\index{Bayes' Theorem|see{Bayesian statistics}}
+
+
+\section{Statistics and probability theory}\label{chap_Review:Stats}
+\subsection{Types of random variables}
+A random variable, usually written as $X$, is a variable whose possible values are numerical outcomes of a random phenomenon. A random variable $X$  is a (real) number with the following characteristics:
+
+\begin{inparaenum}[\itshape a\upshape)]
+\item the value of $X$ is unknown;
+\item the possible values $X$ can take are known; the set of such values is called support and denoted by $\bm{\mathcal{S}}_{X}$;
+\item if $\bm{\mathcal{A}}$  is a subset of the set of real numbers $\mathbb{R}$  (i.e. $\bm{\mathcal{A}}\subseteq \mathbb{R}$), we know the probability that $X$ belongs to $\bm{\mathcal{A}}$ which is denoted by $P(X\in\bm{\mathcal{A}})$.
+\item If (and when) the value $x$ of $X$  becomes known, such that $x=X$, $x$ is then referred to as the realization of $X$. Hence, the support $\bm{\mathcal{S}}_{X}$  is the set of all possible realizations of $X$.
+\end{inparaenum}
+
+Random variables generally fall into two categories, discrete and continuous:
+
+\begin{itemize}
+\item Discrete random variables\index{random variable!discrete}: Takes on only a countable number of distinct values such as $0,1,2,3,4 \ldots$ Discrete random variables are usually (but not necessarily) counts. If a random variable can take only a finite number of distinct values, then it must be discrete.
+\item Continuous random variables\index{random variable!continuous}: Takes an infinite number of possible values. Continuous random variables are usually measurements. Examples include height, weight, the amount of sugar in an orange, the time required to run a mile.
+\end{itemize}
+
+In addition to distinguishing between discrete and continuous random variables, we can also categorise random variables into \emph{qualitative} variables or \emph{quantitative} variables. Qualitative\index{qualitative variable|see{random variable}} or categorical variables are either nominal, ordinal or dichotomous. 
+
+\begin{itemize}
+\item Nominal variables: \index{random variable!nominal}\index{categorical variable|see{random variable}} A variable for mutually exclusive, but not ordered categories such as, for example, your study might compare five different types of suburbs (inner-ring suburbs, commuter suburb, sitcom suburb, high-income suburb, minority suburb). 
+\item An ordinal variable\index{random variable!ordinal} is a random variable where the order matters but not the difference between values. For example, quality of life rankings might express how nice a place is on a scale of 1 to 10. A score of 7 means a nicer place that a score of 5, and that is more than a score of 3. But the difference between the 7 and the 5 may not be the same as that between 5 and 3. The values simply express an order. 
+\end{itemize}
+
+Quantitative variables\index{quantitative variable|see{random variable}} are either interval variables where differentiation or transformation preserves the units (such as in the case of temperature measurements in C, F) or ratio variables where a value of 0 means that nothing of that variable is present. Thus temperature measured in Kelvin or height, for example, are ratio variables.
+
+\begin{itemize}
+\item An interval variable\index{random variable!interval} is a measurement where the difference between two values is meaningful. The difference between a temperature of 100 degrees and 90 degrees is the same difference as between 90 degrees and 80 degrees. 
+\item When working with ratio variables\index{random variable!ratio}, you can look at the ratio of two measurements. A weight of 4 grams is twice a weight of 2 grams, because weight is a ratio variable. A temperature of 100 degrees Celsius is not twice as hot as 50 degrees C, because temperature C is not a ratio variable. Similarly, a pH of 3 is not twice as acidic as a pH of 6, because pH is an interval variable and not a ratio variable. 
+\end{itemize}
+
+\begin{table}[htp] 
+\centering
+\caption{Basic statistical operations by variable type}
+\footnotesize
+\begin{tabular}{lcccc}\label{tbl_Vars}
+\\ \hline
+\hline
+&\multicolumn{4}{c}{\emph{Random variable type}}\\
+\emph{Operation}&Nominal&Ordinal&Ratio&Interval\\
+\cline{2-5}
+Frequency distribution&Yes&Yes&Yes&Yes\\
+Median and percentiles&No&Yes&Yes&Yes\\
+Addition/subtraction&No&No&Yes&Yes\\
+Mean, standard deviation, standard error of the mean&No&No&Yes&Yes\\
+Ratio/coefficient of variation&No&No&No&Yes\\
+\hline
+\hline \\
+\normalsize
+\end{tabular}
+\end{table}
+
+
+\subsection{Expectations}
+\subsubsection{Expectation of a discrete random variable}
+\begin{eqnarray}
+\mathbb{E}(X) &=& x_{1}p_{1} + x_{2}p_{2} + x_{3}p_{3} +\ldots + x_{n}p_{n}\nonumber \\
+&=& \sum^{n}_{i=1}x_{i}p_{i}
+\end{eqnarray}
+
+Recall that in a finite sample, $\mathbb{E}(X)$ denotes the sample mean and the sum of all probabilities must be equal to one, i.e. $\sum_{i}p_{i}=1$.
+
+\paragraph{Example} Consider the following gamble where an unbiased coin with heads ($H$) and tails ($T$) is tossed $n$ times until tails ($T$) appears. If $T$ shows up at the $n$-th toss, the payoff is $\$2^{n-1}$. How much would you be willing to put up as a wager to participate in this game?
+
+\begin{eqnarray*}
+\mathbb{E}(X) &=& \$2^{0}\cdot\frac{1}{2} + \$2^{1}\cdot\frac{1}{2}\cdot\frac{1}{2} + \$2^{2}\cdot\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2} + \ldots \\
+&=& \$1\cdot\frac{1}{2} + \$2\cdot\frac{1}{4} + \$4\cdot\frac{1}{8} + \ldots\\
+&=& \sum^{\infty}_{i=1}\$ 0.5 = \$\infty
+\end{eqnarray*}
+
+This is the \emph{St. Petersburg paradox}\index{St. Petersburg paradox} famously defined and described by Daniel Bernoulli\index{Bernoulli, Daniel} (Swiss mathematician (1700--1782), father of modern fluid dynamics) to illustrate the failure of expected value principle (as opposed to expected utility) in decision theory under uncertainty. Thus the expected payout value of a St. Petersburg game is an infinite amount, yet clearly the willingness to pay (WTP)\index{WTP|see{willingness to pay}}\index{willingness to pay} to participate in such a game must be (much) less than its expected value. The classical resolution of the paradox thus involves the explicit introduction of a utility function\index{utility}, an expected utility hypothesis, and the presumption of diminishing marginal utility of money. This implies $\mathbb{E}(U) < \mathbb{E}(X)$.
+
+\paragraph{Example} What is the expected value of throwing a single die (or a pair of dice)?
+
+\begin{eqnarray*}
+\mathbb{E}(X) = \frac{1}{6}\cdot 1 + \frac{1}{6}\cdot 2 + \frac{1}{6}\cdot 3 + \ldots + \frac{1}{6}\cdot 6 = 3.5
+\end{eqnarray*}
+
+Thus the sample mean $\mu_{X} = 3.5$ and analogously, for a pair of dice, $\mu_{X} = 7$. A table with the bivariate probabilities is shown in table~\ref{tbl_Dice} below:
+
+
+\begin{table}[htp] 
+\centering
+\caption{Bivariate probabilities for a pair of dice and expected value of $X$}
+\footnotesize
+\bigskip
+\begin{tabular}{lll|lll}\label{tbl_Dice}
+\\ \hline
+\hline
+$X$&$p$&$Xp$&$X$&$p$&$Xp$\\
+\hline
+$x_{1}$ & $p_{1}$ & $x_{1}p_{1}$ & 2 & 1/36 & 2/36\\
+$x_{2}$ & $p_{2}$ & $x_{2}p_{2}$ & 3 & 2/36 & 6/36\\
+$x_{3}$ & $p_{3}$ & $x_{3}p_{3}$ & 4 & 3/36 & 12/36\\
+$\ldots$ & $\ldots$ & $\ldots$ & 5 & 4/36 & 20/36\\
+$\ldots$ & $\ldots$ & $\ldots$ & 6 & 5/36 & 30/36\\
+$\ldots$ & $\ldots$ & $\ldots$ & 7 & 6/36 & 42/36\\
+$\ldots$ & $\ldots$ & $\ldots$ & 8 & 5/36 & 40/36\\
+$\ldots$ & $\ldots$ & $\ldots$ & 9 & 4/36 & 36/36\\
+$\ldots$ & $\ldots$ & $\ldots$ & 10 & 3/36 & 30/36\\
+$\ldots$ & $\ldots$ & $\ldots$ & 11 & 2/36 & 22/36\\
+$x_{n}$ & $p_{n}$ & $x_{n}p_{n}$ & 12 & 1/36 & 6/36\\
+
+\hline
+\multicolumn{3}{l}{Total: $\mathbb{E}(X)=\sum^{n}_{i=1}x_{i}p_{i}$}&&\multicolumn{2}{r}{252/36 = 7}\\
+\hline \\
+\normalsize
+\end{tabular}
+\end{table}
+
+
+\subsection{Expectations rules}
+\begin{enumerate}
+\item $\mathbb{E}[X + Y + Z] = \mathbb{E}(X) + \mathbb{E}(Y) + \mathbb{E}(Z);$
+\item $\mathbb{E}[bX] = b\mathbb{E}(X);$
+\item $\mathbb{E}[b] = b$
+\end{enumerate}
+
+\paragraph{Example} Different rules can be combined, e.g. $\mathbb{E}[a + bX] = a + b\mathbb{E}(X)$. Let a normally distributed random variable $V$ can have any mean $\mu$ and any positive variance $\sigma^{2}$. Such a random variable is said to follow the $\mathcal{N}(\mu, \sigma^{2})$ distribution. A standard normal variable therefore has the $\mathcal{N}(0, 1)$ distribution.
+
+Suppose that $V$ has the standard normal distribution. What are the corresponding mean $\mu$ and variance $\sigma^{2}$ of a new random variable $Z \equiv \mu + \sigma V$? For the mean, we use the fact that $\mathbb{E}\left[V\right]=0$ which yields
+
+\begin{eqnarray*}
+\mathbb{E}\left[Z\right] &=& \mathbb{E}\left[\mu + \sigma V\right] = \mathbb{E}\left[\mu\right] + \mathbb{E}\left[\sigma V\right] = \mu + \sigma\mathbb{E}\left[V\right]\\
+&=& \mu.
+\end{eqnarray*}
+
+Similarly, when deriving the variance, recall that $\text{var}(V)=\mathbb{E}\left[V^{2}\right]=1$ such that
+
+\begin{eqnarray*}
+    \mathbb{E}\left[(Z-E\left[Z\right])^{2}\right] &=& \mathbb{E}\left[Z^{2}-2Z\mathbb{E}\left[Z\right]+ (\mathbb{E}\left[Z\right])^{2}\right]= \mathbb{E}\left[Z^{2} -2Z\mu + \mu^{2}\right]\\
+    &=& \mathbb{E}\left[Z^{2}\right] -2\mu\mathbb{E}\left[Z\right] + \mathbb{E}\left[\mu^{2}\right]= \mathbb{E}\left[Z^{2}\right] -2\mu^{2} + \mu^{2}\\
+    &=& \mathbb{E}\left[(\mu^{2}+ 2\mu\sigma V + \sigma^{2}V^{2})\right] -\mu^{2} \\
+    &=& \mu^{2} + 2\mu\sigma \mathbb{E}\left[V\right] +\sigma^{2}\mathbb{E}\left[V^{2}\right] -\mu^{2} =  \\
+    &=& \sigma^{2}.
+    \end{eqnarray*}
+
+
+\subsubsection{Variance of a discrete random variable}
+\begin{eqnarray}
+\textrm{Var}(X) = \sigma^{2}_{X} &=& \mathbb{E}[(X-\mu_{X})^{2}]\nonumber \\
+&=& (x_{1} - \mu_{X})^{2}p_{1} + (x_{2} - \mu_{X})^{2}p_{2} + \ldots + (x_{n} - \mu_{X})^{2}p_{n} \nonumber\\
+&=& \sum^{n}_{i=1}(x_{i} - \mu_{X})^{2}p_{i}
+\end{eqnarray}
+
+Derivation of alternative expression for the variance:
+
+\begin{eqnarray}
+\textrm{Var}(X) = \sigma^{2}_{X} &=& \mathbb{E}[(X-\mu_{X})^{2}]\nonumber \\
+&=& \mathbb{E}[(X-\mu_{X})((X-\mu_{X})] \nonumber\\
+&=& \mathbb{E}[X^{2}-2\mu_{X}X + \mu_{X}^{2}] \nonumber\\
+&=& \mathbb{E}[X^{2}] -\mathbb{E}[2\mu_{X}X] + \mathbb{E}[\mu_{X}^{2}] \nonumber\\
+&=& \mathbb{E}[X^{2}] -2\mu_{X}\mathbb{E}[X] + \mu_{X}^{2} \nonumber\\
+&=& \mathbb{E}[X^{2}] -2\mu_{X}^{2} + \mu_{X}^{2} = \mathbb{E}[X^{2}] - \mu_{X}^{2}
+\end{eqnarray}
+
+\subsubsection{Fixed and random components of variables}
+Let the random variable $X$ be decomposed into two parts, namely a constant mean $\mu_{X}$ and a variable component $u$. Think of $u$ as measurement error or a stochastic disturbance term with $\mathbb{E}(u)= \mathbb{E}(X-\mu_{X}) = \mathbb{E}(X) -\mu_{X}= 0$.
+
+Because all variation in $X$ is due to $u$, the variance of $X$, $\sigma^{2}_{X}$, is identical to the variance of the disturbance term, $\sigma_{u}$. More formally, we can write
+
+\begin{eqnarray*}
+\sigma^{2}_{X}&=& \mathbb{E}[(X-\mu_{X})^{2}] = \mathbb{E}(u^{2})\\
+\sigma^{2}_{u}&=& \mathbb{E}[(u-\mu_{u})^{2}] = \mathbb{E}(u^{2}).
+\end{eqnarray*}
+
+\section{Probability distributions}
+All random variables (discrete and continuous) have a probability density function (PDF)\index{PDF|see{density function}}\index{density function!probability} and a cumulative density function (CDF)\index{CDF|see{density function}}\index{density function!cumulative}. These are functions that give the probability that the random variable $X$ is less than or equal to $x$, for every value $x$. For a discrete random variable, the cumulative distribution function is found by summing up the probabilities.
+
+
+\begin{figure}[htp]
+\caption{Probability density function with $f(x)\equiv F'(x)$ }\label{fig_PDF}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{"Figures/PDFjc"}
+\end{center}
+\footnotesize
+\end{figure}
+
+
+\begin{figure}[htp]
+\caption{Cumulative density function with $\int f(x) \equiv F(x)$}\label{fig_CDF}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{"Figures/CDFjc"}
+\end{center}
+\footnotesize
+\end{figure}
+
+Using R, it is fairly straightforward to produce the PDF and CDF of a standard normal distribution:
+
+\begin{lstlisting}
+#Probability density function with shaded area
+cord.x <- c(-2,seq(-2,-1,0.01),-1) 
+cord.y <- c(0,dnorm(seq(-2,-1,0.01)),0) 
+curve(dnorm(x,0,1),xlim=c(-3,3),main='PDF', xlab='Marginal Density') 
+polygon(cord.x,cord.y,col='blue')
+
+
+#Cumulative density function
+x <- rnorm(10000)
+plot(ecdf(x), ylab="Probability")
+\end{lstlisting}
+
+
+\begin{eqnarray*}
+\text{Pr.}[A\leq x\leq B]=\int_{A}^{B} f(x)dx
+\end{eqnarray*}
+
+$\therefore$ we can write the expectation of a continuous random variable as:
+
+\begin{eqnarray*}
+\text{CDF}=\int_{-\infty}^{x} f(x)dx = F(B)-F(A)=\int_{-\infty}^{x}F'(x)dx
+\end{eqnarray*}
+
+Equivalently, in the case of a continuous random variable the variance can be expressed as:
+
+\begin{eqnarray}
+\mathbb{E}\left[x\right]=\int x f(x)dx = \mu_{x}
+\end{eqnarray}
+\text{similarly}
+\begin{eqnarray}
+\mathbb{E}\left[(x-\mu_{x})^{2}\right]=\sigma_{x}^{2}=\int(x-\mu_{x})^{2}f(x)dx
+\end{eqnarray}
+
+
+
+\subsection{Expectation of a continuous random variable}
+In the case of a continuous random variable, we can express the expectation in terms of a function of the random variable such that
+
+\begin{eqnarray}
+\mathbb{E}(X) &=& \mathbb{E}[g(X)] = g(x_{1})p_{1} + g(x_{2})p_{2} + \ldots + g(x_{n})p_{n} \nonumber\\
+&=& \sum^{n}_{i=1}g(x_{i})p_{i}
+\end{eqnarray}
+
+
+\subsection{Lindberg-L\'{e}vy Central Limit Theorem}
+For the random variable $x_{t}$ which is \emph{i.i.d.} with mean $\mu$ and variance $\sigma^{2}$, the Lindberg-L\'{e}vy central limit theorem (CLT) states that the quantity
+
+\begin{eqnarray}
+z_{t} \equiv \frac{1}{\sqrt{n}}\sum^{n}_{t=1}\frac{x_{t}-\mu}{\sigma}\label{eqn.CLT}
+\end{eqnarray}
+
+is asymptotically distributed as N(0,1). The impact of the central limit theorem on different distributions across three sample sizes, $n=10, 50, 100$, is shown below.
+
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.49\textwidth]{Figures/binomial_PDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/binomial_CDF.pdf}\\
+\includegraphics[width=0.49\textwidth]{Figures/expon_PDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/expon_CDF.pdf}\\
+\caption{Normal approximation for binomial and exponential distribution}\label{fig.CLT1}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.49\textwidth]{Figures/t_PDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/t_CDF.pdf}\\
+\includegraphics[width=0.49\textwidth]{Figures/f_PDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/f_CDF.pdf}\\
+\caption{Normal approximation for $t$- and $F$-distribution}\label{fig.CLT2}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.49\textwidth]{Figures/gamma_PDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/gamma_CDF.pdf}\\
+\includegraphics[width=0.49\textwidth]{Figures/beta_PDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/beta_CDF.pdf}\\
+\caption{Normal approximation for $\Gamma$- and Beta distribution}\label{fig.CLT3}
+\end{figure}
+
+Overall, this exercise demonstrates how powerful the CLT really is; for all six different distributions, $1/\sqrt(n)$ times the sum of $n$ centered random variables approximately follows a normal distribution even at $n$ as small as 10. Figures~\ref{fig.CLT1} to figure~\ref{fig.CLT3} show the empirical distribution functions for the six distributions.
+
+\begin{itemize}
+\item[\emph{Binomial}] The approximation to the standard normal distribution increases dramatically at $n=50$ as the step function is still visible at $n=10$.
+\item[\emph{Exponential}] CLT takes effect visibly at $n=50$
+\item[\emph{t}] Even at $n=10$, the centered random variables from the $t$-distribution approximate N(0,1) well. It is hardly surprising since the two distributions are very similar except that the t-distribution displays wider tails.
+\item[\emph{F}] Centering for random variables from the $F$-distribution approximates the normal distribution only at comparatively large $n$, with the CLT fully taking effect at $n=100$
+\item[\emph{Gamma}] Centered random variables from the $\Gamma$-distribution approximate N(0,1) reasonably well at the smallest $n$ with the CLT kicking more reliably at $n=50$.
+\item[\emph{Beta}] Even at $n=10$, the centered random variables from the Beta-distribution approximate N(0,1) well. However for this distribution, the CLT-threshold seems to depend significantly on the random seed and fluctuated in different simulations between $n=10$ and $n=50$.
+\end{itemize}
+
+In addition to discovering that the CLT becomes effective at relatively small $n$ for a variety of distributions, this exercise demonstrates the impact of the variance on the centering process. The $\chi^{2}(m)$ distribution approaches the N($m,2m$) as $m$ becomes large and its variance is $2m$.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.75\textwidth]{Figures/chi1_PDF.pdf}
+\caption{Normal approximation for $\chi^{2}$-distribution}\label{fig.CLT5}
+\end{figure}
+
+The different panels of figure~\ref{fig.CLT6} demonstrate that the \emph{variance} and \emph{sample size} work as \emph{substitutes} in the centering process; a higher variance requires a smaller sample size in order for the $\chi^{2}(m)$-distribution to approximate the standard normal distribution. This largely due to the fact that centering is achieved by subtracting the mean and dividing by the standard deviation. A large variance implies a large denominator which in turn implies that a smaller number of observations are required for the distribution to be asymptotically distributed as N(0,1).
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.49\textwidth]{Figures/chi2_CDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/chi3_CDF.pdf}\\
+\includegraphics[width=0.49\textwidth]{Figures/chi4_CDF.pdf} \hfill
+\includegraphics[width=0.49\textwidth]{Figures/chi5_CDF.pdf}\\
+\caption{Variance impact and CLT for $\chi^{2}$-distribution}\label{fig.CLT6}
+\end{figure}
+
+
+\section{Matrix algebra}\label{chap_Review:Matrix}
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/Review.bbl}{\input{Literature/Review.bbl}}{\typeout{Need to run bibtex}}
+\end{subappendices} 
