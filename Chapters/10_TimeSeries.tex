@@ -1,0 +1,178 @@
+% =====================================================================
+%  Chapter 10: Time Series and Panel Data
+%  Source: TimeSeries.tex (Overleaf stub, expanded) + new scaffold
+%  NOTE: Section 10.1-10.4 need full development
+% =====================================================================
+
+\chapter{Time Series and Panel Data}
+\label{chap_TimeSeries}
+
+\section{Introduction and Key Concepts}
+\label{sec_TSIntro}
+
+Time series analysis studies the properties of sequences of observations
+indexed by time. The key distinction from cross-sectional analysis is that
+observations are not independent---the value at time $t$ is typically
+correlated with past values (autocorrelation) and the statistical properties
+of the series may change over time (non-stationarity).
+
+\noindent\textbf{Why time series matters for regional analysis.}
+Economic time series at the metropolitan and county level---employment,
+income, housing prices, unemployment rates---are the primary inputs for
+regional monitoring, forecasting, and policy evaluation. Understanding their
+time-series properties is a prerequisite for valid statistical inference.
+
+\subsection{Stationarity}
+
+A time series $\{y_t\}$ is \textbf{weakly stationary}\index{stationarity}
+if its mean, variance, and autocovariance structure do not change over time:
+\begin{align}
+  \E[y_t] &= \mu \quad\text{(constant mean)} \\
+  \Var[y_t] &= \sigma^2 \quad\text{(constant variance)} \\
+  \Cov[y_t, y_{t-k}] &= \gamma_k \quad\text{(depends only on lag }k\text{, not }t\text{)}
+\end{align}
+
+\subsection{Autocorrelation}
+
+The \textbf{autocorrelation function} (ACF)\index{autocorrelation function}
+at lag $k$ is:
+\begin{equation}
+  \rho_k = \frac{\Cov[y_t, y_{t-k}]}{\Var[y_t]} = \frac{\gamma_k}{\gamma_0}
+  \;\in\; [-1,+1]
+\end{equation}
+
+The \textbf{partial autocorrelation function} (PACF) measures the
+correlation at lag $k$ after controlling for all shorter lags.
+
+
+\section{AR and ARMA Processes}
+\label{sec_ARMA}
+
+\subsection{The AR(1) Model}
+
+The simplest time series model:
+\begin{equation}
+  y_t = \phi y_{t-1} + e_t, \qquad e_t \sim \text{iid}(0,\sigma^2)
+\end{equation}
+
+If $|\phi| < 1$: \emph{stationary}---the series mean-reverts.
+If $\phi = 1$: \emph{unit root}---the series is a random walk and is
+non-stationary.
+
+\subsection{AR($p$) and ARMA($p$,$q$) Models}
+
+The AR($p$) generalisation:
+\begin{equation}
+  y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + \cdots + \phi_p y_{t-p} + e_t
+\end{equation}
+
+Adding $q$ moving-average terms gives the ARMA($p$,$q$) model:
+\begin{equation}
+  y_t = \sum_{i=1}^{p}\phi_i y_{t-i} + e_t + \sum_{j=1}^{q}\theta_j e_{t-j}
+\end{equation}
+
+The Box-Jenkins methodology selects $p$ and $q$ using the ACF and PACF
+plots:
+\begin{itemize}
+  \item ACF cuts off at lag $q$, PACF decays: suggests MA($q$)
+  \item PACF cuts off at lag $p$, ACF decays: suggests AR($p$)
+  \item Both decay gradually: suggests ARMA($p$,$q$)
+\end{itemize}
+
+% TODO: Add R code for ARIMA modelling of regional employment series
+
+
+\section{Non-Stationarity and Unit Roots}
+\label{sec_UnitRoot}
+
+\subsection{Spurious Regression}
+
+If two time series are independently generated random walks (unit root
+processes), regressing one on the other will typically produce a
+statistically significant coefficient with high $R^2$---even though there
+is no causal relationship. This is \textbf{spurious
+regression}\index{spurious regression} \citep{Granger1974}.
+
+\subsection{Augmented Dickey-Fuller Test}
+
+The \textbf{Augmented Dickey-Fuller (ADF) test}\index{Dickey-Fuller test}
+tests the null hypothesis of a unit root:
+\begin{equation}
+  \Delta y_t = \alpha + \beta t + \delta y_{t-1}
+               + \sum_{j=1}^{k}\gamma_j \Delta y_{t-j} + e_t
+\end{equation}
+$H_0$: $\delta = 0$ (unit root); $H_1$: $\delta < 0$ (stationary).
+
+\subsection{Cointegration and Error Correction}
+
+Two non-stationary series are \textbf{cointegrated}\index{cointegration} if
+a linear combination of them is stationary. Cointegration implies a
+long-run equilibrium relationship; deviations from it are corrected over time
+via an error correction mechanism:
+\begin{equation}
+  \Delta y_t = \alpha(y_{t-1} - \beta x_{t-1}) + \Gamma\Delta x_t + e_t
+\end{equation}
+
+% TODO: Add cointegration example with regional house prices and income
+
+
+\section{Forecasting}
+\label{sec_Forecasting}
+
+\subsection{In-Sample Fit vs.\ Out-of-Sample Accuracy}
+
+\begin{itemize}
+  \item \textbf{In-sample fit} ($R^2$, AIC, BIC): measures how well the
+    model fits the estimation sample. Subject to overfitting.
+  \item \textbf{Out-of-sample accuracy} (RMSE, MAE on holdout data):
+    measures genuine predictive performance.
+\end{itemize}
+
+\subsection{Forecast Evaluation}
+
+The \textbf{Diebold-Mariano test} \citep{Diebold1995} compares the
+predictive accuracy of two forecasting models:
+\begin{equation}
+  DM = \frac{\bar{d}}{\hat\sigma_{\bar{d}}/\sqrt{T}} \sim \mathcal{N}(0,1)
+\end{equation}
+where $\bar{d}$ is the mean loss differential between models.
+
+% TODO: Expand principles of forecasting, including FRED regional data
+
+
+\section{Panel Data Methods}
+\label{sec_PanelData_TS}
+
+Panel data methods were introduced in Section~\ref{sec_Panel} in the context
+of causal identification. This section extends the treatment to dynamic
+panels and the connection to time-series properties.
+
+\subsection{Dynamic Panels}
+
+When the lagged dependent variable $y_{i,t-1}$ is included as a regressor,
+standard fixed effects estimation is inconsistent because $y_{i,t-1}$ is
+correlated with $\alpha_i$ in the demeaned equation. The
+\textbf{Arellano-Bond estimator}\index{Arellano-Bond estimator}
+\citep{Arellano1991} uses lagged levels of $y$ as instruments for
+$\Delta y_{i,t-1}$ in a first-differenced GMM framework.
+
+\subsection{Spatial Panels}
+
+Combining cross-sectional spatial dependence with time series produces
+\textbf{spatial panel models}\index{spatial panel models}:
+\begin{equation}
+  y_{it} = \rho \sum_j w_{ij}y_{jt} + X_{it}'\beta + \alpha_i + \lambda_t + e_{it}
+\end{equation}
+
+This model allows simultaneous control for: (i) spatial spillovers via the
+SAR term; (ii) unit-level unobserved heterogeneity via $\alpha_i$; and (iii)
+common time shocks via $\lambda_t$.
+
+% TODO: Add worked example with FRED metropolitan employment data
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/TimeSeries.bbl}{\input{Literature/TimeSeries.bbl}}{\typeout{Need bibtex on TimeSeries}}
+\end{subappendices}

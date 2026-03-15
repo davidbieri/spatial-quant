@@ -1,0 +1,431 @@
+% =====================================================================
+%  Chapter 9: Spatial Dependence and Autocorrelation
+%  Source: SpatialStats.tex (motivations prose) + P4 transcription (full)
+% =====================================================================
+
+\chapter{Spatial Dependence and Autocorrelation}
+\label{chap_Spatial}
+
+\section{Motivations for Going Spatial}
+\label{sec_MotivationsSpatial}
+
+Spatial autocorrelation\index{spatial autocorrelation} can be loosely defined
+as ``the coincidence of value similarity with locational similarity''
+\citep{Anselin2002}. The problem of spatial dependence is best viewed as a
+normal extension of Tobler's First Law of Geography:
+
+\begin{quote}
+``everything is related to everything else, but near things are more related
+than distant things'' \citep[p.236]{Tobler1970}.
+\end{quote}
+
+Three main reasons motivate the use of spatial methods:
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{The independence assumption is not valid:} Attributes of
+    observation $i$ may influence attributes of observation $j$.
+  \item \textbf{Spatial heterogeneity:} The magnitude and direction of the
+    treatment effect may vary across space.
+  \item \textbf{Omitted variable bias:} Some common unobserved or latent
+    variables are shared among spatial neighbours.
+\end{enumerate}
+
+Recall the non-spatial DGP:
+\begin{equation}
+  y_i = X_i\beta + e_i, \qquad e_i \sim \text{iid}(0,\sigma^2)
+  \label{eq_NonSpatDGP}
+\end{equation}
+
+With assumptions: (1) observed values at location $i$ are independent of
+values at location $j$; (2) $\E[e_ie_j] = \E[e_i]\E[e_j] = 0$.
+
+\begin{tcolorbox}[definition]
+\textbf{MAUP Warning.} The choice of spatial weight matrix is not merely
+technical---it is an inferential decision with the same logical status as the
+choice of instruments in IV estimation. Results should always be checked for
+sensitivity to weight matrix specification.
+\end{tcolorbox}
+
+
+\section{The Spatial DGP}
+\label{sec_SpatialDGP}
+
+With 2 neighbours $i$ and $j$, observations depend on each other:
+\begin{alignat*}{2}
+  y_i &= \alpha_j y_j + X_i\beta + e_i, \qquad &e_i &\sim \text{iid}(0,\sigma^2) \\
+  y_j &= \alpha_i y_i + X_j\beta + e_j, \qquad &e_j &\sim \text{iid}(0,\sigma^2)
+\end{alignat*}
+
+\noindent\textbf{Problem.} With more spatial dependencies, there is little
+practical usefulness since the system has \emph{more parameters than
+observations}: potentially $n^2 - n$ relations to be estimated.
+
+\noindent\textbf{Assumptions of the spatial DGP:}
+\begin{itemize}
+  \item Observations at location $i$ depend on those at location $j$ and
+    vice versa.
+  \item The DGP is \emph{simultaneous} across space.
+\end{itemize}
+
+The overparametrisation problem is solved by imposing structure in a
+\textbf{spatial autoregressive process}\index{spatial autoregressive process}.
+Introducing a scalar spatial correlation coefficient $\rho$:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  y_i = \rho\sum_{j=1}^{n} W_{ij}\,y_j + e_i
+\end{equation}
+where $\sum_j W_{ij}y_j$ is the \textbf{spatial lag}\index{spatial lag} of
+$y_i$---the weighted average of neighbouring observations.
+\end{tcolorbox}
+
+
+\section{The Spatial Weight Matrix}
+\label{sec_WeightMatrix}
+
+In matrix notation ($W$ of size $n\times n$; $y$ of size $n\times 1$):
+\begin{equation}
+  y = \rho Wy + e, \qquad e \sim N(0, \sigma^2 I_n)
+\end{equation}
+
+To construct $W$, begin with a \textbf{contiguity matrix}
+$C$\index{contiguity matrix}, where rows represent observation $i$ and
+columns represent neighbour $j$ (1 = neighbour, 0 = not).
+
+\subsection{Example: Four Contiguous Regions}
+
+Consider four regions $R_1$--$R_4$ arranged in a chain. First-order
+neighbours ($N_1$) share a boundary; $R_1$ is its own second-order
+neighbour (the neighbour of its first-order neighbour $R_2$).
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[>=Stealth, node distance=0cm]
+  \node[draw, minimum width=1.2cm, minimum height=0.8cm] (R1) {$R_1$};
+  \node[draw, minimum width=1.2cm, minimum height=0.8cm, right=of R1] (R2) {$R_2$};
+  \node[draw, minimum width=1.2cm, minimum height=0.8cm, right=of R2] (R3) {$R_3$};
+  \node[draw, minimum width=1.2cm, minimum height=0.8cm, right=of R3] (R4) {$R_4$};
+  \draw[<->, thick] ([yshift=6pt]R1.north) to[bend left=40]
+    node[above] {$N_1$} ([yshift=6pt]R2.north);
+  \draw[<->, thick] ([yshift=-6pt]R2.south) to[bend right=40]
+    node[below] {$N_2$} ([yshift=-6pt]R3.south);
+  \draw[<->, thick] ([yshift=-6pt]R3.south) to[bend right=40]
+    node[below] {$N_2$} ([yshift=-6pt]R4.south);
+\end{tikzpicture}
+\caption{Four contiguous regions with first-order ($N_1$) and
+higher-order ($N_2$) neighbours.}
+\label{fig_ContiguousRegions}
+\end{figure}
+
+The contiguity matrix:
+\begin{equation}
+  C = \begin{bmatrix}
+    0 & 1 & 0 & 0 \\
+    1 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 1 \\
+    0 & 0 & 1 & 0
+  \end{bmatrix}
+\end{equation}
+
+Create $W$ by \textbf{row-standardisation} (row sums normalised to one):
+\begin{equation}
+  W = \begin{bmatrix}
+    0   & 1   & 0   & 0   \\
+    1/2 & 0   & 1/2 & 0   \\
+    0   & 1/2 & 0   & 1/2 \\
+    0   & 0   & 1   & 0
+  \end{bmatrix}
+\end{equation}
+
+\noindent\textbf{Verifying the spatial lag $Wy$:}
+\begin{equation}
+  Wy = \begin{bmatrix}y_2\\(y_1+y_3)/2\\(y_2+y_4)/2\\y_3\end{bmatrix}
+\end{equation}
+
+Each element of $Wy$ is the (row-weighted) average of the neighbours of the
+corresponding observation.
+
+\subsection{Weight Matrix Types}
+
+\begin{itemize}
+  \item \textbf{Rook contiguity:} Shares a boundary (no diagonal touches)
+  \item \textbf{Queen contiguity:} Shares a boundary or corner
+  \item \textbf{$k$-nearest neighbours:} Fixed number of nearest units
+  \item \textbf{Distance decay:} $w_{ij} = d_{ij}^{-\delta}$ for some
+    $\delta > 0$, often with a distance cutoff
+  \item \textbf{Row-standardised:} Rows sum to one; enables spatial lag
+    interpretation as a local average
+\end{itemize}
+
+
+\section{The Spatial Autoregressive (SAR) DGP}
+\label{sec_SARDGP}
+
+$\rho$ is a scalar parameter of spatial dependence:
+\begin{equation}
+  \rho \;\begin{cases}
+    = 0 & \text{no spatial autocorrelation} \\
+    > 0 & \text{positive spatial autocorrelation (clustering)} \\
+    < 0 & \text{negative spatial autocorrelation (segregation)}
+  \end{cases}
+\end{equation}
+
+The full \textbf{SA DGP} with constant term and covariates:
+\begin{align}
+  y &= \rho Wy + \boldsymbol{\iota}\alpha + e \\
+  (I_n - \rho W)y &= \boldsymbol{\iota}\alpha + e \\
+  y &= (I_n - \rho W)^{-1}\boldsymbol{\iota}\alpha + (I_n - \rho W)^{-1}e
+\end{align}
+
+Assuming $|\rho| < 1$ (stationarity condition; see Section~\ref{sec_Eigenvalues}
+for the general condition $|\rho| < 1/\lambda_{\max}(W)$), the inverse can be
+expressed as a \textbf{geometric matrix series}:
+\begin{equation}
+  (I_n - \rho W)^{-1} = I_n + \rho W + \rho^2 W^2 + \rho^3 W^3 + \cdots
+\end{equation}
+
+Therefore:
+\begin{equation}
+  y = \boldsymbol{\iota}\alpha + \rho W\boldsymbol{\iota}\alpha
+      + \rho^2 W^2\boldsymbol{\iota}\alpha + \cdots
+      + e + \rho We + \rho^2 W^2 e + \cdots
+\end{equation}
+
+The first part converges to $(1-\rho)^{-1}\boldsymbol{\iota}\alpha$ (since
+$\alpha$ is scalar and $W\boldsymbol{\iota} = \boldsymbol{\iota}$):
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  y = \frac{1}{1-\rho}\,\boldsymbol{\iota}\alpha
+      + \underbrace{e + \rho We + \rho^2 W^2 e + \cdots}_{\text{violation of Gauss-Markov}}
+\end{equation}
+\end{tcolorbox}
+
+This is a \textbf{strong violation} of the Gauss-Markov assumption of
+independent error terms. Therefore \textbf{OLS is biased and inconsistent}
+under a SAR DGP.
+
+\subsection{SAR Model with Covariates}
+
+\begin{equation}
+  y = \rho Wy + X\beta + e
+  \;\Longrightarrow\;
+  y = (I_n-\rho W)^{-1}X\beta + (I-\rho W)^{-1}e, \quad e\sim N(0,\sigma^2I)
+\end{equation}
+
+Estimate three parameters: $\beta$, $\sigma^2$, and $\rho$.
+If $\rho=0$, the SAR model reduces to standard OLS.
+
+The SAR estimator can be written as:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \hat\beta_\text{SAR} = \hat\beta_\text{OLS} - \hat\rho(X'X)^{-1}X'Wy
+  \label{eq_SARbeta}
+\end{equation}
+\end{tcolorbox}
+
+
+\section{Global Spatial Autocorrelation: Moran's $I$}
+\label{sec_MoranI}
+
+Moran's $I$ coefficient calculates the ratio of the product of a variable
+and its spatial lag, adjusted for the sum of spatial weights, relative to
+the overall variance:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  I = \frac{\displaystyle
+       \frac{\displaystyle\sum_i\sum_j w_{ij}(y_i-\bar{y})(y_j-\bar{y})}
+            {\displaystyle\sum_i\sum_j w_{ij}}}
+      {\displaystyle\frac{\sum_i(y_i-\bar{y})^2}{n}}
+  \;\in\; [-1,\,+1]
+  \label{eq_MoranI}
+\end{equation}
+\end{tcolorbox}
+
+$I = +1$: perfect spatial clustering; $I = -1$: perfect dispersion;
+$I \approx 0$: spatial randomness. Moran's $I$ can equivalently be
+interpreted as the \textbf{regression coefficient of a variable on its
+spatial lag}---the slope of the Moran scatterplot.
+
+\subsection{Local Moran's $I$}
+
+The global statistic can be decomposed into contributions from individual
+observations:
+\begin{equation}
+  I_i = \frac{(y_i-\bar{y})\displaystyle\sum_j w_{ij}(y_j-\bar{y})}
+             {\displaystyle\frac{\sum_i(y_i-\bar{y})^2}{n}}
+  \label{eq_LocalMoran}
+\end{equation}
+
+Local Moran's $I$ \citep{Anselin1995} is the basis of LISA (Local Indicators
+of Spatial Association) analysis. A map of local $I_i$ $z$-scores identifies:
+\begin{itemize}
+  \item \textbf{HH} (high-high): high-value location surrounded by
+    high-value neighbours---core of a spatial cluster
+  \item \textbf{LL} (low-low): low-value surrounded by low-value neighbours
+  \item \textbf{HL/LH} (high-low or low-high): spatial outliers---locations
+    significantly different from their neighbourhood
+\end{itemize}
+
+
+\section{Estimating Models with a SAR DGP}
+\label{sec_EstimatingSAR}
+
+Recall: OLS is inconsistent and biased under a SAR DGP. Use alternative
+estimators: \textbf{MLE} or \textbf{IV/2SLS}. 2SLS has similar properties
+to MLE (consistency and asymptotic normality) but is considerably easier
+to implement numerically.
+
+\subsection{SAR-IV Estimator}
+
+Address endogeneity due to spatial variable linkage by using lagged variables
+as instruments. Let $X = [Wy\;\; X_1]$ and $Z = [L(y)\;\; X_1]$, where
+$L(y)$ denotes higher-order spatial lags. Then:
+\begin{equation}
+  \hat\beta_\text{SAR-IV} = [X'P_ZX]^{-1}X'P_Zy,
+  \qquad P_Z \equiv Z[Z'Z]^{-1}Z'
+\end{equation}
+
+
+\section{The Spatial Model Taxonomy}
+\label{sec_SpatialTaxonomy}
+
+All models below are expressed relative to OLS ($y = X\beta + e$):
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[htp]
+\centering
+\caption{Spatial regression model taxonomy}
+\label{tbl_SpatialModels}
+\begin{tabular}{@{}lp{5.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Model} & \textbf{Equation} & \textbf{Notes} \\
+\midrule
+OLS  & $y = X\beta + e$ & Baseline; assumes spatial independence \\
+SAR  & $y = \rho Wy + X\beta + e$ & Spatial lag in $y$; OLS biased \\
+SEM  & $y = X\beta + (I-\lambda W)^{-1}e$ & Spatial error model; OLS unbiased but inefficient \\
+SDM  & $y = \rho Wy + X\beta + WX\theta + e$ & Spatial Durbin model \\
+SARMA & $y = \rho Wy + X\beta + (I-\theta W)^{-1}e$ & SAR + MA error \\
+SAC  & $y = \rho W_1y + X\beta + (I-\lambda W_2)^{-1}e$ & Spatial dependence in $y$ and $e$; separate weight matrices \\
+SDEM & $y = X\beta + WX\theta + (I-\lambda W)^{-1}e$ & Spatial Durbin error model \\
+\bottomrule
+\end{tabular}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+
+\section{Geographically Weighted Regression}
+\label{sec_GWR}
+
+Standard OLS assumes $\beta$ is globally constant. GWR relaxes this by
+allowing locally-varying parameter estimates:
+\begin{equation}
+  y_i = X\beta_i + e \qquad\text{with locally-varying }\beta_i
+\end{equation}
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \hat\beta_\text{GWR}(i) = (X'W_iX)^{-1}X'W_iy
+  \label{eq_GWR}
+\end{equation}
+\end{tcolorbox}
+
+Weights $w_{ij}$ are calculated using a \textbf{Gaussian decay
+kernel}\index{Gaussian kernel!GWR}:
+\begin{equation}
+  w_{ij} = e^{(-d_{ij}/h)^2}
+\end{equation}
+where $d_{ij}$ is the Euclidean distance between observations $i$ and $j$,
+and $h$ is the user-selected \textbf{bandwidth}\index{bandwidth!GWR}
+(determined by cross-validation).
+
+\noindent\textbf{Interpreting spatial variation in coefficients.}
+GWR maps of $\hat\beta_i$ show where the relationship between $X$ and $y$
+is stronger or weaker. However, spatial variation in coefficients can reflect
+either genuine spatial heterogeneity in the relationship or noise arising from
+sparse data. Significance tests for GWR coefficients should be interpreted
+cautiously, as they rely on asymptotic approximations that may not be valid
+for small local sample sizes.
+
+
+\section{A Brief Excursion on Map Projections}
+\label{sec_Projections_chap9}
+
+\subsection{Coordinate Systems}
+
+\noindent\textbf{Lat:} North--south position $\equiv$ $y$-axis\hfill
+\noindent\textbf{Lon:} East--west position $\equiv$ $x$-axis
+
+Projection is necessary to represent the 3D globe on a 2D map; projections
+always distort some property of the original globe.
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[>=Stealth, font=\small]
+  % Cylindrical
+  \begin{scope}[xshift=0cm]
+    \draw[thick] (-0.7,-1.1) -- (-0.7,1.1);
+    \draw[thick] ( 0.7,-1.1) -- ( 0.7,1.1);
+    \draw[thick] (-0.7,1.1) arc[start angle=180,end angle=0,x radius=0.7,y radius=0.18];
+    \draw[thick,dashed] (-0.7,1.1) arc[start angle=180,end angle=360,x radius=0.7,y radius=0.18];
+    \draw[thick] (-0.7,-1.1) arc[start angle=180,end angle=360,x radius=0.7,y radius=0.18];
+    \draw[thick,dashed] (-0.7,-1.1) arc[start angle=180,end angle=0,x radius=0.7,y radius=0.18];
+    \draw[thick] (0,0) circle (0.55);
+    \node[below] at (0,-1.3) {(i) Cylindrical};
+  \end{scope}
+  % Conic
+  \begin{scope}[xshift=3.5cm]
+    \draw[thick] (0,1.5) -- (-0.85,-0.3);
+    \draw[thick] (0,1.5) -- ( 0.85,-0.3);
+    \draw[thick] (-0.85,-0.3) arc[start angle=180,end angle=360,x radius=0.85,y radius=0.2];
+    \draw[thick,dashed] (-0.85,-0.3) arc[start angle=180,end angle=0,x radius=0.85,y radius=0.2];
+    \draw[thick] (0,-0.1) circle (0.55);
+    \node[below] at (0,-1.0) {(ii) Conic};
+  \end{scope}
+  % Planar
+  \begin{scope}[xshift=7.0cm]
+    \fill[gray!15] (-0.9,0.2) -- (0,1.2) -- (0.9,0.2) -- (0,-0.8) -- cycle;
+    \draw[thick]   (-0.9,0.2) -- (0,1.2) -- (0.9,0.2) -- (0,-0.8) -- cycle;
+    \draw[thick] (0,0) circle (0.5);
+    \node[below] at (0,-1.0) {(iii) Planar};
+  \end{scope}
+\end{tikzpicture}
+\caption{Three main types of map projection.}
+\label{fig_Projections}
+\end{figure}
+
+\subsection{Projections and What They Preserve}
+
+\renewcommand{\arraystretch}{1.4}
+\begin{table}[htp]
+\centering
+\caption{Projection names by preserved property}
+\label{tbl_Projections}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Preserves} & \textbf{Cylindrical} & \textbf{Conic} & \textbf{Planar} \\
+\midrule
+Area     & \texttt{cylegnal\_area} & \texttt{albers}  & \texttt{azequal\_area} \\
+Angle    & \texttt{mercator} (UTM, omerc) & \texttt{lambert} & \texttt{stereographic} \\
+Distance & ---                    & ---              & \texttt{azequidistant}  \\
+\bottomrule
+\end{tabular}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+\subsection{The Tissot Indicatrix}
+
+The \textbf{Tissot indicatrix}\index{Tissot indicatrix} characterises
+distortions due to map projections. Infinitesimally small circles of equal
+radius placed at regular intervals on the sphere become ellipses after
+projection; their size, shape, and orientation reveal how the projection
+distorts area, angle, and distance.
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/SpatialStats.bbl}{\input{Literature/SpatialStats.bbl}}{\typeout{Need bibtex on SpatialStats}}
+\end{subappendices}

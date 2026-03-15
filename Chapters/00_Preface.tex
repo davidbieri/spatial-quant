@@ -1,0 +1,154 @@
+% =====================================================================
+%  Chapter 0: Preface — Caveat Computor
+%  Source: Intro.tex (Overleaf) — adapted and expanded
+% =====================================================================
+
+\chapter*{Preface: \textit{Caveat Computor}}\label{chap_Preface}
+\addcontentsline{toc}{chapter}{Preface: \textit{Caveat Computor}}
+
+\section*{What this book is about}
+
+The primary objective of this manuscript is to introduce students to the
+quantitative methods and techniques used in urban and regional research. The
+emphasis is on using methods in the context of planning, urban policy, and
+regional science research: matching the method to the problem, developing an
+interactive engagement with data, promoting creative and accessible styles of
+data presentation, and cultivating a critical literacy of methods and their
+limitations.
+
+In its intellectual lineage, this text is unambiguously in the spirit of
+Walter \citeapos{Isard1960a} classic \emph{Methods of Regional Analysis}---a
+methodological manifesto for regional science as a scientific project, if ever
+there was one.\footnote{Now in its seventh edition, \emph{Methods of
+Interregional and Regional Analysis} \citep{Isard1998} remains the
+methodological benchmark for regional science, covering regional and
+interregional input-output analysis, econometrics, programming and industrial
+and urban complex analysis, gravity and spatial interaction models, and applied
+general interregional equilibrium models. In contrast to the largely
+theoretical treatment in that volume, this manual focuses on the empirical
+aspects of application, with special emphasis on the connections between theory
+and evidence.} Of all the subdisciplines subsumed under the heading of
+regional science, urban and regional planning is perhaps the archetypical
+interdisciplinary venture---yet it still relies on solid disciplinary
+skills. Planning educators regularly define an accomplished planner as
+simultaneously ``the best geographer, the best economist, the best
+environmental scientist, the best political scientist, and the best
+architect'' \citep{Fainstein2011}.
+
+\section*{The computational abundance paradox}
+
+As computational costs have fallen precipitously and data availability has
+exploded, one might expect the quality of empirical analysis to have risen in
+proportion. The opposite tendency is equally plausible---and, this author
+believes, equally common. Software and analytical tools are becoming ever more
+user-friendly, and hitherto prohibitively complex analyses now require only a
+few clicks deployed via an attractive graphical user interface. Yet perhaps
+paradoxically, the more we rely on technology and the more accessible data
+tools become, the less time is spent on careful and critical analysis. This
+leads to a latent tendency to produce more empirical output rather than better
+analysis. Just because we can (cheaply and conveniently) compute something does
+not mean that we should. In other words: \emph{caveat computor}.
+
+This paradox has only deepened with the emergence of large language model
+(LLM) coding assistants capable of generating spatial regression code from a
+single natural-language prompt. When generating a spatial lag model requires
+less effort than reading this sentence, the limiting constraint on analysis
+quality shifts entirely to whether the analyst understands what the model is
+doing---whether the weight matrix choice is defensible, whether the
+identification strategy is credible, whether the coefficient can be given a
+causal interpretation. The theoretical rigour of Parts~I and~II of this
+book is \emph{justified by}, not in tension with, the ease of modern code
+generation. The most dangerous analyst is one who can produce polished output
+without understanding its assumptions.
+
+\section*{A new paradigm: regional policy informatics}
+
+This book proposes a synthesis that takes the credibility revolution in
+econometrics seriously, treats spatial structure as an inferential challenge
+rather than a nuisance parameter, and integrates the quantitative traditions
+of urban economics, regional science, economic geography, and real estate
+around the unifying framework of spatial equilibrium.
+
+\noindent\textbf{Central claim.} Spatial analysis in the social sciences has
+systematically produced \emph{geographically-correlated} answers rather than
+\emph{causally-identified} ones. Geographic confounding---the systematic
+confusion of spatial correlation with causal identification---is to regional
+analytics what omitted variable bias is to cross-sectional econometrics. The
+response is a credibility-first, spatially-literate workflow built entirely on
+open-source tools and public data infrastructure.
+
+We define \textbf{regional policy informatics} as the systematic application
+of computational, statistical, and causal inference methods to the analysis of
+spatially-structured policy problems, using reproducible workflows and open
+data infrastructure. What distinguishes this from ``spatial data science''
+(the term used by the Python-oriented GIS community) is the explicit
+commitment to policy-relevant causal identification. Spatial data science
+optimises for pattern recognition and visualisation---it is largely descriptive
+and predictive. Regional policy informatics is evaluative: it asks whether
+interventions work, for whom, and why.
+
+\section*{Four questions that frame good quantitative research}
+
+The analytical philosophy underlying this text is organised around four
+questions that \citet{Angrist2009a} argue should frame any credible empirical
+project:
+
+\begin{enumerate}
+  \item What is the \emph{causal relationship of interest}? This question
+    gives rise to the importance of the counterfactual.
+  \item What \emph{ideal experiment} would capture this causal effect?
+  \item What is the \emph{identification strategy}? How is the observational
+    data used to approximate the ideal experiment?
+  \item What is the \emph{mode of inference}? (microdata, clustered groups,
+    spatial units, etc.)
+\end{enumerate}
+
+These four questions are not only the organising principle of Part~II
+(The Linear Model and Causal Inference); they reappear throughout the book
+as a touchstone for evaluating any spatial or regional analysis.
+
+\section*{The open-source commitment}
+
+This text is built around three principles:
+
+\begin{enumerate}
+  \item \textbf{Open source software} achieves interoperability and
+    reproducibility without licensing barriers. The full analytical toolkit---
+    from spatial regression to input-output modelling---is implemented in R
+    and Python using freely available packages.
+
+  \item \textbf{Public data infrastructure} supports a full regional
+    analytics workflow without proprietary data. The Census, ACS, FRED,
+    LEHD, BEA Regional Accounts, HUD, and OpenStreetMap collectively provide
+    richer inputs than most proprietary alternatives.
+
+  \item \textbf{Replicable research} is a scientific norm, not a technical
+    nicety. The \emph{American Economic Review} requires that all data and
+    code sufficient for replication be deposited prior to publication
+    \citep{AER2024}. Urban planning and geography journals have been slower to
+    adopt such standards; this text argues that they should not be.
+\end{enumerate}
+
+\section*{Prerequisites and how to use this book}
+
+The material is aimed at first-year graduate students (or advanced
+undergraduates) who have taken at minimum an introductory statistics course
+covering the basics of probability, confidence intervals, hypothesis testing,
+and bivariate regression. Exposure to linear algebra is helpful but not
+required---Part~I provides everything needed from scratch.
+
+Chapter~1 reviews probability and statistics. Chapter~2 introduces the matrix
+algebra toolkit that underlies all subsequent chapters. Chapter~3 surveys data
+sources and measurement. These three chapters constitute Part~I and can be
+read selectively by students with stronger preparation. The heart of the book
+is Parts~II and~III: Chapters~4--6 develop the linear model and causal
+inference toolkit; Chapters~7--9 apply that toolkit to the spatial economy.
+Part~IV covers time series, panel data, and the frontiers of computational
+regional analysis.
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/Preface.bbl}{\input{Literature/Preface.bbl}}{\typeout{Need to run bibtex on Preface}}
+\end{subappendices}

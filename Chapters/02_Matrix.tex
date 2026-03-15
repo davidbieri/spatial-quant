@@ -1,0 +1,196 @@
+% =====================================================================
+%  Chapter 2: A Matrix Algebra Toolkit
+%  Source: P3 transcription (matrix sections)
+% =====================================================================
+
+\chapter{A Matrix Algebra Toolkit}
+\label{chap_Matrix}
+
+\section{Vectors, Matrices, and Basic Operations}
+\label{sec_VecMat}
+
+A column vector $\mathbf{a}_i = (a_{1i},\, a_{2i},\, \ldots,\, a_{ni})'$
+stacked horizontally gives the $n \times k$ matrix:
+\begin{equation}
+  A = \bigl[\mathbf{a}_1\;\mathbf{a}_2\;\cdots\;\mathbf{a}_k\bigr]
+  = \begin{bmatrix}
+      a_{11} & a_{12} & \cdots & a_{1k} \\
+      a_{21} & a_{22} &        & \vdots \\
+      \vdots &        & \ddots &        \\
+      a_{n1} & \cdots &        & a_{nk}
+    \end{bmatrix}_{n \times k}
+\end{equation}
+
+The corresponding $j$-th row vector is $\boldsymbol{\alpha}_j' =
+(a_{j1},\, a_{j2},\, \ldots,\, a_{jk})$.
+
+\noindent\textbf{Inner product:}
+$\mathbf{a}'\mathbf{b} = \mathbf{b}'\mathbf{a} =
+\sum_{i=1}^{n} a_i b_i$
+
+\noindent\textbf{The special vector $\boldsymbol{\iota}$:}
+$\boldsymbol{\iota}'\mathbf{a} = \sum a_i = n\bar{a}$ (sum of elements);
+$\boldsymbol{\iota}'\boldsymbol{\iota} = n$.
+
+\subsection{Key Identities for the Linear Model}
+
+With $X_{n \times k} = [\mathbf{x}_1';\mathbf{x}_2';\cdots;\mathbf{x}_n']$:
+\begin{equation}
+  X'X = \sum_{i=1}^{n}\mathbf{x}_i\mathbf{x}_i'
+  = \begin{bmatrix}
+      \sum x_1^2   & \sum x_1 x_2 & \cdots & \sum x_1 x_k \\
+      \sum x_2 x_1 & \sum x_2^2   &        & \vdots        \\
+      \vdots       &              & \ddots &               \\
+      \sum x_k x_1 & \cdots       &        & \sum x_k^2
+    \end{bmatrix}_{k \times k}
+\end{equation}
+\begin{equation}
+  X'\mathbf{y} = \sum_{i=1}^{n}\mathbf{x}_i y_i \qquad (k \times 1)
+\end{equation}
+
+
+\section{The Determinant and Invertibility}
+\label{sec_Determinant}
+
+For a $k \times k$ matrix $A$:\quad $AA^{-1} = A^{-1}A = I_k$.
+
+Matrix $A$ is \textbf{non-singular}\index{matrix!non-singular} if it is of
+full rank, i.e.\ $\operatorname{rank}(A) = k$ (no linearly dependent columns).
+Non-singularity is equivalent to invertibility and links directly to the
+problem of \textbf{multicollinearity}\index{multicollinearity}.
+
+The \textbf{determinant}\index{matrix!determinant} measures the ``volume'' of
+a matrix---geometrically, the signed area of the parallelogram spanned by its
+column vectors:
+\begin{equation}
+  \det(A) \neq 0 \iff A \text{ is non-singular}
+\end{equation}
+
+For $A = \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix}$:
+\begin{equation}
+  \det(A) = a_{11}a_{22} - a_{12}a_{21}
+\end{equation}
+
+The inverse:
+\begin{equation}
+  A^{-1} = \frac{1}{\det(A)}\operatorname{adj}(A)
+  = \frac{1}{\det A}
+    \begin{pmatrix} a_{22} & -a_{12} \\ -a_{21} & a_{11} \end{pmatrix},
+  \qquad \det(A^{-1}) = \frac{1}{\det(A)}
+\end{equation}
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[>=Stealth, scale=1.2]
+  \coordinate (O)   at (0,   0);
+  \coordinate (A1)  at (2.8, 0.4);
+  \coordinate (A2)  at (0.6, 2.2);
+  \coordinate (TOP) at ($(A1)+(A2)$);
+  \fill[gray!20] (O) -- (A1) -- (TOP) -- (A2) -- cycle;
+  \draw[dashed, gray!60] (A1) -- (TOP) -- (A2);
+  \draw[->, very thick] (O) -- (A1) node[right] {$\mathbf{a}_1$};
+  \draw[->, very thick] (O) -- (A2) node[above left] {$\mathbf{a}_2$};
+  \node[below left] at (O) {$O$};
+  \node at (1.6, 1.1) {\small $\det(A) = a_{11}a_{22} - a_{12}a_{21}$};
+\end{tikzpicture}
+\caption{The determinant as the signed area of the parallelogram spanned
+by the column vectors $\mathbf{a}_1$ and $\mathbf{a}_2$. Linear dependence
+collapses the parallelogram to zero area, making $\det(A) = 0$.}
+\label{fig_Determinant}
+\end{figure}
+
+
+\section{Orthogonal Projections}
+\label{sec_Projections}
+
+Two \textbf{projection matrices}\index{projection matrix} are central to the
+geometry of the linear model (developed fully in Chapter~\ref{chap_LinearModel}):
+
+\begin{tcolorbox}[keyresult]
+\begin{alignat*}{2}
+  P_X &= X(X'X)^{-1}X'
+    \qquad &&\text{(hat matrix; projects onto column space of }X\text{)} \\
+  M_X &= I_n - P_X
+    \qquad &&\text{(annihilator; orthogonal complement)}
+\end{alignat*}
+$P_X + M_X = I_n$ \quad (complementary projection matrices)
+\end{tcolorbox}
+
+Key properties (proofs in Chapter~\ref{chap_LinearModel}):
+\begin{itemize}
+  \item Idempotency: $P_X P_X = P_X$;\quad $M_X M_X = M_X$
+  \item Orthogonality: $P_X M_X = 0$
+  \item Annihilation: $M_X X = 0$
+\end{itemize}
+
+Both matrices are \textbf{symmetric} ($P_X' = P_X$, $M_X' = M_X$) and
+\textbf{positive semi-definite}.
+
+\paragraph{Why $(X'X)^{-1}$ acts as a corrective lens.} Suppose
+hypothetically that $(X'X)^{-1} = I$. This would require: (i) off-diagonal
+elements equal zero (variables are mutually uncorrelated); (ii) diagonal
+elements equal one ($\mu_x = 0$, $\sigma_x = 1/\sqrt{N}$). Then $\hat\beta =
+IX'\mathbf{y} = X'\mathbf{y}$ (the naïve regression coefficient). The matrix
+$(X'X)^{-1}$ therefore compresses, expands, and rotates the naïve coefficients
+to account for the scale and mutual correlations of the regressors.
+By extension, $s^2(X'X)^{-1}$ provides the full variance--covariance matrix
+of $\hat\beta$.
+
+
+\section{Centering: The $M_\iota$ Matrix}
+\label{sec_Centering}
+
+Let $\bar{x} = \tfrac{1}{n}\sum x_i$. The centred variable
+$\mathbf{z} \equiv \mathbf{x} - \bar{x}\boldsymbol{\iota}$ is orthogonal
+to the constant vector $\boldsymbol{\iota}$:
+\begin{equation}
+  \boldsymbol{\iota}'\mathbf{z}
+  = \boldsymbol{\iota}'(\mathbf{x} - \bar{x}\boldsymbol{\iota})
+  = n\bar{x} - \bar{x}n = 0
+\end{equation}
+
+Centering is performed by the orthogonal projection matrix:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  M_\iota = I_n - P_\iota
+          = I - \boldsymbol{\iota}(\boldsymbol{\iota}'\boldsymbol{\iota})^{-1}
+            \boldsymbol{\iota}'
+          = I - \frac{\boldsymbol{\iota}\boldsymbol{\iota}'}{n}
+\end{equation}
+\end{tcolorbox}
+
+\noindent\textit{Proof:} $M_\iota\mathbf{x} = (I-P_\iota)\mathbf{x} =
+\mathbf{x} - \boldsymbol{\iota}(\boldsymbol{\iota}'\boldsymbol{\iota})^{-1}
+\boldsymbol{\iota}'\mathbf{x} = \mathbf{x} - \bar{x}\boldsymbol{\iota} =
+\mathbf{z}$.\hfill$\square$
+
+The TSS decomposition uses $M_\iota$ directly:
+\begin{equation}
+  \text{TSS} = \mathbf{y}'M_\iota\mathbf{y}
+  = \sum_{i=1}^{n}(y_i - \bar{y})^2
+\end{equation}
+
+
+\section{Eigenvalues and the Spectral Radius}
+\label{sec_Eigenvalues}
+
+For a square matrix $A$, a scalar $\lambda$ is an \textbf{eigenvalue}
+\index{eigenvalue} if there exists a non-zero vector $\mathbf{v}$ such that
+$A\mathbf{v} = \lambda\mathbf{v}$. The set of eigenvalues is the
+\textbf{spectrum} of $A$; the largest in absolute value is the
+\textbf{spectral radius}, $\rho(A) = \max|\lambda_i|$.
+
+\noindent\textbf{Why eigenvalues matter for spatial analysis.}
+The SAR model $\mathbf{y} = \rho W\mathbf{y} + \mathbf{e}$ requires
+$(I - \rho W)$ to be invertible. This holds if and only if $\rho \neq
+1/\lambda_i(W)$ for all eigenvalues $\lambda_i$ of $W$. For a
+row-standardised weight matrix, $\lambda_{\max}(W) = 1$, so the
+stationarity condition reduces to $|\rho| < 1$ (Chapter~\ref{chap_Spatial}).
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/Matrix.bbl}{\input{Literature/Matrix.bbl}}{\typeout{Need bibtex on Matrix}}
+\end{subappendices}

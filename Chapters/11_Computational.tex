@@ -1,0 +1,325 @@
+% =====================================================================
+%  Chapter 11: Computational Thinking and Reproducible Research
+%  Source: CompMethods.tex (Overleaf) + P4 transcription (KDE) + new
+% =====================================================================
+
+\chapter{Computational Thinking and Reproducible Research}
+\label{chap_Computational}
+
+\section{The \textit{Caveat Computor} Imperative Revisited}
+\label{sec_CavetComputorRevisit}
+
+The Preface introduced the \emph{caveat computor} principle: computational
+abundance makes conceptual rigour more rather than less important. This
+chapter develops that principle into a practical framework for computational
+regional analysis.
+
+\noindent\textbf{What agentic coding assistants can and cannot do.}
+AI coding assistants (GitHub Copilot, Claude, ChatGPT) can generate correct,
+runnable code for standard analyses from plain-English descriptions. They can
+suggest data sources, identify relevant packages, and debug syntax errors.
+What they cannot do is determine whether the weight matrix choice is
+defensible, whether the identification strategy is credible, or whether
+the coefficient has a valid causal interpretation. These judgements require
+the theoretical knowledge developed in Parts~I and~II.
+
+The most dangerous analyst is not the one who cannot code---it is the one
+who produces polished output without understanding its assumptions. The
+obligation of this book is to ensure that the ability to generate spatial
+regression code is matched by the ability to evaluate it.
+
+
+\section{Reproducible Research in Practice}
+\label{sec_Reproducible_ch11}
+
+\subsection{Minimal Working Examples}
+
+A minimal working example\index{minimal working example} (MWE) or
+short, self-contained, correct example (SSCCE) is the gold standard for
+communicating about code. When debugging or seeking help, an MWE:
+
+\begin{itemize}
+  \item Is \textbf{minimal}: the problem is isolated; nothing distracts from
+    the error. Remove everything that is not essential to reproducing the issue.
+  \item Is \textbf{working}: the code can be copied, pasted directly into a
+    file, and executed without modification.
+  \item Is \textbf{correct} (as far as possible): it correctly represents
+    the intent of the analysis.
+\end{itemize}
+
+\noindent\textbf{Resources:}
+\begin{itemize}
+  \item \href{http://www.sscce.org}{sscce.org}: the authoritative reference
+  \item \href{https://stackoverflow.com/help/minimal-reproducible-example}{%
+    Stack Overflow guidelines}
+\end{itemize}
+
+\subsection{Literate Programming: Quarto}
+
+Quarto (\texttt{quarto.org}) is a literate programming platform that
+combines prose, code (R, Python, Julia), and mathematical notation in a
+single source file, rendering to PDF, HTML, Word, or presentations. The
+key workflow:
+
+\begin{enumerate}
+  \item Write code and analysis in a \texttt{.qmd} file
+  \item \texttt{quarto render report.qmd} produces the output
+  \item Commit \texttt{.qmd} + \texttt{renv.lock} + \texttt{requirements.txt}
+    to GitHub
+  \item Anyone can reproduce the analysis: \texttt{git clone} then
+    \texttt{quarto render}
+\end{enumerate}
+
+\subsection{Version Control and Open Publication}
+
+The \emph{American Economic Review} requires submission of all data and code
+sufficient for replication before publication \citep{AER2024}. Urban
+planning and geography journals have been slower to adopt such standards.
+This book takes the position that reproducibility is a scientific norm, not
+a courtesy: an analysis that cannot be replicated independently is not
+science.
+
+
+\section{Nonparametric Density Estimation}
+\label{sec_KDE}
+
+This section provides a technical introduction to kernel density estimation
+(KDE), which arises naturally in spatial analysis (e.g.\ estimating the
+density surface of events, such as crime or business locations) and in
+distributional analysis (e.g.\ visualising the distribution of house prices
+across neighbourhoods).
+
+\subsection{The Histogram as a Rectangular KDE}
+
+The histogram is the simplest nonparametric approach to density estimation.
+It partitions the support of $x$ into non-overlapping bins of width $2h$
+and counts observations in each bin. This is equivalent to a KDE with a
+rectangular (uniform) kernel:
+\begin{equation}
+  K(x) = \begin{cases}
+    \tfrac{1}{2} & \text{if } |x| < 1 \\
+    0            & \text{otherwise}
+  \end{cases}
+\end{equation}
+and bandwidth $h = \text{bin width}/2$.
+
+\subsection{The General Kernel Density Estimator}
+
+The kernel density estimator has two key ingredients:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Bandwidth} $h$: width of bin divided by 2; determines the
+    size of the neighbourhood around evaluation point $x_0$.
+  \item \textbf{Kernel} $K$: a weight-assigning or smoothing function
+    that satisfies $\int K(x)\,dx = 1$.
+\end{enumerate}
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \widehat{\text{pdf}}(x_0)
+  = \frac{1}{Nh}\sum_{i=1}^{N} K\!\left(\frac{x_i - x_0}{h}\right)
+  \label{eq_KDE}
+\end{equation}
+\end{tcolorbox}
+
+\noindent Unlike the histogram, bins can \textbf{overlap}: most kernels
+assign higher weight to observations near the center $x_0$ and let weights
+decline with distance.
+
+\subsection{Alternative Kernels}
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[>=Stealth, font=\small]
+  \def\W{1.8}
+  \def\H{1.0}
+  \def\sep{3.8}
+
+  \begin{scope}[xshift=0cm]
+    \draw[->] (-\W-0.1,0) -- (\W+0.2,0);
+    \draw[->] (0,-0.1) -- (0,\H+0.25);
+    \draw[very thick] (-\W,0)--(-1,0)--(-1,\H)--(1,\H)--(1,0)--(\W,0);
+    \node[below] at (0,-0.2) {Rectangular};
+  \end{scope}
+
+  \begin{scope}[xshift=\sep cm]
+    \draw[->] (-\W-0.1,0) -- (\W+0.2,0);
+    \draw[->] (0,-0.1) -- (0,\H+0.25);
+    \draw[very thick, domain=-1:1, samples=40]
+      plot (\x, {\H*(1-\x*\x)});
+    \draw[very thick] (-\W,0)--(-1,0) (1,0)--(\W,0);
+    \node[below] at (0,-0.2) {Epanechnikov};
+  \end{scope}
+
+  \begin{scope}[xshift=2*\sep cm]
+    \draw[->] (-\W-0.1,0) -- (\W+0.2,0);
+    \draw[->] (0,-0.1) -- (0,\H+0.25);
+    \draw[very thick, domain=-1:1, samples=50]
+      plot (\x, {\H*(1-\x*\x)^2});
+    \draw[very thick] (-\W,0)--(-1,0) (1,0)--(\W,0);
+    \node[below] at (0,-0.2) {Biweight};
+  \end{scope}
+
+  \begin{scope}[xshift=3*\sep cm]
+    \draw[->] (-\W-0.1,0) -- (\W+0.2,0);
+    \draw[->] (0,-0.1) -- (0,\H+0.25);
+    \draw[very thick] (-1,0)--(0,\H)--(1,0);
+    \draw[very thick] (-\W,0)--(-1,0) (1,0)--(\W,0);
+    \node[below] at (0,-0.2) {Triangular};
+  \end{scope}
+
+  \begin{scope}[xshift=4*\sep cm]
+    \draw[->] (-\W-0.1,0) -- (\W+0.2,0);
+    \draw[->] (0,-0.1) -- (0,\H+0.25);
+    \draw[very thick, domain=-1.8:1.8, samples=60]
+      plot (\x, {\H*exp(-2.5*\x*\x)});
+    \node[below] at (0,-0.2) {Gaussian};
+  \end{scope}
+\end{tikzpicture}
+\caption{Five common kernel functions. All are centred at $x_0 = 0$ and
+assign higher weight to nearby observations.}
+\label{fig_Kernels}
+\end{figure}
+
+\subsection{The Gaussian KDE}
+
+\begin{equation}
+  \hat{f}(x) = \frac{1}{Nh}\sum_{i=1}^{N}\frac{1}{\sqrt{2\pi}}
+               \exp\!\left(-0.5\left[\frac{x_i - x_0}{h}\right]^2\right)
+  \label{eq_GaussianKDE}
+\end{equation}
+
+\subsection{Bandwidth Selection}
+
+Choice of bandwidth is more important in practice than choice of kernel;
+it involves a fundamental trade-off:
+\begin{itemize}
+  \item \textbf{Small $h$} (narrow bandwidth): low bias (correct shape)
+    but high variance (jagged, imprecise estimate)
+  \item \textbf{Large $h$} (wide bandwidth): low variance (smooth)
+    but high bias (oversmooths the distribution)
+\end{itemize}
+
+The optimal bandwidth minimises asymptotic mean integrated squared error
+(MISE). Silverman's rule-of-thumb provides a data-driven starting point:
+$h = 1.06\hat\sigma n^{-1/5}$.
+
+
+\section{Simulation and Resampling}
+\label{sec_Simulation}
+
+\subsection{The Bootstrap}
+
+The bootstrap \citep{Efron1979} estimates the sampling distribution of a
+statistic by resampling from the observed data with replacement. It provides
+standard errors and confidence intervals without distributional assumptions,
+making it particularly valuable when asymptotic approximations are unreliable.
+
+For spatial data, the standard bootstrap must be modified to account for
+spatial dependence---naive resampling destroys the spatial correlation
+structure. The \textbf{spatial block bootstrap} resamples spatially
+contiguous blocks of observations.
+
+\subsection{Monte Carlo Methods for Spatial Inference}
+
+Moran's $I$ significance is typically assessed by comparing the observed
+value to a reference distribution generated by random permutation of the
+data across spatial units:
+\begin{enumerate}
+  \item Compute observed $I^*$
+  \item Randomly permute values across locations; compute $I$ for each
+    permutation (e.g.\ 999 times)
+  \item $p$-value = proportion of permuted $I$ values exceeding $I^*$
+\end{enumerate}
+
+This permutation approach makes no distributional assumptions and correctly
+accounts for the specific topology of the weight matrix.
+
+
+\section{Regional Agent-Based Models}
+\label{sec_ABMs}
+
+\subsection{What ABMs Add}
+
+Agent-based models\index{agent-based models} (ABMs) simulate the behaviour
+of individual agents (households, firms, municipalities) and allow macro-level
+patterns to emerge from micro-level rules. Three phenomena are particularly
+suited to ABM:
+
+\begin{itemize}
+  \item \textbf{Emergence:} Spatial patterns (segregation, clustering)
+    arising from simple individual rules
+  \item \textbf{Heterogeneity:} Distributional effects that aggregate models
+    miss by construction
+  \item \textbf{Path dependence:} Outcomes that depend on the sequence of
+    historical events, not just current conditions
+\end{itemize}
+
+\subsection{The Schelling Segregation Model as a Spatial Equilibrium Problem}
+
+\citet{Schelling1971} showed that mild individual preferences for neighbours
+of the same type generate extreme aggregate segregation---a result that
+anticipates the spatial equilibrium framework of Chapter~\ref{chap_SpatialEquil}
+by showing how individual optimising behaviour produces spatial patterns that
+no individual intended.
+
+% TODO: Add NetLogo/nlrx worked example with calibration to ACS data
+
+
+\section{Machine Learning and Causal Inference}
+\label{sec_ML}
+
+\subsection{What ML Offers: Prediction, Not Identification}
+
+Machine learning methods (random forests, gradient boosting, LASSO, neural
+networks) optimise predictive accuracy---they minimise out-of-sample
+prediction error. This is valuable for several tasks in regional analysis:
+variable selection, nonparametric approximation of complex response surfaces,
+and out-of-sample forecasting.
+
+What ML methods cannot do, without additional structure, is identify causal
+effects. A predictive model that achieves high out-of-sample $R^2$ may do so
+by exploiting spurious correlations in the training data. The fundamental
+identification challenges of Chapter~\ref{chap_Causal}---selection bias,
+geographic confounding, omitted variables---are not resolved by adding
+flexibility to the model.
+
+\subsection{Regularisation: LASSO and Ridge}
+
+For high-dimensional settings with many candidate regressors, penalised
+regression methods impose shrinkage on coefficients:
+\begin{equation}
+  \hat\beta_\text{LASSO} = \arg\min_\beta \Bigl[
+    \sum(y_i - X_i'\beta)^2 + \lambda\|\beta\|_1
+  \Bigr]
+\end{equation}
+\begin{equation}
+  \hat\beta_\text{Ridge} = \arg\min_\beta \Bigl[
+    \sum(y_i - X_i'\beta)^2 + \lambda\|\beta\|_2^2
+  \Bigr]
+\end{equation}
+
+LASSO ($L_1$ penalty) produces sparse solutions (many coefficients set
+exactly to zero) and serves as a variable selection tool. Ridge ($L_2$
+penalty) shrinks all coefficients continuously toward zero without setting
+any to exactly zero.
+
+\subsection{Causal Forests and Heterogeneous Treatment Effects}
+
+\citet{Wager2018} combine the random forest algorithm with the
+potential-outcomes framework to estimate
+\textbf{heterogeneous treatment effects}\index{heterogeneous treatment
+effects}---the individual-level causal effect $\tau_i = Y_{1i} - Y_{0i}$---
+as a function of covariates. The causal forest modifies the splitting rule of
+a random forest to maximise treatment effect heterogeneity rather than
+predictive accuracy, and uses orthogonalisation (the Robinson transformation)
+to partial out confounders. This connects directly to the GWR framework:
+where GWR asks whether the \emph{association} between $X$ and $Y$ varies
+across space, a spatial causal forest asks whether the \emph{causal effect}
+of a treatment varies across space.
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/CompMethods.bbl}{\input{Literature/CompMethods.bbl}}{\typeout{Need bibtex on CompMethods}}
+\end{subappendices}

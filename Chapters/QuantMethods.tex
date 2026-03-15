@@ -1,0 +1,90 @@
+% =====================================================================
+%  Quantitative Methods for Urban and Regional Research
+%  A Regional Policy Informatics Approach
+%  Author: David S. Bieri
+%  © 2011, 2014, 2026
+% =====================================================================
+\documentclass[12pt, a4paper, oneside, openany]{book}
+
+\input{Chapters/Format}
+
+\title{\huge\textbf{Quantitative Methods for\\Urban and Regional Research}\\[10pt]
+       \Large\textit{A Regional Policy Informatics Approach}}
+\author{\Large David S.\ Bieri\\[4pt]
+        \normalsize University of Michigan\\[6pt]
+        \footnotesize\copyright~2011, 2014, 2026\\[2pt]
+        \scriptsize This manuscript may be printed and reproduced for individual
+        or instructional use, but may not be printed for commercial purposes.
+        Licensed under a Creative Commons
+        \href{http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US}{%
+        Attribution-NonCommercial-ShareAlike 3.0 Unported License}.}
+\date{This version: \today}
+
+\makeindex
+
+% =====================================================================
+\begin{document}
+
+\maketitle
+\frontmatter
+\setcounter{tocdepth}{2}
+\setcounter{page}{3}
+
+% ── Acknowledgements ──────────────────────────────────────────────────
+\chapter*{Acknowledgements}
+This manuscript has evolved from a first-year graduate course in quantitative
+methods for urban planning students. Several cohorts of students at the
+University of Michigan and at Virginia Tech have provided helpful feedback and
+fairly patiently endured excursions into matrix algebra, occasionally agreeing
+with me that it was important to derive certain concepts from first principles.
+James Carpenter, Miles Hamby, Arthur Prokosch, and Cheng Wang provided
+excellent research assistance and diligently transcribed a large part of my
+iteratively amended lecture notes into \LaTeX{}. This version of the manuscript
+has been substantially expanded and restructured to reflect the emergence of a
+regional policy informatics paradigm and the maturation of open-source spatial
+analytics workflows.
+
+% ── Table of Contents, Figures, Tables ───────────────────────────────
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ── Main matter ───────────────────────────────────────────────────────
+\mainmatter
+
+% ── Preface ───────────────────────────────────────────────────────────
+\include{Chapters/00_Preface}
+
+% ── Part I: Foundations ───────────────────────────────────────────────
+\part{Foundations}\label{part1}
+\include{Chapters/01_Probability}
+\include{Chapters/02_Matrix}
+\include{Chapters/03_Data}
+
+% ── Part II: The Linear Model and Causal Inference ────────────────────
+\part{The Linear Model and Causal Inference}\label{part2}
+\include{Chapters/04_LinearModel}
+\include{Chapters/05_CausalInference}
+\include{Chapters/06_BeyondOLS}
+
+% ── Part III: The Spatial Economy ─────────────────────────────────────
+\part{The Spatial Economy}\label{part3}
+\include{Chapters/07_SpatialEquilibrium}
+\include{Chapters/08_MeasuringSpatial}
+\include{Chapters/09_SpatialDependence}
+
+% ── Part IV: Frontiers ────────────────────────────────────────────────
+\part{Frontiers}\label{part4}
+\include{Chapters/10_TimeSeries}
+\include{Chapters/11_Computational}
+
+% ── Appendices ────────────────────────────────────────────────────────
+\appendix
+\part*{Appendices}
+\include{Chapters/AppA_Software}
+
+% ── Back matter ───────────────────────────────────────────────────────
+\backmatter
+\printindex
+
+\end{document}

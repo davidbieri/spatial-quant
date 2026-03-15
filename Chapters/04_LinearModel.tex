@@ -1,0 +1,468 @@
+% =====================================================================
+%  Chapter 4: The Linear Model
+%  Source: ClassNormReg.tex (Overleaf) + P3 transcription
+% =====================================================================
+
+\chapter[The Linear Model]{The Classical Linear Model}
+\label{chap_LinearModel}
+
+\section{The Regression Function}
+\label{sec_RegFunction}
+
+The general regression model is:
+\begin{equation}
+  y = m(\mathbf{x}) + e, \qquad
+  m(\mathbf{x}) \equiv \E[y \mid \mathbf{x}]
+  = \int_{-\infty}^{\infty} y\, f(y \mid \mathbf{x})\, dy
+\end{equation}
+
+By construction, the regression error $e = y - m(\mathbf{x})$ satisfies:
+\begin{enumerate}[label=(\roman*)]
+  \item $\E[e \mid \mathbf{x}] = 0$
+  \item $\E[e] = 0$
+  \item $\E[e\mathbf{x}] = 0$
+\end{enumerate}
+
+\subsection{Homoskedasticity vs.\ Heteroskedasticity}
+
+The term \emph{skedasis} means dispersion. Two cases arise for the conditional
+error variance $\E[e^2 \mid \mathbf{x}]$:
+
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Homoskedasticity:}\; $\E[e^2\mid\mathbf{x}] = \sigma^2$
+    (constant conditional variance)
+  \item \textbf{Heteroskedasticity:}\;
+    $\E[e^2\mid\mathbf{x}] = \sigma^2(\mathbf{x})$
+    (skedastic function; variance depends on $\mathbf{x}$)
+\end{enumerate}
+
+The unconditional variance via the law of iterated expectations:
+\begin{equation}
+  \sigma^2 = \E[e^2] = \E\!\bigl[\E[e^2 \mid \mathbf{x}]\bigr]
+  = \E[\sigma^2(\mathbf{x})]
+\end{equation}
+
+The \textbf{linear model}\index{linear model} specifies:
+\begin{alignat*}{2}
+  y &= \mathbf{x}'\beta + e \\
+  \E[e \mid \mathbf{x}] &= 0 \\
+  \E[e^2 \mid \mathbf{x}] &= \sigma^2 \quad\text{or}\quad \sigma^2(\mathbf{x})
+\end{alignat*}
+
+\noindent\textbf{Modelling conditional variance.}\index{ARCH}\index{GARCH}
+Robert Engle's ARCH model (1982), for which he received the 2003 Nobel Prize,
+specifies $\E[e^2 \mid \mathbf{x}] = \sigma^2(\mathbf{x})$ as an explicit
+function of past squared errors. The generalised GARCH model extends this to
+allow the conditional variance to depend on past conditional variances as well.
+These models are central to financial time series but also arise in spatial
+panels where variance may cluster geographically.
+
+
+\section{The Best Linear Predictor}
+\label{sec_BLP}
+
+Minimise the expected squared prediction error over $\beta$:
+\begin{equation}
+  F(\beta) = \E\!\bigl[(y - \mathbf{x}'\beta)^2\bigr]
+  = \E[y^2] - 2\beta'\E[\mathbf{x}y] + \beta'\E[\mathbf{x}\mathbf{x}']\beta
+\end{equation}
+
+\noindent\textbf{First order condition:}
+$\partial F / \partial\beta = -2\E[\mathbf{x}y] + 2\E[\mathbf{x}\mathbf{x}']\beta = 0$.
+
+If $\E[\mathbf{x}\mathbf{x}']$ is invertible:
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \beta = \bigl(\E[\mathbf{x}\mathbf{x}']\bigr)^{-1}\E[\mathbf{x}y]
+\end{equation}
+\end{tcolorbox}
+
+\subsection{The Empirical Analogue: OLS}
+
+Replace population expectations with sample averages:
+\begin{equation}
+  F_n(\beta) = \frac{1}{n}\sum(y - \mathbf{x}'\beta)^2
+  = \frac{1}{n}\,\text{SSE}_n(\beta)
+\end{equation}
+
+Setting $\partial\,\text{SSE}/\partial\beta = 0$:
+\begin{equation}
+  \hat\beta = \Bigl(\sum_i\mathbf{x}_i\mathbf{x}_i'\Bigr)^{-1}
+              \Bigl(\sum_i\mathbf{x}_i y_i\Bigr)
+\end{equation}
+
+
+\section{The Model in Matrix Notation}
+\label{sec_MatrixNotation}
+
+The system of $n$ equations $y_i = \mathbf{x}_i'\beta + e_i$ is written
+compactly as:
+\begin{equation}
+  \underset{n\times1}{\mathbf{y}}
+  = \underset{n\times k}{X}\;\underset{k\times1}{\beta}
+  + \underset{n\times1}{\mathbf{e}}
+\end{equation}
+
+\begin{tcolorbox}[keyresult]
+\textbf{OLS estimator (matrix form):}
+\begin{equation}
+  \hat\beta = (X'X)^{-1}X'\mathbf{y}
+  \label{eq_OLS}
+\end{equation}
+Residuals: $\hat{\mathbf{e}} = \mathbf{y} - X\hat\beta$.\quad
+Variance estimate: $\hat\sigma^2 = n^{-1}\hat{\mathbf{e}}'\hat{\mathbf{e}}$.
+\end{tcolorbox}
+
+\noindent\textbf{Three ways to write the linear model:}
+\begin{enumerate}
+  \item Equation by equation:\; $y_i = \mathbf{x}_i'\beta + e_i$
+  \item Matrix form:\; $\mathbf{y} = X\beta + \mathbf{e}$
+  \item Scalar form:\; $y_i = \beta_0 + \beta_1 x_{1i} + \cdots
+    + \beta_{k-1}x_{k-1,i} + e_i$
+\end{enumerate}
+
+
+\section{Sampling Distribution of $\hat\beta$}
+\label{sec_SamplingDist}
+
+$\hat\beta$ is a random variable with its own $\mu_{\hat\beta}$ and
+$\sigma^2_{\hat\beta}$, and therefore has a \textbf{sampling
+distribution}\index{sampling distribution}.
+
+\subsection{Unbiasedness of OLS}
+
+\begin{equation}
+  \E(\hat\beta \mid X) = \beta \qquad\text{and}\qquad \E(\hat\beta) = \beta
+\end{equation}
+
+\noindent\textit{Proof:}
+\begin{align*}
+  \E(\hat\beta \mid X)
+  &= \E\!\bigl[(X'X)^{-1}X'\mathbf{y} \mid X\bigr] \\
+  &= (X'X)^{-1}X'\,\E[\mathbf{y} \mid X]
+   = (X'X)^{-1}X'X\beta = \beta \qquad\square
+\end{align*}
+
+\subsection{Variance of $\hat\beta$}
+
+Under homoskedasticity, $\E[\mathbf{e}\mathbf{e}'] = \sigma^2 I_n$:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  V(\hat\beta) = \sigma^2(X'X)^{-1}
+  \label{eq_VarBeta}
+\end{equation}
+\end{tcolorbox}
+
+\noindent\textit{Proof:} $\hat\beta - \beta = (X'X)^{-1}X'\mathbf{e}$, so:
+\begin{align*}
+  V(\hat\beta)
+  &= \E\!\bigl[(\hat\beta-\beta)(\hat\beta-\beta)'\bigr]
+   = (X'X)^{-1}X'\,\E[\mathbf{e}\mathbf{e}']\,X(X'X)^{-1} \\
+  &= (X'X)^{-1}X'\,\sigma^2 I\,X(X'X)^{-1}
+   = \sigma^2(X'X)^{-1} \qquad\square
+\end{align*}
+
+\subsection{Estimating $\sigma^2$}
+
+OLS does not directly provide an estimate of $\sigma^2$. Using residuals
+$\hat{e}_i$ in place of errors $e_i$ yields a downward-biased estimate:
+\begin{equation}
+  \E[\hat\sigma^2] = \frac{n-k}{n}\,\sigma^2 < \sigma^2
+\end{equation}
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  s^2 \equiv \frac{1}{n-k}\sum_{i=1}^{n}\hat{e}_i^2
+  = \frac{n}{n-k}\,\hat\sigma^2
+  \qquad \text{(unbiased estimator of }\sigma^2\text{)}
+\end{equation}
+\end{tcolorbox}
+
+Note: while $s^2$ is unbiased for $\sigma^2$, $s$ is \emph{not} unbiased
+for $\sigma$.
+
+
+\section{Geometry of OLS}
+\label{sec_GeometryOLS}
+
+Expanding $\hat\beta = (X'X)^{-1}X'\mathbf{y}$:
+\begin{align*}
+  \hat\beta
+  &= (X'X)^{-1}X'(X\beta + \mathbf{e}) \\
+  &= \beta + (X'X)^{-1}X'\mathbf{e}
+\end{align*}
+Fitted values: $\hat{\mathbf{y}} = X\hat\beta = X(X'X)^{-1}X'\mathbf{y} =
+P_X\mathbf{y}$.
+
+\subsection{Projection Matrices and Their Relationships}
+\label{subsec_Projections}
+
+The \textbf{hat matrix}\index{hat matrix} and its complement
+(Section~\ref{sec_Projections}) satisfy additional structural relationships
+when $X = [X_1\;X_2]$. Defining $P_1 = X_1(X_1'X_1)^{-1}X_1'$:
+\begin{align}
+  P_X P_1 &= P_1 \qquad\text{since}\quad P_1 < P_X \label{eq_PP1} \\
+  M_X M_1 &= M_X \qquad\text{since}\quad M_1 > M_X \label{eq_MM1}
+\end{align}
+
+The orthogonal decomposition $\mathbf{y} = P_X\mathbf{y} + M_X\mathbf{y}
+= \hat{\mathbf{y}} + \hat{\mathbf{e}}$ is illustrated in
+Figure~\ref{fig_GeomOLS}.
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[>=Stealth, scale=1.3]
+  \fill[gray!12]
+    (-0.5,-0.35) -- (3.7,-0.35) -- (4.2,0.95) -- (0.0,0.95) -- cycle;
+  \node[gray!70, font=\small] at (1.8, -0.05) {column space of $X$};
+  \coordinate (O)   at (1.4, 0.15);
+  \fill (O) circle (1.5pt) node[below left] {$O$};
+  \coordinate (Y)   at (3.4, 3.1);
+  \coordinate (PXY) at (3.4, 0.60);
+  \draw[->, very thick]     (O) -- (Y)   node[right] {$\mathbf{y}$};
+  \draw[->, thick]          (O) -- (PXY) node[below right]
+    {$\hat{\mathbf{y}} = P_X\mathbf{y}$};
+  \draw[->, thick, dashed] (PXY) -- (Y)  node[midway, right=2pt]
+    {$\hat{\mathbf{e}} = M_X\mathbf{y}$};
+  \draw ($(PXY)+(-0.17,0)$) -- ++(0,0.17) -- ++(0.17,0);
+  \coordinate (X1) at (2.8, 0.42);
+  \coordinate (X2) at (1.9, 0.80);
+  \draw[->, thick] (O) -- (X1) node[below] {$X_1$};
+  \draw[->, thick] (O) -- (X2) node[above left] {$X_2$};
+\end{tikzpicture}
+\caption{Geometry of OLS. $\hat{\mathbf{y}} = P_X\mathbf{y}$ is the
+orthogonal projection of $\mathbf{y}$ onto the column space of $X$; the
+residual vector $\hat{\mathbf{e}} = M_X\mathbf{y}$ is perpendicular to
+that space. Note $\hat{\mathbf{y}}'\hat{\mathbf{e}} = 0$.}
+\label{fig_GeomOLS}
+\end{figure}
+
+
+\section{Goodness of Fit}
+\label{sec_GoodnessOfFit}
+
+\subsection{The TSS Decomposition}
+
+\begin{tcolorbox}[keyresult]
+\begin{alignat*}{2}
+  \text{TSS} &= \mathbf{y}'M_\iota\mathbf{y}
+    = \textstyle\sum(y_i-\bar{y})^2 \\
+  \text{ESS} &= \mathbf{y}'M_\iota P_X\mathbf{y}
+    = \textstyle\sum(\hat{y}_i-\bar{y})^2 \\
+  \text{RSS} &= \mathbf{y}'M_X\mathbf{y}
+    = \textstyle\sum(y_i-\hat{y}_i)^2
+\end{alignat*}
+\vspace{-4pt}
+\begin{equation}
+  R^2 = \frac{\text{ESS}}{\text{TSS}} = 1 - \frac{\text{RSS}}{\text{TSS}}
+\end{equation}
+\end{tcolorbox}
+
+\subsection{Adjusted $R^2$}
+
+\begin{equation}
+  \bar{R}^2 = 1 - (1-R^2)\frac{n-1}{n-k}
+\end{equation}
+
+$\bar{R}^2$ increases only if the $t$-statistic of the newly added variable
+exceeds $|1|$ in absolute value. An increase in $R^2$ is \emph{not}
+indicative of improved specification---even poorly specified equations can
+achieve high $R^2$.
+
+
+\section{The Frisch--Waugh--Lovell Theorem}
+\label{sec_FWL}
+
+\begin{tcolorbox}[definition]
+\textbf{Theorem (FWL; see \citealt{Lovell2008,Davidson2004}).} If
+$Y = X_1\beta_1 + X_2\beta_2 + \mathbf{e}$ ($X_1$ is $n\times k_1$;
+$X_2$ is $n\times k_2$), then the OLS estimate of $\beta_2$ from the full
+regression equals the OLS estimate from the auxiliary regression:
+\begin{equation}
+  M_{X_1}Y = M_{X_1}X_2\beta_2 + \mathbf{v}, \quad \mathbf{v} = M_{X_1}\mathbf{e}
+\end{equation}
+where $M_{X_1} = I - X_1(X_1'X_1)^{-1}X_1'$.
+\end{tcolorbox}
+
+\noindent\textbf{Proof.} Write $M_{X_1} \equiv M_1$.
+Premultiply $y = X_1\hat\beta_1 + X_2\hat\beta_2 + M_Xy$ by $X_2'M_1$:
+\begin{equation}
+  X_2'M_1y
+  = \underbrace{X_2'M_1X_1\hat\beta_1}_{(1)}
+  + \underbrace{X_2'M_1X_2\hat\beta_2}_{(2)}
+  + \underbrace{X_2'M_1M_Xy}_{(3)}
+\end{equation}
+Two properties eliminate terms (1) and (3):
+\begin{enumerate}
+  \item $M_1X_1 = 0$ $\Rightarrow$ term (1) $= 0$.
+  \item $M_1M_X = M_X$ (since $M_X < M_1$) $\Rightarrow$
+    $X_2'M_1M_Xy = X_2'M_Xy = X_2'\hat{\mathbf{e}} = 0$.
+\end{enumerate}
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \hat\beta_2 = (X_2'M_1X_2)^{-1}X_2'M_1y,
+  \qquad
+  \Var(\hat\beta_2) = \sigma^2(X_2'M_1X_2)^{-1}
+  \label{eq_FWL}
+\end{equation}
+\end{tcolorbox}
+
+\noindent\textbf{Interpretation.} The FWL theorem says that the coefficient
+on $X_2$ in the full regression is numerically identical to the coefficient
+from regressing the residuals of $Y$ on $X_1$ onto the residuals of $X_2$
+on $X_1$. In other words, OLS \emph{partials out} all other regressors before
+estimating any particular coefficient. A regression coefficient does not
+measure the raw correlation between $Y$ and $X_2$; it measures the
+correlation after removing everything both $Y$ and $X_2$ share with $X_1$.
+
+
+\section{Specification Issues}
+\label{sec_Specification}
+
+\subsection{Overspecification}
+
+Variables not belonging to the true DGP are mistakenly included.
+Overspecification is \textbf{not} misspecification.
+
+Suppose we estimate $y = X\beta + Z\gamma + \mathbf{e}$,
+$\mathbf{e}\sim\text{iid}(0,\sigma^2I)$, but the true DGP is
+$y = X\beta_0 + \mathbf{e}$. The overspecified model nests the true model
+(setting $\gamma=0$), so $\hat\beta$ is unbiased.
+
+\begin{tcolorbox}[keyresult]
+\textbf{Overspecification:} unbiased, (weakly) consistent, nominally
+inefficient estimates.
+\end{tcolorbox}
+
+\subsection{Underspecification and Omitted Variable Bias}
+\label{subsec_OVB}
+
+We estimate $y = X\beta + \mathbf{e}$ but the true DGP is:
+\begin{equation}
+  y = X\beta_0 + Z\gamma_0 + \mathbf{e},
+  \quad \mathbf{e}\sim\text{iid}(0,\sigma_0^2I)
+\end{equation}
+
+\noindent\textbf{Omitted variable bias:}\index{omitted variable bias}
+\begin{align}
+  \E(\hat\beta)
+  &= \beta_0 + \underbrace{(X'X)^{-1}X'Z\gamma_0}_{\text{OVB}}
+\end{align}
+
+\begin{tcolorbox}[keyresult]
+The OVB is zero if and only if:
+\begin{enumerate}
+  \item $X'Z = 0$ (omitted variable is orthogonal to included regressors), or
+  \item $\gamma_0 = 0$ (the omitted variable has no effect on $y$).
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[keyresult]
+\textbf{Underspecification:} biased, consistent, linear estimator.
+\end{tcolorbox}
+
+
+\section{Functional Form and Nonlinearity}
+\label{sec_FunctionalForm}
+
+The linear model requires linearity in \emph{parameters}, not in variables.
+This distinction permits substantial flexibility.
+
+\subsection{Polynomial Terms}
+
+\begin{equation}
+  y = \beta_0 + \beta_1 x + \beta_2 x^2 + e
+\end{equation}
+
+Substituting $z = x^2$ preserves linearity in the parameters while capturing
+a nonlinear relationship in $x$.
+
+\subsection{Log-linearisation: The Cobb-Douglas Production Function}
+
+The \textbf{Cobb-Douglas}\index{Cobb-Douglas production function} function:
+\begin{equation}
+  y = AK^\alpha L^\beta e, \qquad\text{with CES: }\alpha = 1-\beta
+\end{equation}
+
+Log-linearisation yields a standard linear regression model:
+\begin{equation}
+  \ln y = \ln A + (1-\beta)\ln K + \beta\ln L + \ln e
+\end{equation}
+
+\noindent\textbf{Constant returns to scale} ($F(aK,aL) = aF(K,L)$):
+\begin{equation}
+  F(aK,aL) = A(aK)^\alpha(aL)^{1-\alpha} = a\,AK^\alpha L^{1-\alpha}
+  \;\checkmark
+\end{equation}
+If $\alpha + \beta > 1$: increasing returns to scale.
+
+\noindent\textbf{Elasticity:}
+\begin{equation}
+  \frac{dy/dL}{y/L}
+  = \frac{\text{marginal product}}{\text{average product}}
+  = \beta \quad\text{(constant factor proportion)}
+\end{equation}
+
+\noindent\textbf{Derivation from CES.} The Cobb-Douglas arises as a limiting
+case of the CES function $Y = A[\alpha K^\rho + (1-\alpha)L^\rho]^{\gamma/\rho}$
+as $\rho \to 0$. Applying L'H\^opital's rule to $\ln Y$:
+\begin{equation}
+  \lim_{\rho\to0}\ln Y = \ln A + \alpha\ln K + (1-\alpha)\ln L
+  \;\Longrightarrow\; Y = AK^\alpha L^{1-\alpha}
+\end{equation}
+
+
+\section{Maximum Likelihood Estimation and OLS}
+\label{sec_MLE}
+
+The \textbf{classical normal regression} (CNR) model adds the assumption that
+$e_i \mid \mathbf{x}_i \sim \mathcal{N}(0, \sigma^2)$, implying:
+\begin{equation}
+  y_i \mid \mathbf{x}_i \sim \mathcal{N}(\mathbf{x}_i'\beta, \sigma^2)
+\end{equation}
+
+The likelihood function for observation $i$:
+\begin{equation}
+  \mathcal{L}_i = f(y_i) = \frac{1}{\sqrt{2\pi\sigma^2}}
+  \exp\!\left(-\frac{(y_i - \mathbf{x}_i'\beta)^2}{2\sigma^2}\right)
+\end{equation}
+
+The \textbf{maximum likelihood estimator}\index{maximum likelihood
+estimator (MLE)} $(\hat\beta_{mle}, \hat\sigma^2_{mle})$ maximises
+$\log\mathcal{L}(\beta,\sigma^2)$. Since this is a function of $\beta$ only
+through $\text{SSE}_n(\beta)$, maximising the likelihood is equivalent to
+minimising the sum of squared errors:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \hat\beta_{mle} = \hat\beta_{ols}
+\end{equation}
+\end{tcolorbox}
+
+Under the normality assumption, OLS is not merely the best linear unbiased
+estimator (BLUE by the Gauss-Markov theorem); it is the minimum variance
+unbiased estimator among \emph{all} unbiased estimators.
+
+
+\section{General Method of Moments}
+\label{sec_GMM}
+
+OLS exploits the moment condition $\E[\mathbf{x}_i e_i] = 0$.
+The \textbf{General Method of Moments}\index{GMM|see{General Method of
+Moments}}\index{General Method of Moments} (GMM) generalises this by
+allowing for a vector of moment conditions $\E[\mathbf{z}_i g(\mathbf{y}_i,
+\boldsymbol{\theta})] = \mathbf{0}$, where $\mathbf{z}_i$ may be instruments
+distinct from regressors $\mathbf{x}_i$. OLS is a special case of GMM with
+$\mathbf{z}_i = \mathbf{x}_i$; IV/2SLS is another special case with
+$\mathbf{z}_i$ containing external instruments (Chapter~\ref{chap_BeyondOLS}).
+
+% TODO: Expand GMM with J-test for over-identification
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/ClassNormReg.bbl}{\input{Literature/ClassNormReg.bbl}}{\typeout{Need bibtex on ClassNormReg}}
+\end{subappendices}

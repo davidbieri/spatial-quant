@@ -1,0 +1,346 @@
+% =====================================================================
+%  Chapter 5: Causal Inference and Identification
+%  Source: P2 transcription (complete)
+% =====================================================================
+
+\chapter{Causal Inference and Identification}
+\label{chap_Causal}
+
+\section{The Goals of Empirical Research}
+\label{sec_Goals}
+
+Not all empirical questions are causal. \citet{Angrist2009a} organise the
+goals of applied econometric work into a hierarchy:
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[>=Stealth,
+    node distance=1.2cm and 2.2cm,
+    every node/.style={draw, rounded corners, align=center, font=\small,
+                       minimum width=2.8cm, minimum height=0.65cm}]
+  % Root
+  \node (root) {Empirical research};
+  % Level 1
+  \node (sum)  [below left=of root,  xshift=0.5cm]  {Summarising data};
+  \node (inf)  [below right=of root, xshift=-0.5cm] {Inference};
+  \draw[->] (root) -- (sum);
+  \draw[->] (root) -- (inf);
+  % Level 2 under Inference
+  \node (desc) [below left=of inf,  xshift=0.3cm]  {Descriptive};
+  \node (cf)   [below right=of inf, xshift=-0.3cm] {Counterfactual};
+  \draw[->] (inf) -- (desc);
+  \draw[->] (inf) -- (cf);
+  % Level 3 under Counterfactual
+  \node (pred) [below left=of cf,   xshift=0.5cm]  {Prediction\\(what-if)};
+  \node (caus) [below right=of cf,  xshift=-0.5cm] {Causal\\identification};
+  \draw[->] (cf) -- (pred);
+  \draw[->] (cf) -- (caus);
+\end{tikzpicture}
+\caption{Taxonomy of the goals of empirical research.}
+\label{fig_EmpiricalGoals}
+\end{figure}
+
+The distinction between descriptive inference and causal identification is
+central. A descriptive regression summarises conditional means:
+$\E[Y\mid X=x]$ tells us what values of $Y$ tend to accompany given values
+of $X$, but nothing about what would happen to $Y$ if we \emph{changed} $X$.
+Causal identification requires an additional assumption---a source of
+exogenous variation that allows us to move from correlation to causation.
+
+\subsection{Standard Regression Notation}
+
+We can write the regression model in several equivalent ways:
+\begin{alignat*}{2}
+  Y_i &= m(\mathbf{x}) + \varepsilon && \\
+      &= X_i\beta + \varepsilon_i && \quad\text{(standard form)} \\
+  Y_i &\sim f_N(y_i \mid \mu_i, \sigma^2), \quad \mu_i = X_i\beta
+    && \quad\text{(distributional form)}
+\end{alignat*}
+
+More generally, for a response variable $y_i$ following distribution
+$f(y_i \mid \theta_i, \alpha)$ with systematic component $\theta_i =
+g(X_i, \beta)$:
+
+\begin{table}[htp]
+\centering
+\caption{Generalised regression notation across model families}
+\label{tbl_RegNotation}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Model} & \textbf{Distribution} $f$ & \textbf{Link} $g$ &
+\textbf{Range of $y$} & \textbf{Estimator} \\
+\midrule
+OLS          & Normal    & Identity  & $(-\infty, +\infty)$ & OLS / MLE \\
+Logit        & Bernoulli & Logistic  & $\{0,1\}$             & MLE \\
+Probit       & Bernoulli & Normal CDF & $\{0,1\}$            & MLE \\
+Poisson      & Poisson   & Log       & $\{0,1,2,\ldots\}$   & MLE \\
+Neg.\ Binomial & NB      & Log       & $\{0,1,2,\ldots\}$   & MLE \\
+Gamma        & Gamma     & Log / Inv & $(0,+\infty)$         & MLE \\
+Tobit        & Normal    & Identity  & $[0,+\infty)$         & MLE \\
+Spatial Lag  & Normal    & Identity  & $(-\infty,+\infty)$   & MLE / IV \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\subsection{Two Types of Uncertainty}
+
+\begin{itemize}
+  \item \textbf{Estimation uncertainty:} arises because we observe a finite
+    sample; standard errors shrink as $n \to \infty$.
+  \item \textbf{Fundamental uncertainty:} arises because $Y$ is inherently
+    stochastic; this uncertainty does not shrink with $n$. It is reflected in
+    the residual variance $\sigma^2$.
+\end{itemize}
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[>=Stealth, scale=1.0]
+  % Three panels: linear, logistic, exponential systematic components
+  % Panel 1: Linear
+  \begin{scope}[xshift=0cm]
+    \draw[->] (-0.2,0) -- (2.8,0) node[right] {\small$x$};
+    \draw[->] (0,-0.2) -- (0,2.4) node[above] {\small$\mu$};
+    \draw[very thick] (0,0.3) -- (2.5,2.2);
+    \node[below] at (1.25,-0.3) {\small Linear};
+  \end{scope}
+  % Panel 2: Logistic
+  \begin{scope}[xshift=4.0cm]
+    \draw[->] (-0.2,0) -- (2.8,0) node[right] {\small$x$};
+    \draw[->] (0,-0.2) -- (0,2.4) node[above] {\small$\mu$};
+    \draw[very thick, domain=0:2.5, samples=60]
+      plot (\x, {2.1/(1+exp(-4*(\x-1.25)))});
+    \draw[dashed, gray] (-0.1, 2.1) -- (2.7, 2.1);
+    \node[below] at (1.25,-0.3) {\small Logistic};
+  \end{scope}
+  % Panel 3: Exponential
+  \begin{scope}[xshift=8.0cm]
+    \draw[->] (-0.2,0) -- (2.8,0) node[right] {\small$x$};
+    \draw[->] (0,-0.2) -- (0,2.4) node[above] {\small$\mu$};
+    \draw[very thick, domain=0:2.3, samples=60]
+      plot (\x, {0.3*exp(1.0*\x)});
+    \node[below] at (1.25,-0.3) {\small Exponential};
+  \end{scope}
+\end{tikzpicture}
+\caption{Three systematic component forms: linear (identity link), logistic
+(logit link), and exponential (log link).}
+\label{fig_SystematicComp}
+\end{figure}
+
+
+\section{The Fundamental Problem of Causal Inference}
+\label{sec_FPCI}
+
+\subsection{Potential Outcomes and the Rubin Causal Model}
+
+Let $D_i \in \{0,1\}$ be a binary treatment indicator. Each unit $i$ has
+two \textbf{potential outcomes}\index{potential outcomes}:
+\begin{itemize}
+  \item $Y_{0i}$: outcome if untreated ($D_i = 0$)
+  \item $Y_{1i}$: outcome if treated ($D_i = 1$)
+\end{itemize}
+
+The observed outcome is (\citealt{Holland1986}; Rubin Causal Model):
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  Y_i = Y_{0i} + (Y_{1i} - Y_{0i})D_i
+  \label{eq_PotentialOutcomes}
+\end{equation}
+\end{tcolorbox}
+
+The \textbf{individual treatment effect} is $Y_{1i} - Y_{0i}$. The
+\textbf{fundamental problem of causal inference} is that we observe only one
+potential outcome for each unit---either $Y_{0i}$ or $Y_{1i}$, never both.
+
+\subsection{The Average Treatment Effect on the Treated (ATT)}
+
+\begin{tcolorbox}[keyresult]
+\begin{align}
+  \underbrace{\E[Y_i \mid D_i=1] - \E[Y_i \mid D_i=0]}_{\text{observed difference}}
+  &= \underbrace{\E[Y_{1i} - Y_{0i} \mid D_i=1]}_{\text{ATT}}
+   + \underbrace{\E[Y_{0i} \mid D_i=1] - \E[Y_{0i} \mid D_i=0]}_{\text{selection bias}}
+  \label{eq_ATT}
+\end{align}
+\end{tcolorbox}
+
+The observed difference between treated and untreated units confounds the
+causal effect (ATT) with selection bias---the difference in potential
+untreated outcomes between those who were and were not treated.
+
+
+\section{The Selection Problem in Urban Contexts}
+\label{sec_Selection}
+
+\subsection{The Hospital Paradox}
+
+A striking illustration: patients in hospitals have worse health outcomes than
+patients not in hospitals. Does this mean hospitals are harmful? No---sicker
+people are more likely to \emph{select into} hospital treatment. The
+selection mechanism determines who receives treatment, creating the
+confounding. The same logic applies throughout urban and regional analysis:
+neighbourhoods, cities, and regions are not random assignments.
+
+\begin{table}[htp]
+\centering
+\caption{The selection problem: conventional estimates vs.\ corrected estimates}
+\label{tbl_Selection1}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Treated (hospital)} & \textbf{Untreated (no hospital)} \\
+\midrule
+Average health outcome       & Low    & High \\
+Na\"{i}ve treatment effect   & \multicolumn{2}{c}{Negative (spurious)} \\
+True treatment effect (ATT)  & \multicolumn{2}{c}{Positive (causal)} \\
+Selection bias               & \multicolumn{2}{c}{Negative (sicker select in)} \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{REO (real estate owned) vs.\ conventional property sales:
+a selection problem in housing markets}
+\label{tbl_Selection2}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Property characteristic & REO sale & Conventional sale \\
+\midrule
+Seller motivation       & Distressed (bank) & Voluntary \\
+Condition at sale       & Often degraded    & Market-maintained \\
+Observed sale price     & Discounted        & Full market value \\
+Na\"{i}ve ``REO discount'' & Negative      & Baseline \\
+True REO effect         & \multicolumn{2}{c}{Requires identification strategy} \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\subsection{Geographic Sorting and the Endogeneity of Place}
+
+Cities and neighbourhoods are not random assignments---they are the outcomes
+of sorting by households, firms, and governments over decades and centuries.
+When we observe that neighbourhood $A$ has better outcomes than neighbourhood
+$B$, we cannot distinguish the causal effect of neighbourhood characteristics
+from the selection process that determined who lives where. The standard
+spatial regression coefficient conflates both. This is the core identification
+challenge of regional policy informatics.
+
+
+\section{The Experimental Ideal}
+\label{sec_Experimental}
+
+\subsection{Random Assignment}
+
+Under random assignment, $D_i$ is independent of potential outcomes:
+\begin{equation}
+  (Y_{0i}, Y_{1i}) \ind D_i
+\end{equation}
+This implies $\E[Y_{0i}\mid D_i=1] = \E[Y_{0i}\mid D_i=0]$, so the
+selection bias term in equation~\eqref{eq_ATT} vanishes:
+\begin{equation}
+  \E[Y_i \mid D_i=1] - \E[Y_i \mid D_i=0] = \text{ATT}
+  = \E[Y_{1i} - Y_{0i} \mid D_i=1]
+\end{equation}
+
+Note: randomisation \emph{spreads} selection bias symmetrically across
+treatment and control groups---it does not remove selection bias from
+individual units but makes it zero \emph{in expectation}.
+
+\paragraph{Example: The Perry Pre-School Programme (Heckman et al., 2010)}
+\index{Perry Pre-School}
+
+The Perry Pre-School Programme (1962) was a randomised controlled trial
+(RCT) that randomly assigned disadvantaged African-American children in
+Ypsilanti, Michigan to either a high-quality pre-school programme (treatment)
+or a control group. Follow-up studies by \citet{Heckman2010} traced
+participants into adulthood, finding substantial long-run effects on education,
+employment, criminal behaviour, and earnings---effects that far exceeded the
+short-run IQ gains that were the original target of the programme. The Perry
+RCT remains one of the most influential examples of a field experiment in
+social science, demonstrating both the power of random assignment and the
+importance of measuring long-run outcomes.
+
+\subsection{Regression with Constant Treatment Effect}
+
+Under random assignment and assuming constant treatment effects:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  Y_i = \alpha + \beta D_i + \eta_i
+  \label{eq_TreatmentReg}
+\end{equation}
+where $\beta = \E[Y_{1i} - Y_{0i}]$ is the Average Treatment Effect (ATE)
+and $\alpha = \E[Y_{0i}]$ is the mean counterfactual outcome.
+\end{tcolorbox}
+
+
+\section{The Conditional Independence Assumption}
+\label{sec_CIA}
+
+When randomisation is not available, causal identification typically requires
+one of three strategies: CIA (this section), instrumental variables
+(Chapter~\ref{chap_BeyondOLS}), or quasi-experimental designs
+(Chapter~\ref{chap_BeyondOLS}).
+
+\begin{tcolorbox}[keyresult]
+\textbf{Conditional Independence Assumption (CIA):}
+\begin{equation}
+  \{Y_{0i}, Y_{1i}\} \ind D_i \mid X_i
+  \label{eq_CIA}
+\end{equation}
+Selection into treatment is independent of potential outcomes \emph{after
+conditioning on observable covariates} $X_i$.
+\end{tcolorbox}
+
+Under the CIA, the regression with control variables $X_i$:
+\begin{equation}
+  Y_i = \alpha + \beta D_i + X_i\gamma' + \eta_i
+\end{equation}
+\emph{has a causal interpretation}---$\beta$ estimates the average treatment
+effect conditional on $X_i$.
+
+\noindent\textbf{Limitations of the CIA.} The CIA requires that we have
+observed and included all confounders---variables that affect both treatment
+assignment and outcomes. In the presence of \emph{unobserved} confounders,
+the CIA fails and regression estimates are biased. This is the case in most
+spatial settings, where geographic sorting creates selection on unobservables
+(amenity preferences, ability, social capital) that are not captured in
+administrative data.
+
+
+\section{The TSS Decomposition and $R^2$}
+\label{sec_TSS}
+
+The decomposition of total variation into explained and residual components
+follows directly from the orthogonality of $\hat{\mathbf{y}}$ and
+$\hat{\mathbf{e}}$:
+
+\begin{align*}
+  \sum(y_i - \bar{y})^2
+  &= \sum(\hat{y}_i - \bar{y})^2 + \sum(y_i - \hat{y}_i)^2 \\
+  \text{TSS} &= \text{ESS} + \text{RSS}
+\end{align*}
+
+\noindent\textit{Proof:}
+\begin{align*}
+  \sum(y_i - \bar{y})^2
+  &= \sum\bigl[(\hat{y}_i-\bar{y}) + \hat{e}_i\bigr]^2 \\
+  &= \sum(\hat{y}_i-\bar{y})^2 + 2\sum(\hat{y}_i-\bar{y})\hat{e}_i
+     + \sum\hat{e}_i^2 \\
+  &= \sum(\hat{y}_i-\bar{y})^2 + \sum\hat{e}_i^2
+\end{align*}
+where the cross term vanishes because $\hat{\mathbf{y}}'\hat{\mathbf{e}} = 0$
+and $\boldsymbol{\iota}'\hat{\mathbf{e}} = 0$ (the constant is always
+included, so the residuals sum to zero). $\square$
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/Causal.bbl}{\input{Literature/Causal.bbl}}{\typeout{Need bibtex on Causal}}
+\end{subappendices}

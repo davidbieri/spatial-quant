@@ -1,0 +1,248 @@
+% =====================================================================
+%  Chapter 8: Measuring the Spatial Economy
+%  Source: EconAnalysis.tex (Overleaf) — complete content
+% =====================================================================
+
+\chapter{Measuring the Spatial Economy}
+\label{chap_EconAnalysis}
+
+\section{Modelling and Measuring Economic Activity}
+\label{sec_EconActivity}
+
+Quantitative measures of economic structure serve two purposes in regional
+analysis. First, they describe the industrial composition of a local economy
+relative to a reference geography (usually the national average), revealing
+its specialisations and dependencies. Second, they form the empirical basis
+for testing theories of agglomeration, cluster formation, and regional growth.
+
+\subsection{Measures of Spatial Concentration and Specialisation}
+
+\subsubsection{Locational Measures}
+
+\paragraph{Location Quotient}\index{location quotient}
+
+The \textbf{location quotient} (LQ) is the standard measure of employment
+distribution that controls for the size of the region. The relative
+concentration of industry $i$ in region $j$ is:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  LQ_i = \frac{E_{ij}/E_{in}}{E_j/E_n}
+  \label{eq_LQ}
+\end{equation}
+\end{tcolorbox}
+
+\noindent where $E_{ij}$ is employment in industry $i$ in region $j$,
+$E_j$ is total employment in region $j$, $E_{in}$ is national employment
+in industry $i$, and $E_n$ is total national employment.
+
+An $LQ > 1$ indicates above-average concentration of industry $i$ in region
+$j$; industries with $LQ > 1.25$ are generally viewed as constituting the
+region's export-oriented \textbf{economic base}\index{economic base}.
+An $LQ < 1$ indicates a sector that serves primarily local demand.
+
+\paragraph{Horizontal Clustering}\index{clustering!horizontal}
+
+\textbf{Horizontal clustering} (HC) is an alternative measure that accounts
+for possible agglomeration effects in terms of the absolute number of jobs
+in a specific industry. It is the arithmetic equivalent of a bubble chart
+that accounts for an industry's gravitational pull over and above what is
+expected at the national level:
+\begin{equation}
+  HC_i = E_{ij} - \hat{E}_{ij}
+\end{equation}
+where $\hat{E}_{ij} = E_j \times (E_{in}/E_n)$ is the expected employment
+level obtained by setting $\widehat{LQ}_i = 1$.
+
+\subsubsection{Shift-Share Analysis}\index{shift-share analysis}
+
+Shift-share analysis decomposes regional employment growth into three
+components:
+\begin{equation}
+  \Delta E_{ij} = \underbrace{E_{ij}\,\frac{\Delta E_n}{E_n}}_{\text{National growth}}
+  + \underbrace{E_{ij}\!\left(\frac{\Delta E_{in}}{E_{in}} - \frac{\Delta E_n}{E_n}\right)}_{\text{Industry mix}}
+  + \underbrace{E_{ij}\!\left(\frac{\Delta E_{ij}}{E_{ij}} - \frac{\Delta E_{in}}{E_{in}}\right)}_{\text{Competitive effect}}
+\end{equation}
+
+The \textbf{national growth} component attributes growth to the overall
+national trend. The \textbf{industry mix} (or proportionality) component
+asks whether the region specialises in fast- or slow-growing industries
+nationally. The \textbf{competitive} (or differential) component captures
+whether local industries outperform their national counterparts---the
+residual attributable to location-specific factors.
+
+% TODO: Add worked example with BLS QCEW data
+
+\subsubsection{Agglomeration Measures}
+
+Location measures generally ignore geographic dispersion and the uneven
+distribution of employment within the subregions of an area under study.
+\textbf{Agglomeration measures}\index{agglomeration} are designed to overcome
+this shortcoming.
+
+\paragraph{Herfindahl-Hirschman Index}\index{Herfindahl-Hirschman index}
+
+The \textbf{HHI} measures employment concentration across subregions of an
+MSA:
+\begin{equation}
+  HHI_i = \sum_{j=1}^{n} s_j^2
+\end{equation}
+where $s_j$ is industry $i$'s LQ at the level of subregion $j$ relative to
+the MSA, and $n$ is the number of counties within the MSA.\footnote{For the
+Blacksburg MSA, $n=4$ (Giles, Montgomery, Pulaski counties and the city of
+Radford).} The index equals 1 under absolute concentration and $1/n$ under
+uniform dispersion.
+
+\paragraph{Locational Gini Coefficient}\index{Gini coefficient!locational}
+
+The \textbf{locational Gini coefficient} (LGC) measures industrial
+concentration within a region more rigorously than the HHI:
+\begin{equation}
+  LGC_i = \frac{\sum_{i=1}^{n}\sum_{j=1}^{n}|x_i - x_j|}{2n(n-1)\mu}
+\end{equation}
+where $x_i$ and $x_j$ are the LQs of industries $i$ and $j$ in each of the
+subregions, $\mu$ is the mean LQ in the MSA, and $n$ is the number of
+subregions.
+
+\paragraph{Ellison-Glaeser Index}\index{Ellison-Glaeser index}
+
+The \textbf{Ellison-Glaeser} (EG) index \citep{Ellison1997} measures how
+industrial concentration patterns differ from a situation where firms locate
+randomly:
+\begin{equation}
+  EG_i = \frac{\displaystyle\sum_{j=1}^{n}(s_j - x_j)^2
+               - (1-\sum_{j=1}^{n}x_j^2)\sum_{k=1}^{m}z_k^2}
+              {\displaystyle(1-\sum_{j=1}^{n}x_j^2)(1-\sum_{k=1}^{m}z_k^2)}
+\end{equation}
+where $s_j$ is the employment share of subregion $j$ in industry $i$;
+$x_j$ is the overall employment share of subregion $j$; $z_k$ is the share
+of 6-digit NAICS subsector establishments in sector $k$; and $m$ is the
+number of 6-digit subsectors.
+
+The EG index accounts for both geographic concentration and industrial
+concentration (plant-level returns to scale), yielding a ``dartboard''
+measure: if the observed concentration exceeds what would arise if firms
+chose locations randomly, the excess is attributed to agglomeration
+economies.
+
+
+\section{Measuring Inequality}
+\label{sec_Inequality}
+
+% TODO: Lorenz curves, Gini coefficient, Theil index
+% TODO: Spatial decomposition: between-region vs. within-region inequality
+
+Inequality measurement in a spatial context requires decomposing overall
+inequality into components attributable to differences \emph{across} regions
+and differences \emph{within} regions. The Theil index is particularly useful
+because it admits an exact additive decomposition:
+\begin{equation}
+  T = T_\text{between} + T_\text{within}
+\end{equation}
+
+% TODO: Worked example with ACS income data by census tract
+
+
+\section{Spatial Concentration and Agglomeration}
+\label{sec_SpatialConc}
+
+% TODO: Connect EG index to NEG theory; add empirical evidence on
+%       US industrial clusters (Porter 2003, Glaeser et al. 1992)
+
+
+\section{Economic Impact Analysis}
+\label{sec_EconImpact}
+
+\subsection{Input-Output Modelling}
+\label{subsec_IO}
+
+The \textbf{Leontief input-output model}\index{input-output model} describes
+the interdependencies among sectors of an economy. Let $A$ be the
+\textbf{technical coefficients matrix}\index{technical coefficients matrix},
+where $a_{ij}$ is the amount of good $i$ required to produce one unit of
+good $j$. The model is:
+\begin{equation}
+  \mathbf{x} = A\mathbf{x} + \mathbf{f}
+  \qquad\Longrightarrow\qquad
+  (I - A)\mathbf{x} = \mathbf{f}
+\end{equation}
+where $\mathbf{x}$ is the vector of total output by sector and $\mathbf{f}$
+is the vector of final demand. The solution:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \mathbf{x} = (I - A)^{-1}\mathbf{f} = L\mathbf{f}
+\end{equation}
+where $L = (I-A)^{-1}$ is the \textbf{Leontief inverse}\index{Leontief
+inverse} (total requirements matrix).
+\end{tcolorbox}
+
+Each element $l_{ij}$ of $L$ gives the total output of sector $i$ required,
+directly and indirectly, to deliver one unit of sector $j$'s output to
+final demand.
+
+\paragraph{Regional multipliers.}
+
+The \textbf{output multiplier} for sector $j$ is $\sum_i l_{ij}$ (column
+sum of $L$): the total output generated across all sectors per unit of
+final demand for sector $j$. BEA's RIMS II
+multipliers\index{RIMS II multipliers} are derived from the national I-O
+accounts supplemented with regional employment data.
+
+\noindent\textbf{Open-source I-O analysis.} BEA's publicly available
+detailed use tables, combined with the \texttt{leontief} package in R,
+permit full regional multiplier estimation without proprietary software:
+
+\begin{lstlisting}[language=R, caption={Open I-O analysis with BEA data}]
+library(leontief)
+# Read BEA Use Table (downloaded from bea.gov)
+use_table <- read.csv("bea_use_table.csv", row.names = 1)
+A <- technical_coefficients(use_table)  # compute A matrix
+L <- leontief_inverse(A)                # compute L = (I-A)^{-1}
+multipliers <- colSums(L)               # output multipliers
+\end{lstlisting}
+
+\subsection{Applied Tools}
+\label{subsec_AppliedIO}
+
+\subsubsection{RIMS II}\index{RIMS II}
+
+The Bureau of Economic Analysis (BEA) Regional Input-Output Modelling System
+(RIMS II) provides multipliers for any area (state, MSA, county) for any
+industry defined in the BEA national I-O accounts. Multipliers are available
+for output, earnings, and employment. They are derived from two primary data
+sources: the national I-O accounts and the BEA Regional Economic Accounts.
+
+\subsubsection{IMPLAN}\index{IMPLAN}
+
+IMPLAN is a proprietary social accounting matrix (SAM) model that extends
+the standard I-O framework by adding household income and government accounts.
+It is widely used in planning practice for economic impact assessments.
+The key advantage over RIMS II is its spatial flexibility (any custom
+geographic boundary) and its ability to model household spending patterns.
+The key disadvantage is cost and the ``black box'' nature of proprietary
+multipliers.
+
+\subsubsection{FedFIT}\index{FedFIT}
+
+FedFIT (Federal Footprint in the Territories) is a BEA tool for estimating
+the economic contribution of federal government spending in US territories
+and states.
+
+\paragraph{A note on interpreting multipliers.}
+
+Common mistakes in economic impact analysis include: (i)
+\textbf{double-counting}---each sector's contribution should be computed once;
+(ii) \textbf{ignoring displacement}---new activity may displace existing
+activity rather than generating net new output; (iii) \textbf{treating I-O
+estimates as causal}---I-O multipliers describe input requirements under a
+fixed technology, not causal effects of policy interventions. For causal
+analysis of economic development interventions, quasi-experimental
+identification strategies (Chapter~\ref{chap_BeyondOLS}) are required.
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/EconAnalysis.bbl}{\input{Literature/EconAnalysis.bbl}}{\typeout{Need bibtex on EconAnalysis}}
+\end{subappendices}

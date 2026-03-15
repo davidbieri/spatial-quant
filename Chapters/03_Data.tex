@@ -1,0 +1,237 @@
+% =====================================================================
+%  Chapter 3: Data, Measurement, and Open Infrastructure
+%  Source: P3 transcription (ACS, GDP/GDI, price indices) + new content
+% =====================================================================
+
+\chapter{Data, Measurement, and Open Infrastructure}
+\label{chap_Data}
+
+\section{The Data Landscape for Urban and Regional Research}
+\label{sec_DataLandscape}
+
+Modern urban and regional research rests on an unusually rich base of public
+data infrastructure. The US federal statistical system produces consistent,
+publicly accessible data on population, housing, labour markets, income,
+prices, and the built environment at fine geographic resolution---often down
+to the census block or census tract. This infrastructure is not merely a
+convenience; it is the empirical foundation that makes regional policy
+informatics possible without proprietary datasets or expensive licensing fees.
+
+This chapter provides a practical guide to the key data sources, their
+structure and limitations, and the open-source R and Python tools for
+accessing them. It also covers measurement concepts---price indices, national
+accounts, margins of error---that recur throughout the book.
+
+\noindent\textbf{A note on geographic aggregation.} Before working with any
+spatial data, it is essential to understand the areal unit at which
+observations are recorded and the implications of aggregation choices. The
+Modifiable Areal Unit Problem (MAUP)\index{MAUP|see{Modifiable Areal Unit
+Problem}}\index{Modifiable Areal Unit Problem} arises because statistical
+results can change substantially when the same data are aggregated to
+different zone systems---from census tracts to ZIP codes to counties to
+metropolitan areas. The MAUP is treated at length in
+Chapter~\ref{chap_Spatial}; here we note only that the choice of geographic
+unit is never purely technical, and results should be routinely checked for
+sensitivity to that choice.
+
+
+\section{Survey Data and Statistical Precision}
+\label{sec_SurveyData}
+
+\subsection{American Community Survey (ACS) and Margins of Error}
+
+ACS tables report \textbf{margins of error} (MOE) that permit construction
+of 90\% confidence bands around estimates. The relationship between MOE
+and standard error is:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \text{s.e.} = \frac{\text{MOE}_\text{ACS}}{1.645}
+  \qquad\Longleftrightarrow\qquad
+  \text{MOE} = \text{s.e.} \times z\text{-score}
+\end{equation}
+\end{tcolorbox}
+
+\noindent\textbf{Testing differences in population means.} When comparing
+an estimate $M_1$ from geography 1 with estimate $M_2$ from geography 2,
+using standard errors $s_1$ and $s_2$ derived from the ACS MOEs:
+\begin{equation}
+  \left|\frac{M_1 - M_2}{\sqrt{s_1^2 + s_2^2}}\right| > z_\text{confidence}
+\end{equation}
+
+If this test statistic exceeds the critical value (e.g.\ 1.645 for 90\%
+confidence), the difference is statistically significant at that level.
+
+The ACS is available at multiple geographic levels and in 1-year and 5-year
+estimates. The 5-year estimates are more precise (lower MOE) but cover a
+longer time window; the 1-year estimates are more timely but available only
+for geographies with population $\geq 65{,}000$.
+
+
+\section{National and Regional Economic Accounts}
+\label{sec_NationalAccounts}
+
+\subsection{GDP and Gross Domestic Income (GDI)}
+
+Gross Domestic Income (GDI) measures output from the income side
+(NIPA)\index{NIPA|see{National Income and Product Accounts}}. Its
+components sum to GDP:
+
+\begin{table}[htp]
+\centering
+\caption{GDI components as shares of GDP (approximate, 2003)}
+\label{tbl_GDI}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lc@{}}
+\toprule
+Component & Approximate share \\
+\midrule
+Compensation of employees & 56\% \\
+Taxes on production and imports (TOPI), less subsidies & 7\% \\
+Net operating surplus (NOS) & 25\% \\
+Consumption of fixed capital (CFC) & 12\% \\
+Statistical discrepancy & $\approx 0.2\%$ \\
+\midrule
+\textbf{Total $\equiv$ GDP} & \textbf{100\%} \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\noindent where TOPI $\equiv$ sales taxes, property taxes, custom duties;
+NOS $\equiv$ corporate profits, net earnings of unincorporated businesses,
+government surplus; CFC $\equiv$ depreciation, capital expenditures, interest.
+
+\subsection{Measuring Price Changes}
+
+\begin{itemize}
+  \item \textbf{CPI:}\index{CPI|see{Consumer Price Index}}
+    Fixed basket of goods tracked over time; historically a
+    Laspeyres index.
+  \item \textbf{GDP deflator:}
+    $\displaystyle\frac{\text{Nominal GDP}}{\text{Real GDP}}\times100$.
+    Differs from CPI in that basket weights are \emph{not} fixed.
+\end{itemize}
+
+Two classical fixed-weight price indices:
+
+\begin{table}[htp]
+\centering
+\caption{Fixed-weight price indices and their biases}
+\label{tbl_PriceIndices}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}llc@{}}
+\toprule
+Index & Formula & Bias \\
+\midrule
+\textbf{Paasche}\index{Paasche index}
+  & $\dfrac{\displaystyle\sum p_{it}q_{it}}{\displaystyle\sum p_{i0}q_{it}}$
+  & Understates inflation \\[4pt]
+\textbf{Laspeyres}\index{Laspeyres index}
+  & $\dfrac{\displaystyle\sum p_{it}q_{i0}}{\displaystyle\sum p_{i0}q_{i0}}$
+  & Overstates inflation \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+The BLS now uses the \textbf{Fisher ideal index}\index{Fisher ideal index},
+the geometric mean of the Paasche ($P$) and Laspeyres ($L$) indices:
+\begin{equation}
+  \text{Fisher} = \sqrt{P \times L}
+  \qquad\text{cf.}\quad
+  \underbrace{\Bigl(\prod_{i=1}^{n}a_i\Bigr)^{1/n}}_{\text{geometric mean}}
+  \;\text{vs.}\;
+  \underbrace{\frac{1}{n}\sum_{i=1}^{n}a_i}_{\text{arithmetic mean}}
+\end{equation}
+
+
+\section{The Open Data Stack}
+\label{sec_OpenData}
+
+Table~\ref{tbl_OpenData} summarises the key public data sources for regional
+analytics and the primary R packages for accessing each. Together these
+sources enable a complete regional analytics workflow without any proprietary
+data.
+
+\begin{table}[htp]
+\centering
+\caption{Public data infrastructure for regional analytics}
+\label{tbl_OpenData}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{3.8cm}p{5.5cm}p{3cm}@{}}
+\toprule
+\textbf{Source} & \textbf{Content} & \textbf{R package} \\
+\midrule
+Census / ACS & Demographics, housing, income by geography & \texttt{tidycensus} \\
+TIGER/Line & All US administrative geographies & \texttt{tigris} \\
+FRED & Macro and regional time series & \texttt{fredr} \\
+LEHD / LODES & Workplace--residence flows at block level & \texttt{lehdr} \\
+BLS QCEW & Employment by county $\times$ industry $\times$ quarter & Direct API \\
+BEA Regional Accounts & GDP by metro; personal income by county & \texttt{bea.R} \\
+HUD portal & CHAS, HMDA, LIHTC, Fair Market Rents & \texttt{hudapi} \\
+IPUMS & Harmonised microdata 1850--present & \texttt{ipumsr} \\
+OpenStreetMap & Networks, amenities, land use & \texttt{osmdata} \\
+Zillow Research & ZHVI, ZORI at ZIP code level & Direct download \\
+EPA EJSCREEN & Environmental justice by census geography & Direct API \\
+USDA ERS & Rural--urban classification; agricultural land & Direct download \\
+DOT HPMS & Highway infrastructure & Direct download \\
+FTA NTD & Transit system data & Direct download \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\noindent\textbf{The R stack that replaces ArcGIS.} The combination
+\texttt{sf} + \texttt{terra} + \texttt{tidycensus} + \texttt{osmdata} +
+\texttt{spdep} + \texttt{spatialreg} covers essentially all ArcGIS
+social-science applications, with the crucial difference that every operation
+is scriptable, reproducible, and version-controlled. This is a scientific
+claim about the validity of methods---not merely a software preference. A
+point-and-click GIS workflow produces irreproducible analysis; an R workflow
+produces reproducible analysis.
+
+
+\section{Reproducible Workflows: The Technical Infrastructure}
+\label{sec_Reproducible}
+
+The open-source commitment described in the Preface requires a minimum
+technical infrastructure. Three tools form the core:
+
+\begin{enumerate}
+  \item \textbf{Quarto} (\texttt{quarto.org}): A literate programming
+    platform that combines prose, code (R or Python), and mathematical
+    notation in a single source file, rendering to PDF, HTML, or
+    presentations. Every example in this book was written and rendered
+    using Quarto.
+
+  \item \textbf{GitHub}: Version control and collaboration. Maintaining a
+    public repository of code and data supporting published analyses is
+    increasingly treated as a condition of publication in economics journals
+    and should be the norm in planning and regional science.
+
+  \item \textbf{Package management}: \texttt{renv} (R) and
+    \texttt{requirements.txt} / \texttt{pyproject.toml} (Python) pin
+    package versions to ensure that an analysis runs identically on every
+    machine, now and in future. Run \texttt{renv::snapshot()} after
+    installing any new R package.
+\end{enumerate}
+
+\noindent\textbf{Agentic coding assistance.} Large language model assistants
+(GitHub Copilot, Claude, ChatGPT) can generate competent spatial regression
+code from a plain-English description. This capability makes the theoretical
+content of this book \emph{more} important, not less. When the code is
+generated automatically, the limiting factor on analysis quality becomes
+whether the analyst can evaluate the output---does the weight matrix choice
+make sense? Is the identification strategy credible? Does the coefficient
+have a causal interpretation? These are questions that require the material
+in Parts~II and~III; they cannot be answered by a coding assistant.
+
+% TODO: Add worked example of tidycensus data pull and ACS MOE computation
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/Data.bbl}{\input{Literature/Data.bbl}}{\typeout{Need bibtex on Data}}
+\end{subappendices}

@@ -1,0 +1,208 @@
+% =====================================================================
+%  Chapter 7: Spatial Equilibrium and Urban Structure
+%  Source: SpatialStats.tex (intro prose) + new framework
+%  NOTE: This chapter requires the most new writing. Sections marked
+%        % TODO are high-priority development targets.
+% =====================================================================
+
+\chapter{Spatial Equilibrium and Urban Structure}
+\label{chap_SpatialEquil}
+
+Quantitative analysis of spatial data has advanced greatly in recent years,
+largely as the result of the rapidly decreasing cost of computational power,
+the increased availability of high-resolution data, and methodological
+innovation in spatial econometrics. Indeed, recent analytical and
+technological advances are increasingly blurring the traditional boundaries
+in spatial data analysis where GIS\index{geographic information systems},
+remote sensing\index{remote sensing} and spatial statistics\index{spatial
+statistics} were essentially treated as separate fields
+\citep[e.g.][]{Davis2002a,O'Sullivan2003,Campbell2006}.
+
+Nowhere in the social sciences, perhaps, is this silent revolution felt more
+than in urban and regional planning. While planners have usually emphasised
+GIS applications for land-use and environmental planning, the discipline has
+never embraced all three sub-fields of quantitative spatial data analysis in
+a systematic way. With the rapid deployment of ``Big Data''\index{Big Data}
+and the emergence of ``policy informatics''\index{policy informatics} as a new
+paradigm among computational social scientists, planners should increasingly
+see themselves at the forefront of integrated spatial data methods
+\citep{Anselin2012,Barrett2011}.
+
+\section{Why Spatial Equilibrium?}
+\label{sec_WhySpatEq}
+
+The \textbf{spatial equilibrium}\index{spatial equilibrium} framework provides
+the theoretical spine that connects urban economics, regional science,
+economic geography, and real estate into a single coherent argument. The
+central insight, due to \citet{Rosen1979} and \citet{Roback1982}, is that
+workers and firms sort across locations until utility and profits are equalised
+at the margin. In equilibrium, observed geographic patterns of wages, rents,
+and employment reflect underlying fundamentals---productivity differences,
+amenity values, and the costs of transportation and housing.
+
+Three implications follow:
+
+\begin{enumerate}
+  \item \textbf{Wages, rents, and quality of life are jointly determined.}
+    High-amenity cities will have lower wages and higher rents, all else
+    equal, because workers are willing to accept lower pay to live there.
+    Observed wage or rent levels alone are not informative about the
+    underlying distribution of productivity and amenity.
+
+  \item \textbf{Observed patterns are equilibrium outcomes.} If we observe
+    a spatial concentration of activity, it is because the benefits of
+    concentration (agglomeration economies) outweigh the costs (congestion,
+    land prices). Spatial econometrics tests whether and how adjustment
+    toward equilibrium propagates across space.
+
+  \item \textbf{Policy interventions change the equilibrium.} A place-based
+    subsidy shifts the equilibrium allocation of workers and firms. The
+    incidence of the subsidy---who captures the benefit---depends on the
+    elasticities of housing supply and labour demand. Identifying these
+    elasticities is a central task of regional policy informatics.
+\end{enumerate}
+
+% TODO: Add Rosen-Roback model derivation (wage-rent gradient)
+
+
+\section{The Urban Land Market}
+\label{sec_LandMarket}
+
+\subsection{The von Thünen Model and Bid-Rent Gradients}
+
+The earliest formal spatial equilibrium model is due to \citet{VonThunen1826}.
+In von Thünen's model, a city (central market) is surrounded by an
+agricultural hinterland. Farmers bid for land based on the profit from
+agricultural production after transport costs. Land closer to the city
+commands higher rents because transport costs are lower; the equilibrium
+rent gradient is downward-sloping from the centre.
+
+The generalisation to urban land is immediate: replace agricultural produce
+with commuting costs. Workers bid for residential land based on their surplus
+income after paying rent and commuting costs. The equilibrium bid-rent
+function for land at distance $d$ from the city centre is:
+\begin{equation}
+  r(d) = r_0 - t \cdot d
+\end{equation}
+where $r_0$ is the rent at the city centre and $t$ is the commuting cost per
+unit distance.
+
+\subsection{The Monocentric City: Alonso-Muth-Mills}
+
+The \textbf{Alonso-Muth-Mills model}\index{monocentric city model} formalises
+the urban land market equilibrium with utility-maximising households,
+profit-maximising developers, and a competitive land market
+\citep{Alonso1964, Muth1969, Mills1967}. In equilibrium, the spatial
+gradient of house prices compensates for the gradient in commuting costs;
+household utility is equalised across all locations.
+
+% TODO: Full AMM derivation with utility function and equilibrium conditions
+
+
+\section{Agglomeration and the Concentration of Economic Activity}
+\label{sec_Agglomeration}
+
+\subsection{Why Do Cities Exist?}
+
+The existence of cities requires an explanation: why do workers and firms
+pay the premium of dense urban land when they could spread out? Three
+categories of agglomeration economies\index{agglomeration economies} explain
+the productivity premium of density \citep{Duranton2004}:
+
+\begin{enumerate}
+  \item \textbf{Sharing:} Dense markets allow firms to share indivisible
+    inputs (specialised suppliers, infrastructure) and workers to share a
+    thick labour market with lower search costs.
+  \item \textbf{Matching:} Thick markets improve the quality of
+    worker-firm matches, increasing productivity and wages. Cities are
+    matching engines \citep{Helsley1990}.
+  \item \textbf{Learning:} Knowledge spillovers diffuse more readily over
+    short distances. Workers in dense environments learn from each other
+    through informal contact \citep{Glaeser1992}.
+\end{enumerate}
+
+\subsection{The New Economic Geography}
+
+\citet{Krugman1991} formalised the conditions under which economic activity
+concentrates in a core region rather than distributing uniformly across space.
+In Krugman's model, increasing returns to scale in manufacturing create
+incentives to concentrate production; forward and backward linkages between
+firms and workers amplify the initial concentration. The outcome depends on
+the balance between \emph{centripetal forces} (scale economies, linkages)
+and \emph{centrifugal forces} (high land prices, congestion, iceberg transport
+costs).
+
+% TODO: Add NEG bifurcation diagram and formal model sketch
+
+
+\section{The Housing Market as a Spatial Equilibrium Price Surface}
+\label{sec_HousingMarket}
+
+\subsection{Hedonic Pricing: The Lancaster-Rosen Model}
+
+A property is a bundle of characteristics---location, size, quality,
+neighbourhood attributes, school quality. The \textbf{hedonic regression}
+\index{hedonic regression} estimates the implicit price of each characteristic:
+\begin{equation}
+  \ln P_i = X_i'\beta + \varepsilon_i
+\end{equation}
+where $P_i$ is the sale price of property $i$ and $X_i$ is a vector of
+property and neighbourhood characteristics \citep{Lancaster1966, Rosen1974}.
+The hedonic coefficient $\beta_k$ measures the percentage change in price
+associated with a unit change in characteristic $k$---the \emph{implicit
+price} of that characteristic.
+
+\noindent\textbf{Identification challenge.} The implicit price of an amenity
+(e.g.\ proximity to a park, school quality) may be confounded by unobserved
+neighbourhood quality if high-amenity neighbourhoods systematically attract
+higher-income residents. IV strategies---using boundary discontinuities
+or policy changes as instruments---are required for causal identification
+\citep{Black1999}.
+
+\subsection{Repeat-Sales Indices}
+
+The \textbf{repeat-sales method}\index{repeat-sales index} \citep{Bailey1963,
+Case1989} estimates price change from properties that sold more than once,
+controlling for unobserved time-invariant quality by taking first differences:
+\begin{equation}
+  \ln P_{it} - \ln P_{is} = \sum_{\tau=s+1}^{t} \gamma_\tau D_\tau + \varepsilon_{it}
+\end{equation}
+where $D_\tau$ are time dummies and $\gamma_\tau$ traces the aggregate price
+index. This is the methodology underlying the Case-Shiller index and the
+FHFA House Price Index.
+
+% TODO: Add worked example with Zillow ZHVI data in R
+
+
+\section{Labour Market Geography}
+\label{sec_LabourGeo}
+
+\subsection{Commuting Zones and Local Labour Markets}
+
+\citet{Autor2013} delineate \textbf{commuting zones}\index{commuting zones}
+as the natural unit of local labour market analysis---functional economic
+areas that contain the bulk of within-labour-market commuting flows.
+The LEHD/LODES data (Chapter~\ref{chap_Data}) provide the empirical basis
+for constructing commuting zones at fine geographic resolution using
+workplace-to-residence flow data.
+
+\subsection{The Spatial Mismatch Hypothesis}
+
+\citet{Kain1968} argued that residential segregation combined with suburban
+employment decentralisation created a geographic mismatch between where
+low-income minority workers lived and where jobs were located.
+Testing this hypothesis requires both a measure of job accessibility and
+a credible instrument for residential location---since households sort into
+locations partly on the basis of employment access. The LEHD/LODES data,
+combined with the routing tools in the \texttt{osmdata} and \texttt{dodgr}
+R packages, provide the inputs for constructing contemporary spatial
+mismatch measures.
+
+% TODO: Add commuting zone delineation example with LODES data
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/SpatialEquil.bbl}{\input{Literature/SpatialEquil.bbl}}{\typeout{Need bibtex on SpatialEquil}}
+\end{subappendices}

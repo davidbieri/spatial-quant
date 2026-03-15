@@ -1,0 +1,148 @@
+% =====================================================================
+%  Appendix A: Getting Started with R and Python
+%  Source: IntroR.tex (Overleaf) — adapted
+% =====================================================================
+
+\chapter{Getting Started with R and Python}
+\label{appx_Software}
+
+\section{R and RStudio}
+
+\textsf{R}\index{software!R} is an open-source implementation of the
+object-oriented mathematical programming language \textsf{S}, developed by
+statisticians worldwide. In contrast to commercial packages such as
+\textsf{SPSS}\index{software!SPSS} or \textsf{Stata}\index{software!Stata},
+\textsf{R} is a full mathematical programming language with capabilities
+comparable to \textsf{MATLAB}\index{software!MATLAB}, not merely a program
+that performs canned regression routines. It is free, has no licensing fees,
+and is increasingly used by businesses, government agencies, and non-profit
+organisations.
+
+Run \textsf{R} via the integrated development environment (IDE)
+\href{http://rstudio.org/}{RStudio}\index{software!RStudio} or via
+\href{https://code.visualstudio.com/}{VS Code} with the R extension.
+
+\subsection{Core Spatial Libraries for R}
+
+\begin{lstlisting}[language=R, caption={Installing core spatial libraries}]
+install.packages(c(
+  "sf",          # vector spatial data
+  "terra",       # raster spatial data
+  "tidycensus",  # Census / ACS data API
+  "tigris",      # TIGER/Line geographies
+  "spdep",       # spatial weights and Moran's I
+  "spatialreg",  # SAR, SEM, IV estimation
+  "GWmodel",     # GWR
+  "leontief",    # input-output modelling
+  "fredr",       # FRED time series API
+  "osmdata",     # OpenStreetMap
+  "ggplot2",     # graphics
+  "tidyverse"    # data manipulation
+))
+\end{lstlisting}
+
+\subsection{A Minimal Working Example: Spatial Regression in R}
+
+\begin{lstlisting}[language=R,
+  caption={Spatial lag model with spdep and spatialreg}]
+library(sf)
+library(spdep)
+library(spatialreg)
+
+# Load data (any sf object with a response and covariates)
+data(columbus)                     # bundled example dataset
+col_sf <- st_as_sf(columbus)
+
+# Construct spatial weight matrix (queen contiguity)
+W_nb  <- poly2nb(col_sf)           # neighbour list
+W_lw  <- nb2listw(W_nb)            # list-weight object
+
+# OLS (ignores spatial dependence -- baseline)
+ols <- lm(CRIME ~ INC + HOVAL, data = col_sf)
+
+# Test for spatial autocorrelation in OLS residuals
+moran.test(residuals(ols), W_lw)
+
+# SAR model (spatial lag)
+sar <- lagsarlm(CRIME ~ INC + HOVAL,
+                data = col_sf, listw = W_lw)
+summary(sar)
+
+# SEM model (spatial error)
+sem <- errorsarlm(CRIME ~ INC + HOVAL,
+                  data = col_sf, listw = W_lw)
+summary(sem)
+\end{lstlisting}
+
+\section{Python and the Spatial Stack}
+
+Python provides an equally capable spatial analytics environment via the
+PySAL ecosystem \citep{Rey2010}.
+
+\begin{lstlisting}[language=Python,
+  caption={Installing core spatial libraries (Python)}]
+pip install geopandas libpysal esda spreg mgwr
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python,
+  caption={Spatial lag model with spreg (Python equivalent)}]
+import geopandas as gpd
+import libpysal
+from spreg import GM_Lag
+
+# Load data
+data = gpd.read_file(libpysal.examples.get_path("columbus.shp"))
+
+# Construct weights
+W = libpysal.weights.Queen.from_dataframe(data)
+W.transform = "r"  # row-standardise
+
+# SAR model
+y  = data[["CRIME"]].values
+X  = data[["INC","HOVAL"]].values
+sar = GM_Lag(y, X, w=W, name_y="CRIME",
+             name_x=["INC","HOVAL"])
+print(sar.summary)
+\end{lstlisting}
+
+\section{Quarto: The Reproducible Workflow}
+
+Quarto unifies prose, code, and mathematics in a single document:
+
+\begin{verbatim}
+---
+title: "Spatial Regression Analysis"
+format: html
+---
+
+## Data and Weights
+
+```{r}
+#| echo: true
+library(spdep)
+data(columbus)
+W_nb <- poly2nb(st_as_sf(columbus))
+W_lw <- nb2listw(W_nb)
+```
+
+The Moran's $I$ test for the OLS residuals yields ...
+\end{verbatim}
+
+Render with \texttt{quarto render document.qmd}. Toggle between PDF and HTML
+output by changing \texttt{format: pdf} or \texttt{format: html}.
+
+\section{Getting Started with QGIS}
+
+\textsf{QGIS}\index{software!QGIS} (\href{http://www.qgis.org}{qgis.org})
+is a free, open-source desktop GIS that integrates with R and Python. For
+most analytical tasks in this book, R and Python are preferable because
+they produce reproducible, scriptable workflows. QGIS is most useful for:
+(a) initial exploratory visual analysis of spatial data; (b) digitising
+and editing geometries; (c) presentation-quality cartographic output.
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/AppA.bbl}{\input{Literature/AppA.bbl}}{\typeout{Need bibtex on AppA}}
+\end{subappendices}

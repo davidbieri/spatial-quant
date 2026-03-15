@@ -1,0 +1,252 @@
+% =====================================================================
+%  Chapter 6: Beyond OLS — The Identification Toolkit
+%  Source: BeyondOLS.tex (stub) + P3 transcription (IV, heterosk., GLS)
+% =====================================================================
+
+\chapter[Beyond OLS]{Beyond OLS: The Identification Toolkit}
+\label{chap_BeyondOLS}
+
+\section{Endogeneity: Sources and Consequences}
+\label{sec_Endogeneity}
+
+OLS is inconsistent when the key assumption $\E[X'\mathbf{e}] = 0$ fails.
+This \textbf{endogeneity}\index{endogeneity} can arise from three distinct
+sources.
+
+\subsection{Omitted Variable Bias Revisited}
+
+As shown in Section~\ref{subsec_OVB}, failing to include a variable $Z$ that
+is correlated with both $X$ and $Y$ biases $\hat\beta$. The direction of bias
+is determined by the sign of $(X'X)^{-1}X'Z\gamma_0$---the product of the
+regression of the omitted variable on the included regressors and the effect
+of the omitted variable on $Y$.
+
+\subsection{Measurement Error}
+
+True regressors $X^*$ are not observed; only $X = X^* + u$ is available,
+where $u$ is measurement error independent of $X^*$ and $\mathbf{y}$.
+Substituting:
+\begin{equation}
+  \mathbf{y} = X^*\beta + \mathbf{e} = (X-u)\beta + \mathbf{e}
+             = X\beta + (\mathbf{e} - u\beta) = X\beta + \mathbf{v}
+\end{equation}
+
+The bias in OLS arises from $\E[X'\mathbf{v}]$:
+\begin{align}
+  \E[X'\mathbf{v}]
+  &= \E\!\bigl[(X^*+u)'(\mathbf{e}-u\beta)\bigr] \nonumber \\
+  &= \E[X^{*\prime}\mathbf{e}] + \E[u'\mathbf{e}]
+     - \E[X^{*\prime}u]\beta - \E[u'u]\beta \nonumber \\
+  &= -\E[u'u]\,\beta
+\end{align}
+
+This is non-zero whenever $\beta \neq 0$ and $\Var(u) > 0$, so OLS is
+inconsistent. The \textbf{attenuation bias}\index{attenuation bias} pulls
+$\hat\beta$ toward zero:
+\begin{equation}
+  \hat\beta \xrightarrow{p} \beta^* = \beta - \E\!\bigl[(X'X)^{-1}u'u\bigr]\beta
+\end{equation}
+
+\subsection{Simultaneous Equations}
+
+When $X$ and $Y$ are jointly determined---as in a supply-and-demand system
+or in a spatial model where $y_i$ and $y_j$ are mutually dependent---OLS
+conflates the structural parameters of multiple equations. For example:
+\begin{align*}
+  q_i &= -\beta_1 p_i + e_{1i} \quad\text{(demand)} \\
+  q_i &= \beta_2 p_i + e_{2i} \quad\text{(supply)}
+\end{align*}
+OLS on either equation alone recovers a mixture of both structural
+coefficients. In each case $\hat\beta$ is \textbf{biased and
+inconsistent}:\; $\partial y/\partial x = \beta + \partial e/\partial x
+\neq \beta$.
+
+
+\section{Instrumental Variables}
+\label{sec_IV}
+
+\subsection{The IV Estimator}
+
+An instrument $Z$ is valid if: (a) \textbf{relevance}---$Z$ is correlated
+with $X$; (b) \textbf{exclusion restriction}---$Z$ affects $Y$ only through
+$X$ (not directly).
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \hat\beta_{IV} = (Z'X)^{-1}Z'\mathbf{y}
+  \label{eq_IV}
+\end{equation}
+\end{tcolorbox}
+
+Classic example \citep{Angrist1991}: month of birth and distance from
+college instrument for years of schooling in a wage equation, with unobserved
+ability creating endogeneity of the schooling variable.
+
+\subsection{Two-Stage Least Squares (2SLS)}
+
+With endogenous regressors $X_2$ and instruments $Z_2$, where $X = [X_1\;X_2]$
+and $Z = [X_1\;Z_2]$ ($X_1$ instruments for itself):
+
+\begin{enumerate}
+  \item \textbf{First stage:} Regress $X$ on $Z$:\quad
+    $\hat\Gamma = (Z'Z)^{-1}Z'X$,\quad $\hat X = Z\hat\Gamma$
+  \item \textbf{Second stage:} Regress $\mathbf{y}$ on $\hat X$:\quad
+    $\hat\beta = (\hat X'\hat X)^{-1}\hat X'\mathbf{y}$
+\end{enumerate}
+
+Scrutinising $\hat X = [\hat X_1,\hat X_2] = [P_ZX_1, P_ZX_2]
+= [X_1, P_ZX_2]$: \textbf{only endogenous variables are replaced with their
+fitted values}, not exogenous ones. The 2SLS estimator is:
+\begin{equation}
+  \hat\beta_{2SLS} = (X'P_ZX)^{-1}X'P_Z\mathbf{y}
+  = \bigl[X'Z(Z'Z)^{-1}Z'X\bigr]^{-1}X'Z(Z'Z)^{-1}Z'\mathbf{y}
+\end{equation}
+
+In the just-identified case (one instrument per endogenous variable),
+$\hat\beta_{2SLS} = \hat\beta_{IV}$.
+
+\begin{tcolorbox}[keyresult]
+The IV/2SLS estimator is biased in finite samples but \textbf{consistent}
+under instrument validity---in contrast to OLS which is inconsistent under
+endogeneity.
+\end{tcolorbox}
+
+\subsection{Spatial Lags as Instruments}
+
+In spatial models, the endogenous variable is the spatial lag $Wy$.
+A common IV strategy uses higher-order spatial lags $W^2y$, $WX$, or $W^2X$
+as instruments---variables that are correlated with $Wy$ through the spatial
+propagation mechanism but excluded from the structural equation. This strategy
+is formalised in the SAR-IV estimator (Chapter~\ref{chap_Spatial}).
+
+
+\section{Differences-in-Differences}
+\label{sec_DiD}
+
+When panel data are available and a treatment is applied at a specific point
+in time, \textbf{differences-in-differences}\index{differences-in-differences}
+(DiD) removes time-invariant confounders:
+\begin{equation}
+  Y_{it} = \alpha_i + \lambda_t + \beta(D_i \times \text{Post}_t) + \varepsilon_{it}
+\end{equation}
+where $\alpha_i$ are unit fixed effects, $\lambda_t$ are time fixed effects,
+and $D_i \times \text{Post}_t$ is the interaction of treatment group and
+post-treatment period. $\beta$ is identified under the
+\textbf{parallel trends assumption}: absent treatment, treated and control
+units would have followed the same time trend.
+
+\noindent\textbf{Geographic DiD.} Administrative boundaries (census tract
+borders, school district lines, city limits) often create sharp discontinuities
+in treatment assignment---properties just inside versus just outside a
+rezoning boundary, for example. These boundaries can serve as regression
+discontinuity (RD) designs that exploit spatial proximity to identify causal
+effects. See \citet{Black1999} for a classic application to school quality
+capitalisation.
+
+% TODO: Add staggered DiD and Callaway-Sant'Anna correction
+
+
+\section{Heteroskedasticity and Robust Inference}
+\label{sec_Heterosk}
+
+Under heteroskedasticity, $\E[e_i^2\mid\mathbf{x}_i] = \sigma_i^2$:
+\begin{equation}
+  y_i = X\beta + e_i, \quad
+  e_i \sim \text{id}(0, \Omega), \quad
+  \Omega \equiv \operatorname{diag}(\sigma_1^2,\ldots,\sigma_n^2)
+\end{equation}
+
+OLS is still \textbf{unbiased} because unbiasedness depends only on first
+moments ($\E[\mathbf{e}]=0$). But the variance is no longer $\sigma^2(X'X)^{-1}$:
+\begin{align}
+  V(\hat\beta)
+  &= (X'X)^{-1}X'\,\E[\mathbf{e}\mathbf{e}']\,X(X'X)^{-1} \nonumber \\
+  &= (X'X)^{-1}X'\Omega X(X'X)^{-1}
+  \label{eq_SandwichVar}
+\end{align}
+
+This is the \textbf{sandwich (HC) estimator}\index{sandwich estimator}. OLS
+standard errors computed under the homoskedastic formula $s^2(X'X)^{-1}$ are
+incorrect under heteroskedasticity---typically underestimating the true
+standard errors.
+
+\begin{tcolorbox}[keyresult]
+Heteroskedasticity-consistent (HC) standard errors from equation
+\eqref{eq_SandwichVar} are valid under heteroskedasticity of unknown form.
+Use \texttt{vcovHC()} in R or \texttt{HC3} as default.
+\end{tcolorbox}
+
+
+\section{Generalised Least Squares}
+\label{sec_GLS}
+
+If $\Omega$ is known (or consistently estimated), we can eliminate
+heteroskedasticity by pre-multiplying the model by $\Omega^{-1/2}$:
+
+\begin{tcolorbox}[keyresult]
+\begin{equation}
+  \hat\beta_{GLS} = (X'\Omega^{-1}X)^{-1}X'\Omega^{-1}\mathbf{y}
+\end{equation}
+\end{tcolorbox}
+
+GLS is the Best Linear Unbiased Estimator (BLUE) when $\Omega$ is known.
+In practice $\Omega$ must be estimated (Feasible GLS), introducing estimation
+error but retaining consistency.
+
+\noindent\textbf{Spatial GLS.} In spatial models the error covariance
+$\Omega$ has a specific parametric structure determined by the spatial weight
+matrix $W$ and the error dependence parameter $\lambda$. The Spatial Error
+Model (SEM, Chapter~\ref{chap_Spatial}) is a GLS model with
+$\Omega = [(I-\lambda W)'(I-\lambda W)]^{-1}\sigma^2$.
+
+
+\section{Panel Data Methods}
+\label{sec_Panel}
+
+Panel data follow the same units (individuals, firms, cities) over multiple
+time periods. The key advantage is the ability to control for time-invariant
+unobserved heterogeneity.
+
+\subsection{Fixed Effects}
+
+The \textbf{within estimator}\index{fixed effects estimator} removes
+unit-specific means:
+\begin{equation}
+  (y_{it} - \bar{y}_i) = (x_{it} - \bar{x}_i)'\beta + (e_{it} - \bar{e}_i)
+\end{equation}
+
+This eliminates any unit-level time-invariant confounder
+$\alpha_i$---whether or not it is observed. The fixed effects estimator is
+consistent under the weaker assumption that $\E[x_{it}e_{it}] = 0$ (strict
+exogeneity within unit), not $\E[x_{it}\alpha_i] = 0$.
+
+\subsection{Random Effects}
+
+The random effects estimator treats unit effects $\alpha_i$ as random
+variables drawn from a distribution, rather than fixed parameters to be
+estimated. It is more efficient than fixed effects but requires the stronger
+assumption that $\alpha_i \ind X_{it}$---unit effects are uncorrelated with
+regressors. The \textbf{Hausman test} discriminates between the two:
+if fixed effects and random effects estimates differ significantly, the random
+effects assumption is rejected.
+
+\subsection{Two-Way Fixed Effects and DiD}
+
+The two-way FE model adds time fixed effects $\lambda_t$:
+\begin{equation}
+  y_{it} = \alpha_i + \lambda_t + X_{it}'\beta + e_{it}
+\end{equation}
+Under parallel trends, this is numerically equivalent to the
+differences-in-differences estimator described above. Recent work by
+\citet{Callaway2021} shows that the standard two-way FE estimator can produce
+misleading estimates when treatment adoption is staggered across units; they
+propose a cohort-based correction.
+
+% TODO: Add Callaway-Sant'Anna worked example with urban policy data
+
+\renewcommand\bibname{Further reading}
+\begin{subappendices}
+\bibliographystyle{econometrica}
+\bibliography{Literature/OverLord}
+\IfFileExists{Literature/BeyondOLS.bbl}{\input{Literature/BeyondOLS.bbl}}{\typeout{Need bibtex on BeyondOLS}}
+\end{subappendices}
